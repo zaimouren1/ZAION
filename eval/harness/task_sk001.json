@@ -1,0 +1,31 @@
+{
+  "id": "ZAION-300-SK-001",
+  "category": "skills",
+  "slots": 1,
+  "title": "Skill update preserves user data",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Rollback restores old version."
+    ],
+    "parity": [
+      "Update keeps user state."
+    ],
+    "ten_out_of_ten": [
+      "Skill lifecycle suite passes."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "recovery",
+  "output": {
+    "path": "skill_record.json",
+    "format": "see verifier (JSON artifact checked by the benchmark verifier)"
+  }
+}

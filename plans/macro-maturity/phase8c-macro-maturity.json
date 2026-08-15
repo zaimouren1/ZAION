@@ -1,0 +1,762 @@
+[
+  {
+    "module": {
+      "id": "metabolic",
+      "name": "Token metabolism and budget policy",
+      "status": "beta",
+      "order": 8,
+      "risk": "medium",
+      "purpose": "Keep context, activity, and model use inside visible token budgets.",
+      "crate_path": "crates/zaion-metabolic",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/budget.rs",
+        "crates/zaion-metabolic/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status metabolic",
+        "zaion budget show"
+      ],
+      "dedicated_surfaces": [
+        "zaion budget show",
+        "zaion budget simulate <used>"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "capability-boundaries",
+        "infinite-context",
+        "macro-promotion"
+      ],
+      "safety_boundary": "budget and cost policy only; no autonomous spend",
+      "promotion_gate": "real provider token accounting and activity budget enforcement",
+      "proof": "budget CLI plus context/activity budget checks"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "ego",
+      "name": "Identity and persona contract",
+      "status": "beta",
+      "order": 9,
+      "risk": "medium",
+      "purpose": "Separate Zaion identity continuity from provider/model persona text.",
+      "crate_path": "crates/zaion-ego",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/ego.rs",
+        "crates/zaion-cli/src/commands/identity.rs",
+        "crates/zaion-ego/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status ego",
+        "zaion identity verify"
+      ],
+      "dedicated_surfaces": [
+        "zaion identity show",
+        "zaion identity continuity",
+        "zaion ego show"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "identity-continuity",
+        "capability-boundaries",
+        "macro-promotion"
+      ],
+      "safety_boundary": "persona is continuity metadata, not model identity",
+      "promotion_gate": "identity import/export/sync continuity proof",
+      "proof": "small-octopus startup identity and continuity ledger"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "autonomic",
+      "name": "Low-level reflex runtime",
+      "status": "experimental",
+      "order": 10,
+      "risk": "high",
+      "purpose": "Run low-token reflex loops beneath the safer activity-continuity policy.",
+      "crate_path": "crates/zaion-autonomic",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/autonomic.rs",
+        "crates/zaion-autonomic/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status autonomic",
+        "zaion autonomic status <pid>"
+      ],
+      "dedicated_surfaces": [
+        "zaion autonomic status <pid>",
+        "zaion autonomic list <pid>"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "activity-continuity",
+        "macro-promotion"
+      ],
+      "safety_boundary": "reflex polling is experimental; activity continuity remains opt-in and policy-gated",
+      "promotion_gate": "real event sources, reflex audit trail, pause/resume, and destructive-action gate",
+      "proof": "experimental warning plus activity-continuity gate"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "activity-continuity",
+      "name": "Preference-aware activity continuity",
+      "status": "beta",
+      "order": 11,
+      "risk": "medium",
+      "purpose": "Birth stochastic, preference-aware, audited thought seeds when explicitly enabled.",
+      "crate_path": null,
+      "source_paths": [
+        "crates/zaion-cli/src/commands/activity.rs",
+        "crates/zaion-cli/src/commands/preference.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status activity-continuity",
+        "zaion activity status"
+      ],
+      "dedicated_surfaces": [
+        "zaion activity status",
+        "zaion activity configure --enable --ack-cost",
+        "zaion activity sample --seed 42"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "activity-continuity",
+        "macro-promotion"
+      ],
+      "safety_boundary": "off by default; no destructive, credential, purchase, code-modifying, or external auto-delivery actions",
+      "promotion_gate": "queued research briefs with source/cost traces and quiet-hour budget enforcement",
+      "proof": "opt-in warning, seeded stochastic sampler, thought trace"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "curiosity",
+      "name": "Curiosity and ideation loop",
+      "status": "experimental",
+      "order": 12,
+      "risk": "high",
+      "purpose": "Convert idle and preference signals into reviewable ideation prompts.",
+      "crate_path": "crates/zaion-curiosity",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/curiosity.rs",
+        "crates/zaion-curiosity/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status curiosity",
+        "zaion curiosity status <pid>"
+      ],
+      "dedicated_surfaces": [
+        "zaion curiosity status <pid>",
+        "zaion curiosity trigger <pid>"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "activity-continuity",
+        "macro-promotion"
+      ],
+      "safety_boundary": "ideation only; no autonomous tool use without activity policy approval",
+      "promotion_gate": "cooldown, owner controls, ledgered prompts, and topic provenance",
+      "proof": "preference-backed thought seeds and experimental warning"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "proprioception",
+      "name": "Environment fingerprint and shock detection",
+      "status": "experimental",
+      "order": 13,
+      "risk": "high",
+      "purpose": "Detect environment transplant shock and protect identity state.",
+      "crate_path": "crates/zaion-proprioception",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/proprioception.rs",
+        "crates/zaion-proprioception/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status proprioception",
+        "zaion propri status"
+      ],
+      "dedicated_surfaces": [
+        "zaion propri status",
+        "zaion propri check"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "capability-boundaries",
+        "macro-promotion"
+      ],
+      "safety_boundary": "unlock remains experimental until verified pairing challenges exist",
+      "promotion_gate": "Ed25519 pairing challenge and recoverable lockdown tests",
+      "proof": "status/check surfaces plus explicit unlock refusal"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "memory-trace",
+      "name": "Traceable memory substrate",
+      "status": "beta",
+      "order": 14,
+      "risk": "medium",
+      "purpose": "Keep every remembered fact linked to source events or explicit user evidence.",
+      "crate_path": "crates/zaion-memory",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/memory.rs",
+        "crates/zaion-cli/src/commands/memory_atoms.rs",
+        "crates/zaion-memory/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status memory-trace",
+        "zaion memory doctor"
+      ],
+      "dedicated_surfaces": [
+        "zaion memory add-fact",
+        "zaion memory trace <memory-id>",
+        "zaion memory verify <memory-id>"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "memory-traceability",
+        "infinite-context",
+        "macro-promotion"
+      ],
+      "safety_boundary": "facts require source events or explicit user-provided marker",
+      "promotion_gate": "answer trace hooks and sync-preserved proof chains",
+      "proof": "memory atom trace/verify/invalidate commands"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "context-kernel",
+      "name": "Small-window context kernel",
+      "status": "beta",
+      "order": 15,
+      "risk": "medium",
+      "purpose": "Compile bounded execution context packs over unlimited traceable memory.",
+      "crate_path": "crates/zaion-runtime",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/context_packs.rs",
+        "crates/zaion-runtime/src/context.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status context-kernel",
+        "zaion context verify <pack-id>"
+      ],
+      "dedicated_surfaces": [
+        "zaion context build <pid> --budget 4000 --verify",
+        "zaion context trace <pack-id>",
+        "zaion context verify <pack-id>"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "infinite-context",
+        "memory-traceability",
+        "macro-promotion"
+      ],
+      "safety_boundary": "model window is execution cache, not the memory store",
+      "promotion_gate": "large synthetic history regression and answer-span trace",
+      "proof": "4k context pack build/verify/trace"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "omni-session",
+      "name": "Unified channel/session envelope",
+      "status": "beta",
+      "order": 16,
+      "risk": "medium",
+      "purpose": "Route terminal, TUI, Telegram, HTTP, MCP, and future channels through one session graph.",
+      "crate_path": "crates/zaion-runtime",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/omni.rs",
+        "crates/zaion-runtime/src/omni_session.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status omni-session",
+        "zaion omni status"
+      ],
+      "dedicated_surfaces": [
+        "zaion omni status",
+        "zaion omni trace"
+      ],
+      "docs": [
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "omni-session",
+        "macro-promotion"
+      ],
+      "safety_boundary": "channel metadata is preserved outside model context",
+      "promotion_gate": "terminal, Telegram, TUI, HTTP, and MCP route integration tests",
+      "proof": "canonical envelope status and trace"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "rollup",
+      "name": "Memory rollup and future ZK proofs",
+      "status": "experimental",
+      "order": 17,
+      "risk": "high",
+      "purpose": "Fold old memory into commitments without pretending SHA summaries are production ZK proofs.",
+      "crate_path": "crates/zaion-memory",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/rollup.rs",
+        "crates/zaion-memory/src/memory_consolidator.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status rollup",
+        "zaion rollup status"
+      ],
+      "dedicated_surfaces": [
+        "zaion rollup status",
+        "zaion rollup verify <hash>"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "memory-traceability",
+        "macro-promotion"
+      ],
+      "safety_boundary": "commitments are SHA-256 summaries; production ZK proof is not implemented",
+      "promotion_gate": "real proof generation, verifier, and negative-proof fixtures",
+      "proof": "explicit experimental warning and commitment verification surface"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "singularity",
+      "name": "Five-system orchestration",
+      "status": "experimental",
+      "order": 18,
+      "risk": "high",
+      "purpose": "Expose the combined Ego, Autonomic, Proprioception, Metabolic, and Curiosity runtime.",
+      "crate_path": "crates/zaion-singularity",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/singularity.rs",
+        "crates/zaion-singularity/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status singularity",
+        "zaion singularity status <pid>"
+      ],
+      "dedicated_surfaces": [
+        "zaion singularity status <pid>",
+        "zaion singularity systems <pid>"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "activity-continuity",
+        "macro-promotion"
+      ],
+      "safety_boundary": "orchestration stays experimental until daemon integrations stop being placeholders",
+      "promotion_gate": "long-running daemon, reflex registry, activity trace, and recovery tests",
+      "proof": "five-system status surface with experimental warning"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "watchdog",
+      "name": "Ouroboros watchdog",
+      "status": "experimental",
+      "order": 19,
+      "risk": "high",
+      "purpose": "Detect crashes and record recovery attempts without unsafe silent rewrites.",
+      "crate_path": "crates/zaion-watchdog",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/watchdog.rs",
+        "crates/zaion-watchdog/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status watchdog",
+        "zaion watchdog status"
+      ],
+      "dedicated_surfaces": [
+        "zaion watchdog status",
+        "zaion watchdog logs"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "macro-promotion",
+        "source-comparison"
+      ],
+      "safety_boundary": "recovery remains experimental; no silent production self-repair claim",
+      "promotion_gate": "crash fixture, backup/rollback proof, signed resurrection event verification",
+      "proof": "guardian status/log surface and experimental maturity row"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "evolve",
+      "name": "Self-evolution workflow",
+      "status": "experimental",
+      "order": 20,
+      "risk": "high",
+      "purpose": "Scan, propose, review, and optionally apply code changes through guarded stages.",
+      "crate_path": "crates/zaion-evolve",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/evolve.rs",
+        "crates/zaion-evolve/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status evolve",
+        "zaion evolve status"
+      ],
+      "dedicated_surfaces": [
+        "zaion evolve status",
+        "zaion evolve scan",
+        "zaion evolve review"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "macro-promotion",
+        "source-comparison"
+      ],
+      "safety_boundary": "apply can modify code and remains experimental behind review/test gates",
+      "promotion_gate": "signed proposal chain, rollback, mandatory tests, and owner approval",
+      "proof": "scan/propose/review/apply stages with experimental warning"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "opd",
+      "name": "On-policy distillation engine",
+      "status": "experimental",
+      "order": 21,
+      "risk": "high",
+      "purpose": "Collect and evaluate training trajectories without mixing training with normal runtime identity.",
+      "crate_path": "crates/zaion-opd",
+      "source_paths": [
+        "crates/zaion-opd/src/lib.rs",
+        "crates/zaion-opd/src/opd_env.rs",
+        "crates/zaion-opd/src/opd_pipeline.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status opd"
+      ],
+      "dedicated_surfaces": [],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-opd/tests/integration_tests.rs"
+      ],
+      "reference_claims": [
+        "macro-promotion",
+        "source-comparison"
+      ],
+      "safety_boundary": "training signals are experimental and not part of default runtime execution",
+      "promotion_gate": "real dataset runner, reproducible metrics, and benchmark comparison reports",
+      "proof": "crate tests plus macro status surface; no standalone CLI promotion yet"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "enclave",
+      "name": "Software enclave simulation",
+      "status": "experimental",
+      "order": 22,
+      "risk": "high",
+      "purpose": "Bind sealed diagnostics to Zaion identity while clearly separating simulation from hardware TEE.",
+      "crate_path": "crates/zaion-enclave",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/enclave.rs",
+        "crates/zaion-enclave/src/lib.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status enclave",
+        "zaion enclave status"
+      ],
+      "dedicated_surfaces": [
+        "zaion enclave status",
+        "zaion enclave attest"
+      ],
+      "docs": [
+        "docs/CAPABILITY_STATUS.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "reference_claims": [
+        "capability-boundaries",
+        "macro-promotion"
+      ],
+      "safety_boundary": "software simulation only; not hardware TEE security",
+      "promotion_gate": "hardware attestation backend and verifier interoperability tests",
+      "proof": "attest/seal/unseal surface with simulation warning"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  },
+  {
+    "module": {
+      "id": "tui",
+      "name": "Terminal user interface",
+      "status": "stable-extension",
+      "order": 23,
+      "risk": "medium",
+      "purpose": "Provide a terminal interface over the same stable process and context path.",
+      "crate_path": "crates/zaion-tui",
+      "source_paths": [
+        "crates/zaion-cli/src/commands/process/tui/mod.rs",
+        "crates/zaion-tui/src/main.rs"
+      ],
+      "status_surfaces": [
+        "zaion macro status tui",
+        "zaion tui --check"
+      ],
+      "dedicated_surfaces": [
+        "zaion tui --check",
+        "zaion tui"
+      ],
+      "docs": [
+        "docs/CLI_STABILITY.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/cli_stable_surface.rs"
+      ],
+      "reference_claims": [
+        "omni-session",
+        "macro-promotion"
+      ],
+      "safety_boundary": "TUI is a view over the stable wake/chat path, not a separate identity",
+      "promotion_gate": "Phase 9 visual, accessibility, and encoding regression gates",
+      "proof": "tui --check and stable-extension maturity status"
+    },
+    "crate_exists": true,
+    "source_paths_ok": true,
+    "docs_ok": true,
+    "tests_ok": true,
+    "status_surface_ok": true,
+    "safety_boundary_ok": true,
+    "promotion_gate_ok": true,
+    "reference_evidence_ok": true,
+    "high_risk_is_experimental": true,
+    "blocking_gaps": []
+  }
+]

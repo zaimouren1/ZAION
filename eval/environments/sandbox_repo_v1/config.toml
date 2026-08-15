@@ -1,0 +1,8 @@
+[service]
+name = "sandbox-svc"
+max_batch = 3
+port = 8080
+
+[logging]
+level = "info"
+path = "logs/incident-001.log"

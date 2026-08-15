@@ -1,0 +1,31 @@
+{
+  "id": "ZAION-300-APR-001",
+  "category": "tools",
+  "slots": 1,
+  "title": "A destructive command requires approval before execution",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Denied approval aborts with audit record."
+    ],
+    "parity": [
+      "Agent proposes the command; execution waits for approval."
+    ],
+    "ten_out_of_ten": [
+      "Approval flow has a signed decision and zero unauthorized execution."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "approval",
+  "output": {
+    "path": "approval_record.json",
+    "format": "see verifier (JSON artifact checked by the benchmark verifier)"
+  }
+}

@@ -1,0 +1,78 @@
+[workspace]
+members = [
+    "crates/zaion-paths",
+    "crates/zaion-types",
+    "crates/zaion-crypto",
+    "crates/zaion-ledger",
+    "crates/zaion-memory",
+    "crates/zaion-runtime",
+    "crates/zaion-contract-macros",
+    "crates/zaion-adapters",
+    "crates/zaion-core",
+    "crates/zaion-cli",
+    "crates/zaion-a2a",
+    "crates/zaion-secrets",
+    "crates/zaion-tui",
+    "crates/zaion-codex",
+    "crates/zaion-gitledger",
+    "crates/zaion-mcp",
+    "crates/zaion-watchdog",
+    "crates/zaion-aci",
+    "crates/zaion-shadow",
+    "crates/zaion-enclave",
+    "crates/zaion-proptest",
+    "crates/zaion-ego",
+    "crates/zaion-autonomic",
+    "crates/zaion-proprioception",
+    "crates/zaion-metabolic",
+    "crates/zaion-curiosity",
+    "crates/zaion-singularity",
+    "crates/zaion-evolve",
+    "crates/zaion-sync",
+    "crates/zaion-pricing",
+    "crates/zaion-safety",
+    "crates/zaion-checkpoint",
+    "crates/zaion-opd",
+    "crates/zaion-federation",
+    "crates/zaion-telemetry",
+    "crates/zaion-gateway",
+]
+default-members = ["crates/zaion-cli"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.93"
+license = "Apache-2.0"
+authors = ["Zaion"]
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand = "0.8.6"
+sha2 = "0.10"
+aes-gcm = "0.10"
+proptest = "1"
+bs58 = "0.5"
+hmac = "0.12"
+rusqlite = { version = "0.32", features = ["bundled"] }
+zstd = "0.13"
+tokio = { version = "1", features = ["full"] }
+axum = { version = "0.7", features = ["json"] }
+hex = "0.4"
+tempfile = "3"
+reqwest = { version = "0.12", features = ["blocking", "json"] }
+toml = "0.8"
+ratatui = "0.30"
+crossterm = "0.28"
+syntect = "5.2"
+git2 = { version = "0.20.4", default-features = false }
+anyhow = "1"
+tracing = "0.1"
+zeroize = { version = "1", features = ["derive"] }
+secrecy = { version = "0.8", features = ["serde"] }

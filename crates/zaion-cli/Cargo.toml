@@ -1,0 +1,67 @@
+[package]
+name = "zaion-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "zaion"
+path = "src/main.rs"
+
+[dependencies]
+zaion-paths = { path = "../zaion-paths" }
+zaion-types = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-memory = { path = "../zaion-memory" }
+zaion-gateway = { path = "../zaion-gateway" }
+zaion-runtime = { path = "../zaion-runtime" }
+zaion-ego = { path = "../zaion-ego" }
+zaion-adapters = { path = "../zaion-adapters" }
+zaion-core = { path = "../zaion-core" }
+zaion-secrets = { path = "../zaion-secrets" }
+zaion-a2a = { path = "../zaion-a2a" }
+zaion-codex = { path = "../zaion-codex" }
+zaion-gitledger = { path = "../zaion-gitledger" }
+zaion-watchdog  = { path = "../zaion-watchdog" }
+zaion-shadow    = { path = "../zaion-shadow" }
+zaion-aci       = { path = "../zaion-aci" }
+zaion-mcp       = { path = "../zaion-mcp" }
+zaion-tui       = { path = "../zaion-tui" }
+zaion-enclave   = { path = "../zaion-enclave" }
+zaion-singularity = { path = "../zaion-singularity" }
+zaion-proprioception = { path = "../zaion-proprioception" }
+zaion-metabolic = { path = "../zaion-metabolic" }
+serde = { workspace = true }
+tokio = { workspace = true }
+axum = { version = "0.7", features = ["tokio"] }
+tower = "0.4"
+serde_json = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+reqwest = { workspace = true }
+toml = { workspace = true }
+uuid = { workspace = true }
+hex = { workspace = true }
+hmac = { workspace = true }
+sha2 = { workspace = true }
+regex = "1"
+zaion-autonomic = { version = "0.1.0", path = "../zaion-autonomic" }
+zaion-curiosity = { version = "0.1.0", path = "../zaion-curiosity" }
+zaion-evolve    = { path = "../zaion-evolve" }
+zaion-sync      = { path = "../zaion-sync" }
+zaion-pricing   = { path = "../zaion-pricing" }
+zaion-safety    = { path = "../zaion-safety" }
+zaion-checkpoint = { path = "../zaion-checkpoint" }
+zaion-federation = { path = "../zaion-federation" }
+flate2 = "1.0"
+tar = "0.4"
+dirs = "5.0"
+shellexpand = "3.0"
+clap = { version = "4.0", features = ["derive"] }
+anyhow = "1.0"
+base64 = "0.22"
+crossterm = { workspace = true }
+ratatui = { workspace = true }
+sha1 = "0.10"

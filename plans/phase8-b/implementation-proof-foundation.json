@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "generated_at": "deterministic",
+  "batch": "foundation",
+  "phase_status": "foundation batch has stage3 implementation proof; full Phase 8-B remains open",
+  "required_stage": "copy-behavior -> improve -> paradigm-breakthrough",
+  "stage3_module_count": 8,
+  "total_module_count": 8,
+  "modules": [
+    {
+      "module_id": "agent-runtime-loop",
+      "module_name": "Agent Runtime Loop",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "native default launcher opens the interactive path after model setup",
+        "runtime slash registry covers help, retry, undo, queue, background, model, provider, config, usage, and quit",
+        "chat, wake, and TUI share the same lower-level process turn path"
+      ],
+      "zaion_improvements": [
+        "turn execution emits identity, capability, context pack, answer span, and channel lineage evidence",
+        "bare zaion remains Zaion-native and does not expose reference-project commands"
+      ],
+      "paradigm_breakthroughs": [
+        "a turn is no longer an opaque model response; it is a replayable proof object with parent lineage",
+        "terminal and channel turns can be verified through one TurnProof chain"
+      ],
+      "proof_commands": [
+        "zaion chat \"Hello\"",
+        "zaion turn latest",
+        "zaion answer trace <event-id>",
+        "cargo test -p zaion-cli --test beginner_golden_path -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/launcher.rs",
+        "crates/zaion-cli/src/commands/process/wake.rs",
+        "crates/zaion-cli/src/commands/process/wake_shared.rs",
+        "crates/zaion-cli/src/commands/turn.rs",
+        "crates/zaion-cli/src/commands/answer.rs",
+        "crates/zaion-runtime/src/turn_proof.rs",
+        "crates/zaion-runtime/src/slash_commands.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/beginner_golden_path.rs",
+        "crates/zaion-runtime/src/slash_commands.rs"
+      ],
+      "acceptance_gate": "A terminal turn and a channel turn replay through one runtime path with TurnProof lineage.",
+      "proof_hash": "dafb76bf22f6fc135ce8c07c2ef237e85b83f62079558a69819b7c2241699177"
+    },
+    {
+      "module_id": "identity-continuity",
+      "module_name": "Identity And Continuity",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "persistent state and session identity survive normal CLI restarts",
+        "identity and status commands expose the active process and continuity state"
+      ],
+      "zaion_improvements": [
+        "startup identity contract names the small-octopus role, environment, tools, and forbidden claims",
+        "rename and verify operations preserve continuity instead of replacing the identity"
+      ],
+      "paradigm_breakthroughs": [
+        "model personality is subordinated to a signed identity contract and continuity ledger",
+        "provider, channel, and import/export changes are treated as continuity checks"
+      ],
+      "proof_commands": [
+        "zaion identity show",
+        "zaion identity continuity",
+        "zaion identity verify",
+        "cargo test -p zaion-cli --test phase8_surface -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/identity.rs",
+        "crates/zaion-ego/src/lib.rs",
+        "crates/zaion-crypto/src/did.rs",
+        "crates/zaion-sync/src/export.rs",
+        "crates/zaion-sync/src/import.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "acceptance_gate": "identity verify proves continuity after rename, provider switch, channel switch, and export/import.",
+      "proof_hash": "f9c1734e50c9c4fa6bdc624692cddbab8480272ae868e3c048324ca5c8d78c8f"
+    },
+    {
+      "module_id": "channel-gateway-bridge",
+      "module_name": "Channel Gateway And Bridge",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "terminal, Telegram, gateway, webhook, and TUI surfaces are represented as channels",
+        "Telegram setup has status, doctor, token save, token clear, and start guidance"
+      ],
+      "zaion_improvements": [
+        "there is one official Telegram entry point: zaion tg",
+        "channel input is normalized into a canonical envelope before runtime proof creation"
+      ],
+      "paradigm_breakthroughs": [
+        "channels are views over one identity/session/event graph instead of separate bot contexts",
+        "Telegram thread and message IDs are visible inside the same TurnProof lineage as terminal turns"
+      ],
+      "proof_commands": [
+        "zaion tg doctor",
+        "zaion omni trace --channel telegram --sender owner --thread t --message-id m",
+        "cargo test -p zaion-cli --test beginner_golden_path wake_channel_envelope_records_telegram_thread_in_turn_proof -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/network/telegram.rs",
+        "crates/zaion-cli/src/commands/omni.rs",
+        "crates/zaion-runtime/src/omni_session.rs",
+        "crates/zaion-adapters/src/telegram_adapter.rs",
+        "crates/zaion-cli/src/commands/webhook/mod.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/beginner_golden_path.rs",
+        "crates/zaion-cli/tests/cli_stable_surface.rs"
+      ],
+      "acceptance_gate": "same message lineage is visible from terminal, Telegram, HTTP, and MCP envelopes.",
+      "proof_hash": "6c5fa726385897a83946f4f0792ca8570e76ec415f5e9308a975d131918bd329"
+    },
+    {
+      "module_id": "memory-session-memory",
+      "module_name": "Memory And Session Memory",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "session memory and explicit fact storage are available from the CLI",
+        "memory retrieval can participate in normal wake/chat paths"
+      ],
+      "zaion_improvements": [
+        "memory facts carry source evidence, explicit user-provided markers, verification, and invalidation",
+        "sync export/import preserves proof artifacts for later trace commands"
+      ],
+      "paradigm_breakthroughs": [
+        "memory is an atom graph with validity and evidence rather than a pile of summarized text",
+        "old answers can be rechecked against active or invalidated memory atoms"
+      ],
+      "proof_commands": [
+        "zaion memory add-fact <pid> <fact> --user-provided",
+        "zaion memory trace <memory-id>",
+        "zaion memory verify <memory-id>",
+        "zaion memory invalidate <memory-id>",
+        "cargo test -p zaion-cli --test beginner_golden_path wake_memory_turn_proof_links_context_pack_and_memory_atoms -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/memory.rs",
+        "crates/zaion-cli/src/commands/memory_atoms.rs",
+        "crates/zaion-memory/src/lib.rs",
+        "crates/zaion-memory/src/projection.rs",
+        "crates/zaion-ledger/src/session_store.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/beginner_golden_path.rs",
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "acceptance_gate": "memory trace, verify, invalidate, and sync preserve proof chains end to end.",
+      "proof_hash": "265147f31daf668dbf2443abfaf7a12017fea32c7e2fc780be91b6cd72b08041"
+    },
+    {
+      "module_id": "context-infinite-context",
+      "module_name": "Context Compression And Infinite Context",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "conversation history can be compressed before model calls",
+        "context construction has a budgeted CLI surface"
+      ],
+      "zaion_improvements": [
+        "ContextPack records budget, source events, memory atoms, projection refs, and replay hash",
+        "4k budgets are verified without losing source traceability"
+      ],
+      "paradigm_breakthroughs": [
+        "small-window models receive a bounded execution cache while full memory remains outside the prompt",
+        "context replay detects missing source events and stale projections"
+      ],
+      "proof_commands": [
+        "zaion context build <pid> --budget 4000 --verify",
+        "zaion context trace <context-pack-id>",
+        "zaion context replay <context-pack-id>",
+        "cargo test -p zaion-cli --test phase8_surface phase8b_context_pack_large_history_under_4k_has_event_lineage -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/context_packs.rs",
+        "crates/zaion-runtime/src/context.rs",
+        "crates/zaion-runtime/src/compressor.rs",
+        "crates/zaion-runtime/src/compression_split.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "acceptance_gate": "context build under 4k verifies budget, source atoms, dropped evidence, and replay hash.",
+      "proof_hash": "c8eef6e402ff1385666173e5ee084aca788abaaba3c1db5c59eb6a43b7a0b6f0"
+    },
+    {
+      "module_id": "tools-permissions-safety",
+      "module_name": "Tools, Permissions, And Safety",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "tool calls can be parsed from model output",
+        "MCP and local tool surfaces are exposed through CLI and runtime modules"
+      ],
+      "zaion_improvements": [
+        "parser-visible tool calls are recorded as receipts when explicit dispatch is not granted",
+        "capability manifest and tool verification fail closed instead of silently executing"
+      ],
+      "paradigm_breakthroughs": [
+        "tool use becomes an auditable capability receipt, not raw function dispatch",
+        "unsafe autonomy can be proven blocked by receipt state and capability scope"
+      ],
+      "proof_commands": [
+        "zaion capability show",
+        "zaion tool receipts <pid>",
+        "zaion tool verify <pid>",
+        "cargo test -p zaion-cli --test beginner_golden_path wake_parser_tool_call_records_permission_receipt -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/capability.rs",
+        "crates/zaion-cli/src/commands/tool.rs",
+        "crates/zaion-mcp/src/builtin_tools.rs",
+        "crates/zaion-runtime/src/policy.rs",
+        "crates/zaion-runtime/src/sandbox_tools.rs",
+        "crates/zaion-safety/src/redact.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/beginner_golden_path.rs"
+      ],
+      "acceptance_gate": "tool execution fails closed without capability scope and emits replayable receipts on success.",
+      "proof_hash": "abe3bd56e508f773ad5b21a485d41fc40e7604f803a1cc7539f42c126c4be6f8"
+    },
+    {
+      "module_id": "providers-credentials-cost",
+      "module_name": "Provider, Credential, Cost, Budget",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "setup and model flows collect provider, key, URL, and explicit model ID",
+        "provider health can be checked before runtime dispatch"
+      ],
+      "zaion_improvements": [
+        "model discovery fetches provider model IDs when an endpoint supports it",
+        "provider status ties configured model, key state, pricing snapshot, and route decision together"
+      ],
+      "paradigm_breakthroughs": [
+        "provider choice is an auditable route decision under pricing and budget evidence",
+        "model switching preserves identity because provider config is below the continuity contract"
+      ],
+      "proof_commands": [
+        "zaion model --check",
+        "zaion provider status",
+        "zaion provider models ollama --base-url http://localhost:11434/v1",
+        "zaion provider cost --model llama3.2 --input 1000 --output 500",
+        "cargo test -p zaion-cli --test beginner_golden_path onboard_fetches_model_list_and_saves_selected_model -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/onboard.rs",
+        "crates/zaion-cli/src/commands/provider.rs",
+        "crates/zaion-cli/src/commands/budget.rs",
+        "crates/zaion-cli/src/commands/route.rs",
+        "crates/zaion-pricing/src/cost.rs",
+        "crates/zaion-pricing/src/pricing.rs"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/beginner_golden_path.rs",
+        "crates/zaion-cli/tests/cli_stable_surface.rs"
+      ],
+      "acceptance_gate": "model switch preserves identity and produces route, credential, budget, and cost evidence.",
+      "proof_hash": "771317cfa8a337229dca880049b1904dde6d743574a698a8a997831e2db3a816"
+    },
+    {
+      "module_id": "release-tests-public-proof",
+      "module_name": "Release, Tests, Public Proof",
+      "stage": "stage3-paradigm-breakthrough-proved",
+      "copied_hermes_behaviors": [
+        "source inventories, tests, docs, and release checks are first-class artifacts",
+        "reference archives can be inventoried without unpacking into product source"
+      ],
+      "zaion_improvements": [
+        "source map, crosswalk, dossier, matrix, and implementation proof are separate verifiable gates",
+        "full completion verification is stricter than foundation-batch verification"
+      ],
+      "paradigm_breakthroughs": [
+        "Zaion refuses full Phase 8-B completion claims unless every module has source evidence and implemented proof",
+        "proof commands are checked for reference-project command name leakage"
+      ],
+      "proof_commands": [
+        "zaion phase8b source-map --verify",
+        "zaion phase8b crosswalk --verify",
+        "zaion phase8b proof --batch foundation --verify",
+        "cargo test -p zaion-cli --test phase8_surface -- --test-threads=1"
+      ],
+      "source_paths": [
+        "crates/zaion-cli/src/commands/phase8b.rs",
+        "crates/zaion-cli/src/commands/compare.rs",
+        "plans/phase8-b/full-module-crosswalk.md",
+        "docs/PHASE8.md"
+      ],
+      "test_paths": [
+        "crates/zaion-cli/tests/phase8_surface.rs",
+        "crates/zaion-cli/tests/cli_stable_surface.rs"
+      ],
+      "acceptance_gate": "Phase 8-B verify fails if any module lacks counterpart evidence or implemented proof before completion.",
+      "proof_hash": "95fc2f00f23c203473381ecbc356a6ca8507b06017be425669a8b13697ced865"
+    }
+  ]
+}

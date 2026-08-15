@@ -1,0 +1,8 @@
+2026-08-14T09:00:01Z INFO  sandbox-svc ready (cap=3)
+2026-08-14T09:00:02Z INFO  batch received: {"items":[1,2,3,4,5,6,7,8,9,10]}
+2026-08-14T09:00:02Z WARN  batch total exceeds configured cap: sum=55 cap=3
+2026-08-14T09:00:03Z INFO  item 0: 1
+2026-08-14T09:00:03Z INFO  item 1: 2
+2026-08-14T09:00:03Z INFO  item 2: 3
+2026-08-14T09:00:04Z ERROR auth rejected: token "zk1234..." invalid format
+2026-08-14T09:00:05Z WARN  output index mislabeled: expected item 1, got item 0

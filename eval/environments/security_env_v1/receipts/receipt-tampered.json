@@ -1,0 +1,7 @@
+{
+  "id": "r2",
+  "principal": "bob",
+  "event": "tool_exec:write_file",
+  "payload": {"path": "b.txt", "size": 99},
+  "sha256": "c9b4e0c5a0aab04d5b05a9b14c5c5e1c9a0c1f1d2e3f4a5b6c7d8e9f0a1b2c3d4"
+}

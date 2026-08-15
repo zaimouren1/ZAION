@@ -1,0 +1,35 @@
+[Unit]
+Description=Zaion AI Agent Runtime
+Documentation=https://github.com/zaimouren1/ZAION
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/zaion _daemon_run
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+User=zaion
+Group=zaion
+
+Environment=ZAION_LOG=info
+Environment=ZAION_DATA_DIR=/var/lib/zaion
+Environment=ZAION_CONFIG_DIR=/etc/zaion
+
+WorkingDirectory=/var/lib/zaion
+
+# Hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/zaion /var/log/zaion
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+
+[Install]
+WantedBy=multi-user.target

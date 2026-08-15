@@ -1,0 +1,841 @@
+﻿# Phase 8-B Full-Module Crosswalk
+
+Status: source-truth-frozen only. Phase 8-B is not complete.
+
+| Module | Hermes evidence | cc-haha evidence | Zaion counterpart | Breakthrough target | Gate | Status |
+| --- | ---: | ---: | ---: | --- | --- | --- |
+| Agent Runtime Loop | 5 | 4 | 13 | Every model call is a replayable event under IdentityContract, CapabilityManifest, CanonicalEnvelope, and ContextPack. | A terminal turn and a channel turn replay through one runtime path with TurnProof lineage. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Identity And Continuity | 4 | 3 | 10 | Zaion starts knowing who it is, where it runs, which tools it has, and what it must not claim. | identity verify proves continuity after rename, provider switch, channel switch, and export/import. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Channel Gateway And Bridge | 147 | 22 | 31 | Channels are views over one identity/session/event graph instead of separate agent contexts. | same message lineage is visible from terminal, Telegram, HTTP, and MCP envelopes. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Memory And Session Memory | 35 | 16 | 16 | Memory is an atom graph with source evidence, verification, invalidation, and replayable sync. | memory trace, verify, invalidate, and sync preserve proof chains end to end. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Context Compression And Infinite Context | 4 | 11 | 4 | A 4k model receives a budgeted ContextPack with lineage, not an exploding chat transcript. | context build under 4k verifies budget, source atoms, dropped evidence, and replay hash. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Tools, Permissions, And Safety | 4 | 215 | 19 | Tool calls are scoped, auditable capability receipts rather than raw function dispatch. | tool execution fails closed without capability scope and emits replayable receipts on success. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Skills And Plugins | 462 | 56 | 2 | Skills are promoted only with source trace, tests, docs, and safety boundaries. | skill promotion refuses modules missing docs, tests, capability scope, or rollback path. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Activity Continuity, Cron, Proactive, Dreaming | 10 | 21 | 12 | Activity continuity is random, preference-aware, budgeted, audited, and user gated. | disabled by default; enabling requires explicit cost acknowledgement and produces thought proofs. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Multi-Agent, Delegation, Teams | 10 | 66 | 15 | Subagents become accountable delegated principals rather than hidden workers. | delegated work records principal, scope, inputs, outputs, and merge receipt. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Provider, Credential, Cost, Budget | 49 | 51 | 21 | Provider choice is a budgeted, auditable route decision under metabolic policy. | model switch preserves identity and produces route, credential, budget, and cost evidence. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Execution Environments, Computer Use, Sandbox | 226 | 434 | 20 | Every local action is bounded by checkpoint, syntax gate, policy, and receipt. | unsafe action cannot run without capability scope; safe action produces rollback evidence. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| OPD, Trajectory, Learning Loop | 5 | 18 | 31 | Runtime behavior, OPD, distillation, and evaluation share one evidence graph. | trajectory export proves source turns, tool receipts, scores, and applied changes. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Frontend, TUI, Desktop, Control Plane | 142 | 293 | 30 | UI is a control plane for identity, context, memory, permissions, activity, and proof. | control surface shows status and trace for each Phase 8-B core subsystem. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+| Release, Tests, Public Proof | 492 | 83 | 40 | No breakthrough claim is accepted without source evidence, implementation proof, and regression gate. | Phase 8-B verify fails if any module lacks counterpart evidence or implemented proof before completion. | source-truth-frozen; implementation proof pending in later Phase 8-B slices |
+
+## Module Evidence
+
+### agent-runtime-loop - Agent Runtime Loop
+
+Responsibility: Own turn execution, prompt assembly, tool dispatch, streaming, and replay boundaries.
+
+Hermes key files:
+- hermes-agent-2026.4.8/run_agent.py
+- hermes-agent-2026.4.8/model_tools.py
+- hermes-agent-2026.4.8/agent/prompt_builder.py
+- hermes-agent-2026.4.8/tests/test_model_tools.py
+- hermes-agent-2026.4.8/tests/run_agent/test_run_agent.py
+
+cc-haha key files:
+- cc-haha-main/src/Task.ts
+- cc-haha-main/src/main.tsx
+- cc-haha-main/src/QueryEngine.ts
+- cc-haha-main/desktop/src/main.tsx
+
+Zaion key files:
+- crates/zaion-core/src/controller.rs
+- crates/zaion-runtime/src/agent_loop.rs
+- crates/zaion-cli/src/commands/process/bot.rs
+- crates/zaion-cli/src/commands/process/mod.rs
+- crates/zaion-cli/src/commands/process/chat.rs
+- crates/zaion-cli/src/commands/process/wake.rs
+- crates/zaion-cli/src/commands/process/helpers.rs
+- crates/zaion-cli/src/commands/process/tui/app.rs
+- crates/zaion-cli/src/commands/process/tui/mod.rs
+- crates/zaion-runtime/src/unified_agent_runtime.rs
+- crates/zaion-cli/src/commands/process/lifecycle.rs
+- crates/zaion-cli/src/commands/process/wake_shared.rs
+- crates/zaion-cli/src/commands/process/wake_stream.rs
+
+Known Zaion blockers:
+- crates/zaion-cli/src/commands/process/tui/app.rs:1222:let placeholder = if state.ai_responding {
+- crates/zaion-cli/src/commands/process/tui/app.rs:1236:placeholder,
+- crates/zaion-cli/src/commands/process/tui/app.rs:353:// If agent had no textual content (pure tool turn), drop the empty placeholder.
+- crates/zaion-cli/src/commands/process/tui/app.rs:601:// Create placeholder message for streaming response
+- crates/zaion-runtime/src/unified_agent_runtime.rs:678:// generates them internally, but we can assert no placeholder bytes.
+
+Truth proof:
+- hermes:5:3c60cc070c6c5502e52aaede28ce606b641b96bcbeb6444aef1124dc4bab0fbb
+- cchaha:4:be74aeec062ea466f2a2e8f60e5932856de7ad6317a2306fbdc93e1ceba22688
+- zaion:13:2f20c9b5181ffb0c74a64f4e42ee21ce110d1b6b0794cecb1582254195bedf61
+
+### identity-continuity - Identity And Continuity
+
+Responsibility: Keep one Zaion identity continuous across channels, models, restarts, and sync boundaries.
+
+Hermes key files:
+- hermes-agent-2026.4.8/hermes_state.py
+- hermes-agent-2026.4.8/gateway/session.py
+- hermes-agent-2026.4.8/acp_adapter/session.py
+- hermes-agent-2026.4.8/tests/test_hermes_state.py
+
+cc-haha key files:
+- cc-haha-main/src/server/api/sessions.ts
+- cc-haha-main/src/assistant/sessionHistory.ts
+- cc-haha-main/adapters/common/session-store.ts
+
+Zaion key files:
+- crates/zaion-ego/src/lib.rs
+- crates/zaion-sync/src/lib.rs
+- crates/zaion-ego/src/retry.rs
+- crates/zaion-sync/src/diff.rs
+- crates/zaion-crypto/src/did.rs
+- crates/zaion-sync/src/relay.rs
+- crates/zaion-sync/src/export.rs
+- crates/zaion-sync/src/import.rs
+- crates/zaion-core/src/process.rs
+- crates/zaion-cli/src/commands/identity.rs
+
+Known Zaion blockers:
+- crates/zaion-ego/src/retry.rs:44:///   In production this calls the LLM; in tests it can return a stub.
+
+Truth proof:
+- hermes:4:03d3342eec92b46187786a996b5d99f4595caf173fb3c99f55aa61ec26fccc83
+- cchaha:3:7b491035f29c914fe3ac8b73ad2c84866cb0e3bc8465ecefbdf4e34eb75aa03a
+- zaion:10:2e1489af5a51bfc090de7ceab9f773635452d1547315ceb21c998dbb1e4d4eef
+
+### channel-gateway-bridge - Channel Gateway And Bridge
+
+Responsibility: Unify terminal, TUI, Telegram, HTTP, webhook, gateway, and MCP sessions.
+
+Hermes key files:
+- hermes-agent-2026.4.8/gateway/run.py
+- hermes-agent-2026.4.8/gateway/hooks.py
+- hermes-agent-2026.4.8/gateway/config.py
+- hermes-agent-2026.4.8/gateway/mirror.py
+- hermes-agent-2026.4.8/gateway/status.py
+- hermes-agent-2026.4.8/gateway/pairing.py
+- hermes-agent-2026.4.8/gateway/session.py
+- hermes-agent-2026.4.8/gateway/__init__.py
+- hermes-agent-2026.4.8/gateway/delivery.py
+- hermes-agent-2026.4.8/acp_adapter/server.py
+- hermes-agent-2026.4.8/gateway/platforms/sms.py
+- hermes-agent-2026.4.8/gateway/sticker_cache.py
+- hermes-agent-2026.4.8/gateway/platforms/base.py
+- hermes-agent-2026.4.8/gateway/platforms/email.py
+- hermes-agent-2026.4.8/gateway/platforms/slack.py
+- hermes-agent-2026.4.8/gateway/platforms/wecom.py
+
+cc-haha key files:
+- cc-haha-main/adapters/feishu/index.ts
+- cc-haha-main/adapters/feishu/media.ts
+- cc-haha-main/src/bridge/bridgeMain.ts
+- cc-haha-main/adapters/feishu/cardkit.ts
+- cc-haha-main/adapters/telegram/index.ts
+- cc-haha-main/adapters/telegram/media.ts
+- cc-haha-main/adapters/common/ws-bridge.ts
+- cc-haha-main/adapters/feishu/card-errors.ts
+- cc-haha-main/adapters/feishu/markdown-style.ts
+- cc-haha-main/adapters/feishu/streaming-card.ts
+- cc-haha-main/adapters/feishu/extract-payload.ts
+- cc-haha-main/adapters/feishu/flush-controller.ts
+- cc-haha-main/adapters/feishu/__tests__/media.test.ts
+- cc-haha-main/adapters/feishu/__tests__/feishu.test.ts
+- cc-haha-main/adapters/feishu/__tests__/cardkit.test.ts
+- cc-haha-main/adapters/telegram/__tests__/media.test.ts
+
+Zaion key files:
+- crates/zaion-gateway/src/lib.rs
+- crates/zaion-adapters/src/lib.rs
+- crates/zaion-adapters/src/agui.rs
+- crates/zaion-adapters/src/retry.rs
+- crates/zaion-adapters/src/slack.rs
+- crates/zaion-adapters/src/tests.rs
+- crates/zaion-adapters/src/feishu.rs
+- crates/zaion-adapters/src/wechat.rs
+- crates/zaion-adapters/src/channel.rs
+- crates/zaion-adapters/src/discord.rs
+- crates/zaion-adapters/src/dingtalk.rs
+- crates/zaion-adapters/src/whatsapp.rs
+- crates/zaion-cli/src/commands/omni.rs
+- crates/zaion-gateway/src/websocket.rs
+- crates/zaion-runtime/src/omni_session.rs
+- crates/zaion-adapters/src/provider/mod.rs
+
+Known Zaion blockers:
+- crates/zaion-adapters/src/platform_gateway.rs:56:Err("send_image not implemented".into())
+- crates/zaion-adapters/src/platform_gateway.rs:59:Err("send_video not implemented".into())
+- crates/zaion-adapters/src/platform_gateway.rs:62:Err("send_audio not implemented".into())
+- crates/zaion-adapters/src/platform_gateway.rs:65:Err("send_document not implemented".into())
+- crates/zaion-adapters/src/slack.rs:5://!   - Receive messages via Events API (webhook-style polling placeholder)
+- crates/zaion-adapters/src/tests.rs:40:fn test_openai_provider_stub() {
+- crates/zaion-adapters/src/tests.rs:46:fn test_anthropic_provider_stub() {
+- crates/zaion-adapters/src/webhook_runtime.rs:125:/// 2 = real Ed25519; 1 = legacy placeholder (fails closed on verify)
+- crates/zaion-adapters/src/webhook_runtime.rs:896:assert_ne!(receipt.principal_id, "principal_placeholder");
+- several adapter media/edit methods return not implemented
+- webhook runtime still has TODO for triggering real agent runs
+
+Truth proof:
+- hermes:147:a458c2af5b47c17c5435b5c684e77ffea7bc35ded31b236938abe8f287ccba6a
+- cchaha:22:1d566070232f76fecbfa43c8798ba3799a346b6917e296b82d1a9bddcd3cc5d6
+- zaion:31:c07b397de2e3fcd394385f0a680cb90629ed3ded2c34afce4ef494d29319c155
+
+### memory-session-memory - Memory And Session Memory
+
+Responsibility: Store facts, traces, session memories, invalidation, and retrieval provenance.
+
+Hermes key files:
+- hermes-agent-2026.4.8/agent/memory_manager.py
+- hermes-agent-2026.4.8/plugins/memory/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/honcho/cli.py
+- hermes-agent-2026.4.8/plugins/memory/honcho/client.py
+- hermes-agent-2026.4.8/plugins/memory/mem0/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/honcho/session.py
+- hermes-agent-2026.4.8/plugins/memory/honcho/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/holographic/store.py
+- hermes-agent-2026.4.8/plugins/memory/retaindb/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/byterover/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/hindsight/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/openviking/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/holographic/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/supermemory/__init__.py
+- hermes-agent-2026.4.8/plugins/memory/holographic/retrieval.py
+- hermes-agent-2026.4.8/plugins/memory/holographic/holographic.py
+
+cc-haha key files:
+- cc-haha-main/src/memdir/paths.ts
+- cc-haha-main/src/memdir/memdir.ts
+- cc-haha-main/src/memdir/memoryAge.ts
+- cc-haha-main/src/memdir/memoryScan.ts
+- cc-haha-main/src/memdir/memoryTypes.ts
+- cc-haha-main/src/memdir/teamMemPaths.ts
+- cc-haha-main/src/memdir/teamMemPrompts.ts
+- cc-haha-main/src/services/autoDream/config.ts
+- cc-haha-main/src/memdir/findRelevantMemories.ts
+- cc-haha-main/src/memdir/memoryShapeTelemetry.ts
+- cc-haha-main/src/services/autoDream/autoDream.ts
+- cc-haha-main/src/services/SessionMemory/prompts.ts
+- cc-haha-main/src/services/SessionMemory/sessionMemory.ts
+- cc-haha-main/src/services/autoDream/consolidationLock.ts
+- cc-haha-main/src/services/autoDream/consolidationPrompt.ts
+- cc-haha-main/src/services/SessionMemory/sessionMemoryUtils.ts
+
+Zaion key files:
+- crates/zaion-memory/src/lib.rs
+- crates/zaion-memory/src/route.rs
+- crates/zaion-memory/src/skill.rs
+- crates/zaion-memory/src/tests.rs
+- crates/zaion-types/src/memory.rs
+- crates/zaion-memory/src/slimmer.rs
+- crates/zaion-memory/src/semantic.rs
+- crates/zaion-memory/src/principal.rs
+- crates/zaion-memory/src/hnsw_index.rs
+- crates/zaion-memory/src/projection.rs
+- crates/zaion-cli/src/commands/memory.rs
+- crates/zaion-memory/src/reality_sync.rs
+- crates/zaion-ledger/src/session_store.rs
+- crates/zaion-cli/src/commands/memory_atoms.rs
+- crates/zaion-memory/src/memory_consolidator.rs
+- crates/zaion-memory/src/runtime_integration.rs
+
+Known Zaion blockers:
+- crates/zaion-memory/src/memory_consolidator.rs:1://! Memory Consolidator — ZK-Rollup stub for memory folding (记忆折叠).
+- crates/zaion-memory/src/runtime_integration.rs:556:/// This is a **placeholder** for a real embedding model. It produces
+- crates/zaion-memory/src/semantic.rs:222:let placeholders: String = hits
+- crates/zaion-memory/src/semantic.rs:229:"SELECT id, principal_id, text, metadata, created_at FROM semantic WHERE id IN ({placeholders})"
+- zaion-memory rollup is explicitly a ZK-Rollup stub
+
+Truth proof:
+- hermes:35:c52979ec4c8fde370e8cd01d742f3dcd495c7a1c00d4c720476cce994d707a49
+- cchaha:16:797ec7a937ee7d2ecf09d4971929390b1796436b8dca7a907b0b8e8d0d4eb628
+- zaion:16:e7f03699ed15816a79469e507bed11b4da2fc6a1ae7f92ef6adfa96ef16db377
+
+### context-infinite-context - Context Compression And Infinite Context
+
+Responsibility: Compile small context packs from unlimited traceable source history.
+
+Hermes key files:
+- hermes-agent-2026.4.8/agent/prompt_builder.py
+- hermes-agent-2026.4.8/trajectory_compressor.py
+- hermes-agent-2026.4.8/agent/context_compressor.py
+- hermes-agent-2026.4.8/tests/test_trajectory_compressor.py
+
+cc-haha key files:
+- cc-haha-main/src/context.ts
+- cc-haha-main/src/history.ts
+- cc-haha-main/src/context/stats.tsx
+- cc-haha-main/src/context/voice.tsx
+- cc-haha-main/src/context/mailbox.tsx
+- cc-haha-main/src/context/fpsMetrics.tsx
+- cc-haha-main/src/context/modalContext.tsx
+- cc-haha-main/src/context/notifications.tsx
+- cc-haha-main/src/context/overlayContext.tsx
+- cc-haha-main/src/context/QueuedMessageContext.tsx
+- cc-haha-main/src/context/promptOverlayContext.tsx
+
+Zaion key files:
+- crates/zaion-runtime/src/context.rs
+- crates/zaion-runtime/src/compressor.rs
+- crates/zaion-runtime/src/compression_split.rs
+- crates/zaion-cli/src/commands/context_packs.rs
+
+Known Zaion blockers:
+- crates/zaion-runtime/src/compressor.rs:127:/// Replaces tool output content >200 chars with placeholder in turns before `protect_tail_count`.
+- crates/zaion-runtime/src/compressor.rs:171:/// If `None`, a structured placeholder is generated from the middle turns.
+- crates/zaion-runtime/src/compressor.rs:90:/// The summary text injected (may be a placeholder if no LLM was available).
+
+Truth proof:
+- hermes:4:5d722aaefb9ad0c88a02bf36495e6fb78b614292d941add69c7398b561fc6f2e
+- cchaha:11:4742d1ef2fd40f0d3df760da4cd3b2f54d9079ab0ac089ee1949b4223952f982
+- zaion:4:44df608e568c7202087c0f51d8bb5282d856e14fb9a065194a40939c63923ef6
+
+### tools-permissions-safety - Tools, Permissions, And Safety
+
+Responsibility: Scope tools, credentials, policy, sandboxing, MCP, and receipts.
+
+Hermes key files:
+- hermes-agent-2026.4.8/model_tools.py
+- hermes-agent-2026.4.8/tools/registry.py
+- hermes-agent-2026.4.8/agent/credential_pool.py
+- hermes-agent-2026.4.8/tests/test_model_tools.py
+
+cc-haha key files:
+- cc-haha-main/src/Tool.ts
+- cc-haha-main/src/tools/utils.ts
+- cc-haha-main/src/tools/LSPTool/UI.tsx
+- cc-haha-main/src/tools/MCPTool/UI.tsx
+- cc-haha-main/src/tools/BashTool/UI.tsx
+- cc-haha-main/src/tools/GlobTool/UI.tsx
+- cc-haha-main/src/tools/GrepTool/UI.tsx
+- cc-haha-main/src/tools/AgentTool/UI.tsx
+- cc-haha-main/src/tools/BriefTool/UI.tsx
+- cc-haha-main/src/tools/SkillTool/UI.tsx
+- cc-haha-main/src/tools/BashTool/utils.ts
+- cc-haha-main/src/tools/ConfigTool/UI.tsx
+- cc-haha-main/src/tools/LSPTool/prompt.ts
+- cc-haha-main/src/tools/MCPTool/prompt.ts
+- cc-haha-main/src/tools/BashTool/prompt.ts
+- cc-haha-main/src/tools/GlobTool/prompt.ts
+
+Zaion key files:
+- crates/zaion-mcp/src/lib.rs
+- crates/zaion-mcp/src/error.rs
+- crates/zaion-mcp/src/schema.rs
+- crates/zaion-mcp/src/server.rs
+- crates/zaion-safety/src/lib.rs
+- crates/zaion-secrets/src/lib.rs
+- crates/zaion-mcp/src/registry.rs
+- crates/zaion-secrets/src/auth.rs
+- crates/zaion-safety/src/redact.rs
+- crates/zaion-secrets/src/audit.rs
+- crates/zaion-secrets/src/store.rs
+- crates/zaion-secrets/src/tests.rs
+- crates/zaion-mcp/src/dispatcher.rs
+- crates/zaion-runtime/src/policy.rs
+- crates/zaion-safety/src/injection.rs
+- crates/zaion-safety/src/osv_check.rs
+
+Known Zaion blockers:
+- crates/zaion-mcp/src/server.rs:8:/// Stub: server struct with configuration. Full axum integration is wired
+- crates/zaion-runtime/src/sandbox_tools.rs:7://! - execute_code_uds.rs generates Python/JS stubs that call these tools via UDS RPC
+- crates/zaion-safety/src/redact.rs:7:/// Replacement placeholder shown instead of a redacted secret.
+
+Truth proof:
+- hermes:4:f8207143ba99e3cb88a57e19a3fab16368a4e70c4b83e7972d74b4d6e3ef79a1
+- cchaha:215:ab87b5da5745fd3a3f19cd6ccd959fb59e740de0e0b2034c5b29c1321ba683ee
+- zaion:19:33f4d2519254e2ae5de3dcf0880d4d0239b66771d7aeaa22a09e77c399191977
+
+### skills-plugins - Skills And Plugins
+
+Responsibility: Version, load, test, and promote skills and plugins as accountable capabilities.
+
+Hermes key files:
+- hermes-agent-2026.4.8/mcp_serve.py
+- hermes-agent-2026.4.8/skills/dogfood/SKILL.md
+- hermes-agent-2026.4.8/skills/mcp/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/gifs/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/apple/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/email/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/feeds/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/media/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/mlops/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/apple/findmy/SKILL.md
+- hermes-agent-2026.4.8/skills/domain/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/gaming/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/github/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/mcp/mcporter/SKILL.md
+- hermes-agent-2026.4.8/skills/creative/p5js/SKILL.md
+- hermes-agent-2026.4.8/skills/media/songsee/SKILL.md
+
+cc-haha key files:
+- cc-haha-main/src/commands.ts
+- cc-haha-main/src/skills/mcpSkills.ts
+- cc-haha-main/src/skills/bundled/loop.ts
+- cc-haha-main/src/skills/bundled/batch.ts
+- cc-haha-main/src/skills/bundled/debug.ts
+- cc-haha-main/src/skills/bundled/dream.ts
+- cc-haha-main/src/skills/bundled/index.ts
+- cc-haha-main/src/skills/bundled/stuck.ts
+- cc-haha-main/src/skills/bundledSkills.ts
+- cc-haha-main/src/skills/loadSkillsDir.ts
+- cc-haha-main/src/plugins/bundled/index.ts
+- cc-haha-main/src/skills/bundled/hunter.ts
+- cc-haha-main/src/skills/bundled/verify.ts
+- cc-haha-main/src/plugins/builtinPlugins.ts
+- cc-haha-main/src/skills/bundled/remember.ts
+- cc-haha-main/src/skills/bundled/simplify.ts
+
+Zaion key files:
+- crates/zaion-cli/src/commands/skills.rs
+- crates/zaion-runtime/src/genesis/skill_forge.rs
+
+Truth proof:
+- hermes:462:509e300eef6d557b9740745ad37f065687273e7da9ced3d853aaa0b6542c7c79
+- cchaha:56:5bbf7e4ef3d02a0f62e6601a4145aedab55fcc32a9be891626d044d629e7e734
+- zaion:2:d74630c4f63b24769932ad0a1612fab908b8b60697da4171e0c7c983292d1367
+
+### activity-continuity - Activity Continuity, Cron, Proactive, Dreaming
+
+Responsibility: Keep optional, budgeted, stochastic activity alive without user prompts.
+
+Hermes key files:
+- hermes-agent-2026.4.8/cron/jobs.py
+- hermes-agent-2026.4.8/cron/__init__.py
+- hermes-agent-2026.4.8/cron/scheduler.py
+- hermes-agent-2026.4.8/tests/cron/__init__.py
+- hermes-agent-2026.4.8/tests/cron/test_jobs.py
+- hermes-agent-2026.4.8/tests/cron/test_scheduler.py
+- hermes-agent-2026.4.8/tests/cron/test_cron_script.py
+- hermes-agent-2026.4.8/tests/cron/test_file_permissions.py
+- hermes-agent-2026.4.8/tests/cron/test_codex_execution_paths.py
+- hermes-agent-2026.4.8/tests/cron/test_cron_inactivity_timeout.py
+
+cc-haha key files:
+- cc-haha-main/src/commands.ts
+- cc-haha-main/src/tasks/types.ts
+- cc-haha-main/src/tasks/stopTask.ts
+- cc-haha-main/src/proactive/index.ts
+- cc-haha-main/src/tasks/pillLabel.ts
+- cc-haha-main/src/proactive/useProactive.ts
+- cc-haha-main/src/services/autoDream/config.ts
+- cc-haha-main/src/tasks/DreamTask/DreamTask.ts
+- cc-haha-main/src/tasks/LocalMainSessionTask.ts
+- cc-haha-main/src/tasks/LocalShellTask/guards.ts
+- cc-haha-main/src/services/autoDream/autoDream.ts
+- cc-haha-main/src/tasks/InProcessTeammateTask/types.ts
+- cc-haha-main/src/tasks/LocalShellTask/killShellTasks.ts
+- cc-haha-main/src/tasks/MonitorMcpTask/MonitorMcpTask.ts
+- cc-haha-main/src/services/autoDream/consolidationLock.ts
+- cc-haha-main/src/tasks/LocalAgentTask/LocalAgentTask.tsx
+
+Zaion key files:
+- crates/zaion-runtime/src/cron.rs
+- crates/zaion-autonomic/src/lib.rs
+- crates/zaion-curiosity/src/lib.rs
+- crates/zaion-curiosity/src/idle.rs
+- crates/zaion-autonomic/src/probe.rs
+- crates/zaion-autonomic/src/reflex.rs
+- crates/zaion-autonomic/src/runtime.rs
+- crates/zaion-curiosity/src/ideation.rs
+- crates/zaion-cli/src/commands/activity.rs
+- crates/zaion-curiosity/src/llm_ideation.rs
+- crates/zaion-cli/src/commands/preference.rs
+- crates/zaion-autonomic/src/action_potential.rs
+
+Truth proof:
+- hermes:10:061c7732defbd4deaa6a3bd21aa4031cbae1c3104930ddd273b69ec29f29a244
+- cchaha:21:a1b510468ba8e2dd5cfbbeb79482bf12c349d5ac3826ab99b0b5d7b8075ceb7c
+- zaion:12:6a636db39e93f47fc3b68ece747f4091e29109558879b98fa886c483f7e303d1
+
+### multi-agent-delegation - Multi-Agent, Delegation, Teams
+
+Responsibility: Delegate work across accountable principals with fork, join, and trace lineage.
+
+Hermes key files:
+- hermes-agent-2026.4.8/gateway/session.py
+- hermes-agent-2026.4.8/acp_adapter/auth.py
+- hermes-agent-2026.4.8/acp_adapter/entry.py
+- hermes-agent-2026.4.8/acp_adapter/tools.py
+- hermes-agent-2026.4.8/acp_adapter/events.py
+- hermes-agent-2026.4.8/acp_adapter/server.py
+- hermes-agent-2026.4.8/acp_adapter/session.py
+- hermes-agent-2026.4.8/acp_adapter/__init__.py
+- hermes-agent-2026.4.8/acp_adapter/__main__.py
+- hermes-agent-2026.4.8/acp_adapter/permissions.py
+
+cc-haha key files:
+- cc-haha-main/src/tasks/types.ts
+- cc-haha-main/src/bridge/types.ts
+- cc-haha-main/src/tasks/stopTask.ts
+- cc-haha-main/src/utils/teammate.ts
+- cc-haha-main/src/bridge/bridgeUI.ts
+- cc-haha-main/src/bridge/jwtUtils.ts
+- cc-haha-main/src/tasks/pillLabel.ts
+- cc-haha-main/src/bridge/bridgeApi.ts
+- cc-haha-main/src/bridge/flushGate.ts
+- cc-haha-main/src/bridge/bridgeMain.ts
+- cc-haha-main/src/bridge/debugUtils.ts
+- cc-haha-main/src/bridge/pollConfig.ts
+- cc-haha-main/src/bridge/replBridge.ts
+- cc-haha-main/src/bridge/workSecret.ts
+- cc-haha-main/src/bridge/bridgeDebug.ts
+- cc-haha-main/src/bridge/bridgeConfig.ts
+
+Zaion key files:
+- crates/zaion-a2a/src/acp.rs
+- crates/zaion-a2a/src/lib.rs
+- crates/zaion-a2a/src/tests.rs
+- crates/zaion-runtime/src/moa.rs
+- crates/zaion-a2a/src/protocol.rs
+- crates/zaion-a2a/src/agent_card.rs
+- crates/zaion-a2a/src/federation.rs
+- crates/zaion-federation/src/lib.rs
+- crates/zaion-federation/src/peer.rs
+- crates/zaion-a2a/src/stdio_service.rs
+- crates/zaion-federation/src/honcho.rs
+- crates/zaion-federation/src/session.rs
+- crates/zaion-cli/src/commands/honcho.rs
+- crates/zaion-runtime/src/shadow_agent.rs
+- crates/zaion-federation/src/async_prefetch.rs
+
+Truth proof:
+- hermes:10:2dd329e559d8de376582b6f78bc02aae3f0313ecb416b12bb8536cc5afee7800
+- cchaha:66:7da2bdd7509175f4b91d9f5dbe842fb9d95e141604bcad4488a15b8626fc4e09
+- zaion:15:3ee2e7d866904ae02585dcefe0a8e453485c7e94aedbc7220214b2749322e3a7
+
+### providers-credentials-cost - Provider, Credential, Cost, Budget
+
+Responsibility: Route models, credentials, token budgets, pricing, and cost analytics.
+
+Hermes key files:
+- hermes-agent-2026.4.8/model_tools.py
+- hermes-agent-2026.4.8/agent/models_dev.py
+- hermes-agent-2026.4.8/hermes_cli/models.py
+- hermes-agent-2026.4.8/agent/model_metadata.py
+- hermes-agent-2026.4.8/agent/credential_pool.py
+- hermes-agent-2026.4.8/tools/credential_files.py
+- hermes-agent-2026.4.8/hermes_cli/codex_models.py
+- hermes-agent-2026.4.8/hermes_cli/model_switch.py
+- hermes-agent-2026.4.8/agent/smart_model_routing.py
+- hermes-agent-2026.4.8/hermes_cli/model_normalize.py
+- hermes-agent-2026.4.8/skills/mlops/models/clip/SKILL.md
+- hermes-agent-2026.4.8/skills/mlops/models/DESCRIPTION.md
+- hermes-agent-2026.4.8/skills/mlops/models/whisper/SKILL.md
+- hermes-agent-2026.4.8/skills/mlops/models/audiocraft/SKILL.md
+- hermes-agent-2026.4.8/skills/mlops/models/segment-anything/SKILL.md
+- hermes-agent-2026.4.8/skills/mlops/models/stable-diffusion/SKILL.md
+
+cc-haha key files:
+- cc-haha-main/src/cost-tracker.ts
+- cc-haha-main/src/utils/modelCost.ts
+- cc-haha-main/src/server/api/models.ts
+- cc-haha-main/src/utils/model/agent.ts
+- cc-haha-main/src/utils/model/model.ts
+- cc-haha-main/desktop/src/api/models.ts
+- cc-haha-main/src/utils/model/aliases.ts
+- cc-haha-main/src/utils/model/bedrock.ts
+- cc-haha-main/src/utils/model/configs.ts
+- cc-haha-main/src/commands/model/index.ts
+- cc-haha-main/src/server/api/providers.ts
+- cc-haha-main/desktop/src/api/providers.ts
+- cc-haha-main/src/commands/model/model.tsx
+- cc-haha-main/src/server/types/provider.ts
+- cc-haha-main/src/utils/model/antModels.ts
+- cc-haha-main/src/utils/model/providers.ts
+
+Zaion key files:
+- crates/zaion-pricing/src/lib.rs
+- crates/zaion-pricing/src/cost.rs
+- crates/zaion-metabolic/src/lib.rs
+- crates/zaion-pricing/src/usage.rs
+- crates/zaion-metabolic/src/pain.rs
+- crates/zaion-pricing/src/pricing.rs
+- crates/zaion-metabolic/src/budget.rs
+- crates/zaion-metabolic/src/hunger.rs
+- crates/zaion-metabolic/src/policy.rs
+- crates/zaion-pricing/src/normalize.rs
+- crates/zaion-cli/src/commands/route.rs
+- crates/zaion-cli/src/commands/budget.rs
+- crates/zaion-adapters/src/provider/mod.rs
+- crates/zaion-cli/src/commands/provider.rs
+- crates/zaion-adapters/src/provider/groq.rs
+- crates/zaion-adapters/src/provider/ollama.rs
+
+Truth proof:
+- hermes:49:4c247f7e56882c7935b181f32819e13353ccfefea237585b7c112afd35ad45b0
+- cchaha:51:bbe68fcaa5b752856118afc60852a4d108237f8ca1bc10ec4ddfda4ba4ed81fe
+- zaion:21:c020ea5841da44cae4feff2dbb8dc77da7d731277154bdb86944f3531e56a4ef
+
+### execution-sandbox-computer-use - Execution Environments, Computer Use, Sandbox
+
+Responsibility: Run code, shell, browser/computer-use, patches, and sandboxed actions safely.
+
+Hermes key files:
+- hermes-agent-2026.4.8/tools/__init__.py
+- hermes-agent-2026.4.8/tools/approval.py
+- hermes-agent-2026.4.8/tools/mcp_tool.py
+- hermes-agent-2026.4.8/tools/registry.py
+- hermes-agent-2026.4.8/tools/tts_tool.py
+- hermes-agent-2026.4.8/tools/interrupt.py
+- hermes-agent-2026.4.8/tools/mcp_oauth.py
+- hermes-agent-2026.4.8/tools/osv_check.py
+- hermes-agent-2026.4.8/tools/todo_tool.py
+- hermes-agent-2026.4.8/tools/web_tools.py
+- hermes-agent-2026.4.8/tools/ansi_strip.py
+- hermes-agent-2026.4.8/tools/file_tools.py
+- hermes-agent-2026.4.8/tools/skills_hub.py
+- hermes-agent-2026.4.8/tools/url_safety.py
+- hermes-agent-2026.4.8/tools/voice_mode.py
+- hermes-agent-2026.4.8/tools/fuzzy_match.py
+
+cc-haha key files:
+- cc-haha-main/desktop/index.html
+- cc-haha-main/src/tools/utils.ts
+- cc-haha-main/desktop/bunfig.toml
+- cc-haha-main/desktop/src/App.tsx
+- cc-haha-main/desktop/src/main.tsx
+- cc-haha-main/src/utils/browser.ts
+- cc-haha-main/desktop/vite.config.ts
+- cc-haha-main/desktop/src/api/tasks.ts
+- cc-haha-main/desktop/src/api/teams.ts
+- cc-haha-main/desktop/vitest.config.ts
+- cc-haha-main/src/tools/LSPTool/UI.tsx
+- cc-haha-main/src/tools/MCPTool/UI.tsx
+- cc-haha-main/desktop/src/api/agents.ts
+- cc-haha-main/desktop/src/api/client.ts
+- cc-haha-main/desktop/src/api/models.ts
+- cc-haha-main/desktop/src/api/search.ts
+
+Zaion key files:
+- crates/zaion-aci/src/lib.rs
+- crates/zaion-aci/src/error.rs
+- crates/zaion-aci/src/merge.rs
+- crates/zaion-aci/src/action.rs
+- crates/zaion-aci/src/ledger.rs
+- crates/zaion-shadow/src/lib.rs
+- crates/zaion-shadow/src/task.rs
+- crates/zaion-aci/src/file_ops.rs
+- crates/zaion-shadow/src/error.rs
+- crates/zaion-shadow/src/queue.rs
+- crates/zaion-shadow/src/tests.rs
+- crates/zaion-aci/src/dispatcher.rs
+- crates/zaion-checkpoint/src/lib.rs
+- crates/zaion-aci/src/ast_patcher.rs
+- crates/zaion-aci/src/syntax_gate.rs
+- crates/zaion-runtime/src/sandbox.rs
+
+Truth proof:
+- hermes:226:91cad18b9608f21cbbec4bf3480031dfad6972305f495c2f60876f8eeb6a877a
+- cchaha:434:277ae8999228bf51926da05bf9adfadd294053989081312d8f8ed65528879859
+- zaion:20:b27969236ec099ff5caaa15cc625d6aaca11d999607e8e16e25b06b7b1a76ed8
+
+### opd-trajectory-learning - OPD, Trajectory, Learning Loop
+
+Responsibility: Connect runtime traces, trajectory compression, evaluation, and self-improvement.
+
+Hermes key files:
+- hermes-agent-2026.4.8/rl_cli.py
+- hermes-agent-2026.4.8/batch_runner.py
+- hermes-agent-2026.4.8/trajectory_compressor.py
+- hermes-agent-2026.4.8/tests/test_trajectory_compressor.py
+- hermes-agent-2026.4.8/tests/integration/test_batch_runner.py
+
+cc-haha key files:
+- cc-haha-main/src/history.ts
+- cc-haha-main/src/tasks/types.ts
+- cc-haha-main/src/tasks/stopTask.ts
+- cc-haha-main/src/tasks/pillLabel.ts
+- cc-haha-main/src/tasks/DreamTask/DreamTask.ts
+- cc-haha-main/src/tasks/LocalMainSessionTask.ts
+- cc-haha-main/src/tasks/LocalShellTask/guards.ts
+- cc-haha-main/src/services/SessionMemory/prompts.ts
+- cc-haha-main/src/tasks/InProcessTeammateTask/types.ts
+- cc-haha-main/src/tasks/LocalShellTask/killShellTasks.ts
+- cc-haha-main/src/tasks/MonitorMcpTask/MonitorMcpTask.ts
+- cc-haha-main/src/services/SessionMemory/sessionMemory.ts
+- cc-haha-main/src/tasks/LocalAgentTask/LocalAgentTask.tsx
+- cc-haha-main/src/tasks/LocalShellTask/LocalShellTask.tsx
+- cc-haha-main/src/tasks/RemoteAgentTask/RemoteAgentTask.tsx
+- cc-haha-main/src/services/SessionMemory/sessionMemoryUtils.ts
+
+Zaion key files:
+- crates/zaion-opd/src/lib.rs
+- crates/zaion-evolve/src/lib.rs
+- crates/zaion-opd/src/opd_env.rs
+- crates/zaion-evolve/src/record.rs
+- crates/zaion-evolve/src/applier.rs
+- crates/zaion-evolve/src/scanner.rs
+- crates/zaion-opd/src/advantages.rs
+- crates/zaion-opd/src/benchmarks.rs
+- crates/zaion-opd/src/provenance.rs
+- crates/zaion-opd/src/tool_stats.rs
+- crates/zaion-opd/src/trajectory.rs
+- crates/zaion-evolve/src/proposer.rs
+- crates/zaion-opd/src/vllm_client.rs
+- crates/zaion-opd/src/batch_runner.rs
+- crates/zaion-opd/src/opd_pipeline.rs
+- crates/zaion-opd/src/tool_executor.rs
+
+Known Zaion blockers:
+- OPD/evolve remain chain-gated until latest ConfirmedStable promotion
+- crates/zaion-evolve/src/lib.rs:50:let _ = crate::scanner::FindingKind::TodoComment;
+- crates/zaion-evolve/src/lib.rs:8://!   1. `Scanner::scan(workspace)` — static analysis: TODOs, untested fns,
+- crates/zaion-evolve/src/record.rs:101:kind: FindingKind::TodoComment,
+- crates/zaion-evolve/src/record.rs:104:snippet: "// TODO".to_string(),
+- crates/zaion-evolve/src/scanner.rs:11:/// `// TODO`, `// FIXME`, `// HACK` comment in source
+- crates/zaion-evolve/src/scanner.rs:12:TodoComment,
+- crates/zaion-evolve/src/scanner.rs:197:// --- Language-agnostic: TODO/FIXME/HACK ---
+- crates/zaion-evolve/src/scanner.rs:36:Self::TodoComment => write!(f, "TODO/FIXME comment"),
+- crates/zaion-evolve/src/trinity_review.rs:239:.evaluate(&make_proposal(FindingKind::TodoComment, 2))
+
+Truth proof:
+- hermes:5:3a4730732d3a5e59f7e4a2c78b35c2bc1c69021f858f56a2de2055f14f4ca1d7
+- cchaha:18:2cd0f74400be41f54d0ff56f7ec67d6436a600781f17db260b8ab7a51e2263f3
+- zaion:31:c1d5db00689ff13ddd960d03c87706a4c0371959a8ff557bceff9401a107e272
+
+### frontends-control-plane - Frontend, TUI, Desktop, Control Plane
+
+Responsibility: Expose identity, memory, context, permission, activity, and proof as usable control planes.
+
+Hermes key files:
+- hermes-agent-2026.4.8/gateway/run.py
+- hermes-agent-2026.4.8/hermes_cli/auth.py
+- hermes-agent-2026.4.8/hermes_cli/claw.py
+- hermes-agent-2026.4.8/hermes_cli/cron.py
+- hermes-agent-2026.4.8/hermes_cli/logs.py
+- hermes-agent-2026.4.8/hermes_cli/main.py
+- hermes-agent-2026.4.8/hermes_cli/setup.py
+- hermes-agent-2026.4.8/hermes_cli/banner.py
+- hermes-agent-2026.4.8/hermes_cli/colors.py
+- hermes-agent-2026.4.8/hermes_cli/config.py
+- hermes-agent-2026.4.8/hermes_cli/doctor.py
+- hermes-agent-2026.4.8/hermes_cli/models.py
+- hermes-agent-2026.4.8/hermes_cli/status.py
+- hermes-agent-2026.4.8/hermes_cli/gateway.py
+- hermes-agent-2026.4.8/hermes_cli/pairing.py
+- hermes-agent-2026.4.8/hermes_cli/plugins.py
+
+cc-haha key files:
+- cc-haha-main/src/ink/dom.ts
+- cc-haha-main/src/ink/bidi.ts
+- cc-haha-main/src/ink/ink.tsx
+- cc-haha-main/src/ink/root.ts
+- cc-haha-main/src/ink/warn.ts
+- cc-haha-main/src/ink/Ansi.tsx
+- cc-haha-main/src/ink/focus.ts
+- cc-haha-main/src/ink/frame.ts
+- cc-haha-main/src/ink/cursor.ts
+- cc-haha-main/src/ink/output.ts
+- cc-haha-main/src/ink/screen.ts
+- cc-haha-main/src/ink/styles.ts
+- cc-haha-main/src/ink/termio.ts
+- cc-haha-main/desktop/index.html
+- cc-haha-main/desktop/bunfig.toml
+- cc-haha-main/desktop/src/App.tsx
+
+Zaion key files:
+- zaion-website/app/icon.svg
+- zaion-website/app/page.tsx
+- crates/zaion-tui/src/app.rs
+- crates/zaion-tui/src/main.rs
+- crates/zaion-tui/src/topo.rs
+- zaion-website/app/layout.tsx
+- zaion-website/app/start/page.tsx
+- zaion-website/app/doctor/page.tsx
+- zaion-website/app/ledger/page.tsx
+- zaion-website/app/connect/page.tsx
+- zaion-website/app/runtime/page.tsx
+- zaion-website/app/identity/page.tsx
+- zaion-website/app/evolution/page.tsx
+- zaion-website/app/providers/page.tsx
+- crates/zaion-tui/src/ideation_pane.rs
+- zaion-website/app/capabilities/page.tsx
+
+Known Zaion blockers:
+- crates/zaion-cli/src/commands/gateway.rs:130:// Generate new identity (placeholder - actual implementation would use zaion-crypto)
+- crates/zaion-cli/src/commands/process/tui/app.rs:1222:let placeholder = if state.ai_responding {
+- crates/zaion-cli/src/commands/process/tui/app.rs:1236:placeholder,
+- crates/zaion-cli/src/commands/process/tui/app.rs:353:// If agent had no textual content (pure tool turn), drop the empty placeholder.
+- crates/zaion-cli/src/commands/process/tui/app.rs:601:// Create placeholder message for streaming response
+
+Truth proof:
+- hermes:142:042fb40ab1911b3732c4caad6d8a1fe01a636b21b17d51a905c98549c8c26397
+- cchaha:293:c17f56755690583bd5f6d9b22cb241ae24f1bb8b3cd24fc850d613f44633e70d
+- zaion:30:d01775bc295923a610ffc0374732bd2b804b6a6a74a3633a21d23b390d5f8893
+
+### release-tests-public-proof - Release, Tests, Public Proof
+
+Responsibility: Turn claims into CI gates, docs, reports, and regression proof artifacts.
+
+Hermes key files:
+- hermes-agent-2026.4.8/scripts/install.sh
+- hermes-agent-2026.4.8/scripts/install.ps1
+- hermes-agent-2026.4.8/hermes_cli/uninstall.py
+- hermes-agent-2026.4.8/README.md
+- hermes-agent-2026.4.8/website/README.md
+- hermes-agent-2026.4.8/environments/README.md
+- hermes-agent-2026.4.8/packaging/homebrew/README.md
+- hermes-agent-2026.4.8/plugins/memory/mem0/README.md
+- hermes-agent-2026.4.8/skills/creative/p5js/README.md
+- hermes-agent-2026.4.8/plugins/memory/honcho/README.md
+- hermes-agent-2026.4.8/plugins/memory/retaindb/README.md
+- hermes-agent-2026.4.8/plugins/memory/byterover/README.md
+- hermes-agent-2026.4.8/plugins/memory/hindsight/README.md
+- hermes-agent-2026.4.8/plugins/memory/openviking/README.md
+- hermes-agent-2026.4.8/plugins/memory/holographic/README.md
+- hermes-agent-2026.4.8/plugins/memory/supermemory/README.md
+
+cc-haha key files:
+- cc-haha-main/package.json
+- cc-haha-main/desktop/package.json
+- cc-haha-main/adapters/package.json
+- cc-haha-main/README.md
+- cc-haha-main/desktop/README.md
+- cc-haha-main/adapters/README.md
+- cc-haha-main/src/skills/bundled/claude-api/python/agent-sdk/README.md
+- cc-haha-main/src/skills/bundled/claude-api/python/claude-api/README.md
+- cc-haha-main/src/skills/bundled/claude-api/typescript/agent-sdk/README.md
+- cc-haha-main/src/skills/bundled/claude-api/typescript/claude-api/README.md
+- cc-haha-main/src/server/__tests__/tasks.test.ts
+- cc-haha-main/src/server/__tests__/teams.test.ts
+- cc-haha-main/src/server/middleware/cors.test.ts
+- cc-haha-main/src/server/__tests__/skills.test.ts
+- cc-haha-main/desktop/src/__tests__/pages.test.tsx
+- cc-haha-main/desktop/src/stores/chatStore.test.ts
+
+Zaion key files:
+- docs/AGENTS.md
+- docs/DOCTOR.md
+- docs/PHASE8.md
+- docs/RELEASE.md
+- docs/PROVIDERS.md
+- docs/QUICK_START.md
+- docs/CLI_STABILITY.md
+- docs/zaion_vs_hermes.md
+- docs/CAPABILITY_STATUS.md
+- docs/zaion_vs_openclaw.md
+- docs/INTEGRATION_STATUS.md
+- docs/ZAION_WEBSITE_PLAN.md
+- docs/blueprints/蓝图修正.md
+- docs/ZAION_WEBSITE_ARCHITECTURE.md
+- plans/phase8-b/full-module-crosswalk.md
+- docs/blueprints/BLUEPRINT_GODKILLER_v2.md
+
+Known Zaion blockers:
+- docs/CAPABILITY_STATUS.md:31:- Security and ZK placeholders must stay marked or hidden until real
+- docs/RELEASE.md:70:Replace checksum placeholders with the digest from the generated sidecar before
+- docs/RELEASE.md:73:- Homebrew Intel macOS: `PLACEHOLDER_SHA256_INTEL`
+- docs/RELEASE.md:74:- Homebrew Apple Silicon macOS: `PLACEHOLDER_SHA256_ARM`
+- docs/RELEASE.md:75:- Homebrew Linux x86_64: `PLACEHOLDER_SHA256_LINUX`
+- docs/blueprints/BLUEPRINT_GODKILLER_v2.md:17:| AgentLoop | **55-line stub**, no retry/timeout/state machine | FATAL |
+- docs/blueprints/BLUEPRINT_SURPASS_OPENCLAW.md:423:- `cargo build --features sgx` 编译通过（即使无硬件，至少 stub 编译成功）
+- docs/blueprints/BLUEPRINT_SURPASS_OPENCLAW.md:425:**新增估算代码量**: ~800行（含 stub + software fallback）
+- docs/blueprints/BLUEPRINT_SURPASS_OPENCLAW.md:467:三个面向未来的 trait 定义，在 v2.1 阶段完成接口定义和 stub 实现，完整实现在后续版本。
+- docs/blueprints/BLUEPRINT_SURPASS_OPENCLAW.md:503:**v2.1 阶段目标**: 三个 trait 完成接口定义 + software stub，所有 stub 通过编译和基础属性测试
+- docs/zaion_vs_openclaw.md:130:- `zaion curiosity trigger` upgraded from stub to real LLM ideation pipeline
+- docs/zaion_vs_openclaw.md:86:- **scanner**: 7 finding kinds — `TodoComment`, `UnwrapInProd`, `UndocumentedPubFn`, `OversizedFile`, `OversizedFunction`, `PanicInProd`, `E
+- plans/phase8-b/full-module-crosswalk.json:50:"crates/zaion-cli/src/commands/process/tui/app.rs:1222:let placeholder = if state.ai_responding {",
+- plans/phase8-b/full-module-crosswalk.json:51:"crates/zaion-cli/src/commands/process/tui/app.rs:1236:placeholder,",
+- plans/phase8-b/full-module-crosswalk.json:52:"crates/zaion-cli/src/commands/process/tui/app.rs:353:// If agent had no textual content (pure tool turn), drop the empty placeholder.",
+- plans/phase8-b/full-module-crosswalk.json:53:"crates/zaion-cli/src/commands/process/tui/app.rs:601:// Create placeholder message for streaming response",
+
+Truth proof:
+- hermes:492:7387efa6bea56cda816b3d6c0918c66759b9bf6729fc9583a3fe4dd887471527
+- cchaha:83:4966c044e1619e2b2ff3e450149966efe06b81710f6c345a84d1819aee2349a9
+- zaion:40:e0b85e86f6c69af73ef990754ddb07d13ffee07a7783ef1a16decc2f4f1221ed

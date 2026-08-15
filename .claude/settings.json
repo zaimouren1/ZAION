@@ -1,0 +1,39 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "teammateMode": "auto",
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(cargo test *)",
+      "Bash(cargo build *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Write(.env*)",
+      "Write(*.pem)",
+      "Write(*.key)",
+      "Write(*.crt)",
+      "Write(*.p12)",
+      "Write(*.pfx)",
+      "Write(id_rsa)",
+      "Write(id_ed25519)",
+      "Write(credentials*)",
+      "Write(secrets*)",
+      "Edit(.env*)",
+      "Edit(*.pem)",
+      "Edit(*.key)",
+      "Edit(*.crt)",
+      "Edit(*.p12)",
+      "Edit(*.pfx)",
+      "Edit(id_rsa)",
+      "Edit(id_ed25519)",
+      "Edit(credentials*)",
+      "Edit(secrets*)"
+    ]
+  }
+}

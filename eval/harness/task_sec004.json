@@ -1,0 +1,31 @@
+{
+  "id": "ZAION-300-SEC-004",
+  "category": "channels",
+  "slots": 1,
+  "title": "Webhook signature validation rejects tampered payloads",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Signature check is mandatory."
+    ],
+    "parity": [
+      "Tampered webhook payload is rejected."
+    ],
+    "ten_out_of_ten": [
+      "Tamper suite passes with audit."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "security",
+  "output": {
+    "path": "sec004_record.json",
+    "format": "see verifier (JSON artifact checked by the benchmark verifier)"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "ZAION-300-MEM-002",
+  "category": "memory",
+  "slots": 1,
+  "title": "Invalidate a memory atom after source change",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Invalidation propagates to recall."
+    ],
+    "parity": [
+      "Source change invalidates dependent atoms."
+    ],
+    "ten_out_of_ten": [
+      "Expiry/invalidation tests pass."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "recovery",
+  "output": {
+    "path": "mem002_record.json",
+    "format": "see verifier (JSON artifact checked by the benchmark verifier)"
+  }
+}

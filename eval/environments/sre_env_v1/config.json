@@ -1,0 +1,10 @@
+{
+  "service": {
+    "name": "sre-svc",
+    "port": 9090,
+    "max_items": 5
+  },
+  "logging": {
+    "path": "logs/incident.log"
+  }
+}

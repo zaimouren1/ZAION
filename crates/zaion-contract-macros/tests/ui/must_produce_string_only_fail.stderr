@@ -1,0 +1,7 @@
+error: Zaion architecture contract violation: implementation must produce ToolReceipt
+ --> tests/ui/must_produce_string_only_fail.rs:5:1
+  |
+5 | #[must_produce(ToolReceipt)]
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `must_produce` (in Nightly builds, run with -Z macro-backtrace for more info)

@@ -1,0 +1,24 @@
+[package]
+name = "zaion-singularity"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+zaion-types = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-ego = { path = "../zaion-ego" }
+zaion-autonomic = { path = "../zaion-autonomic" }
+zaion-proprioception = { path = "../zaion-proprioception" }
+zaion-metabolic = { path = "../zaion-metabolic" }
+zaion-curiosity = { path = "../zaion-curiosity" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }
+tokio = { workspace = true, features = ["full"] }
+
+[dev-dependencies]
+tempfile = { workspace = true }

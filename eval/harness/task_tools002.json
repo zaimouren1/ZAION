@@ -1,0 +1,27 @@
+{
+  "id": "ZAION-300-TOOLS-002",
+  "category": "tools",
+  "slots": 1,
+  "title": "Shell command runs with timeout and typed result",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Timeout kills process tree."
+    ],
+    "parity": [
+      "Shell tool enforces timeout and returns typed result."
+    ],
+    "ten_out_of_ten": [
+      "Shell suite passes."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "happy_path"
+}

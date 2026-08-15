@@ -1,0 +1,6 @@
+{
+  "txn": 1,
+  "state": "pending",
+  "items": [3, 4, 5],
+  "committed_at": null
+}

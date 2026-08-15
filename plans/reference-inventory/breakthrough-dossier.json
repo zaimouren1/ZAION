@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "generated_at": "deterministic",
+  "hermes_source_files_reviewed": 1361,
+  "cchaha_source_files_reviewed": 2506,
+  "rows": [
+    {
+      "capability_id": "identity-continuity",
+      "capability_name": "Unified identity continuity",
+      "phase8_requirement": "Zaion identity survives model, provider, channel, workspace, import, export, sync, and rename changes.",
+      "zaion_commands": [
+        "zaion identity show",
+        "zaion identity continuity",
+        "zaion identity verify"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/identity.rs",
+        "crates/zaion-cli/src/commands/process/wake.rs",
+        "crates/zaion-cli/src/commands/network/telegram.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 468,
+        "top_paths": [
+          "hermes-agent-2026.4.8/agent/anthropic_adapter.py",
+          "hermes-agent-2026.4.8/agent/prompt_builder.py",
+          "hermes-agent-2026.4.8/environments/agentic_opd_env.py",
+          "hermes-agent-2026.4.8/environments/benchmarks/yc_bench/yc_bench_env.py",
+          "hermes-agent-2026.4.8/gateway/platforms/base.py"
+        ],
+        "signal_counts": {
+          "identity": 142,
+          "session": 414,
+          "traceability": 99
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1195,
+        "top_paths": [
+          "cc-haha-main/adapters/feishu/index.ts",
+          "cc-haha-main/src/Tool.ts",
+          "cc-haha-main/src/bootstrap/state.ts",
+          "cc-haha-main/src/bridge/bridgeMain.ts",
+          "cc-haha-main/src/bridge/remoteBridgeCore.ts"
+        ],
+        "signal_counts": {
+          "identity": 440,
+          "session": 1002,
+          "traceability": 197
+        }
+      },
+      "verdict": "paradigm-breaking",
+      "rationale": "Zaion treats the model as an engine below a hash-chained identity contract; reference evidence is channel/session/identity code, while Zaion adds explicit continuity verification.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "capability-boundaries",
+      "capability_name": "Capability boundary manifest",
+      "phase8_requirement": "Zaion must know environment, tools, permissions, model window, memory scope, and forbidden actions before it acts.",
+      "zaion_commands": [
+        "zaion capability show",
+        "zaion doctor"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/capability.rs",
+        "crates/zaion-cli/src/commands/system.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 671,
+        "top_paths": [
+          "hermes-agent-2026.4.8/acp_adapter/server.py",
+          "hermes-agent-2026.4.8/agent/anthropic_adapter.py",
+          "hermes-agent-2026.4.8/agent/auxiliary_client.py",
+          "hermes-agent-2026.4.8/agent/copilot_acp_client.py",
+          "hermes-agent-2026.4.8/agent/memory_manager.py"
+        ],
+        "signal_counts": {
+          "budget": 328,
+          "capability": 211,
+          "credential": 467,
+          "tooling": 573
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1710,
+        "top_paths": [
+          "cc-haha-main/adapters/feishu/index.ts",
+          "cc-haha-main/adapters/telegram/index.ts",
+          "cc-haha-main/desktop/src/pages/EmptySession.tsx",
+          "cc-haha-main/desktop/src/pages/Settings.tsx",
+          "cc-haha-main/desktop/src/stores/chatStore.ts"
+        ],
+        "signal_counts": {
+          "budget": 507,
+          "capability": 796,
+          "credential": 634,
+          "tooling": 1436
+        }
+      },
+      "verdict": "stronger",
+      "rationale": "Zaion exposes capability boundaries as a first-class manifest and doctor surface instead of implicit adapter state.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "omni-session",
+      "capability_name": "Unified channel/session envelope",
+      "phase8_requirement": "Terminal, TUI, Telegram, HTTP, MCP, and future channels attach to one canonical route/session graph.",
+      "zaion_commands": [
+        "zaion omni status",
+        "zaion omni trace"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/omni.rs",
+        "crates/zaion-runtime/src/omni_session.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 498,
+        "top_paths": [
+          "hermes-agent-2026.4.8/acp_adapter/events.py",
+          "hermes-agent-2026.4.8/agent/anthropic_adapter.py",
+          "hermes-agent-2026.4.8/agent/prompt_builder.py",
+          "hermes-agent-2026.4.8/gateway/platforms/api_server.py",
+          "hermes-agent-2026.4.8/gateway/platforms/base.py"
+        ],
+        "signal_counts": {
+          "channel": 272,
+          "session": 414,
+          "traceability": 99
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1139,
+        "top_paths": [
+          "cc-haha-main/adapters/feishu/index.ts",
+          "cc-haha-main/adapters/telegram/index.ts",
+          "cc-haha-main/src/bootstrap/state.ts",
+          "cc-haha-main/src/bridge/bridgeMain.ts",
+          "cc-haha-main/src/bridge/jwtUtils.ts"
+        ],
+        "signal_counts": {
+          "channel": 290,
+          "session": 1002,
+          "traceability": 197
+        }
+      },
+      "verdict": "paradigm-breaking",
+      "rationale": "Zaion's envelope is identity-first and source-hash traceable; reference systems show channel/session pieces but not one verified continuity layer.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "infinite-context",
+      "capability_name": "4k infinite-context kernel",
+      "phase8_requirement": "A 4k-window model must receive a bounded context pack while memory remains traceable outside the prompt.",
+      "zaion_commands": [
+        "zaion context build <pid> --budget 4000 --verify",
+        "zaion context trace <context-pack-id>",
+        "zaion context verify <context-pack-id>"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/context_packs.rs",
+        "crates/zaion-runtime/src/context.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 545,
+        "top_paths": [
+          "hermes-agent-2026.4.8/agent/prompt_builder.py",
+          "hermes-agent-2026.4.8/environments/benchmarks/yc_bench/yc_bench_env.py",
+          "hermes-agent-2026.4.8/gateway/platforms/api_server.py",
+          "hermes-agent-2026.4.8/gateway/platforms/feishu.py",
+          "hermes-agent-2026.4.8/gateway/platforms/telegram.py"
+        ],
+        "signal_counts": {
+          "budget": 324,
+          "context": 409,
+          "memory": 169,
+          "traceability": 99
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1583,
+        "top_paths": [
+          "cc-haha-main/src/QueryEngine.ts",
+          "cc-haha-main/src/Tool.ts",
+          "cc-haha-main/src/bootstrap/state.ts",
+          "cc-haha-main/src/bridge/bridgeMain.ts",
+          "cc-haha-main/src/bridge/jwtUtils.ts"
+        ],
+        "signal_counts": {
+          "budget": 507,
+          "context": 1371,
+          "memory": 296,
+          "traceability": 197
+        }
+      },
+      "verdict": "paradigm-breaking",
+      "rationale": "Zaion compiles a signed-memory-derived execution cache with chunk hashes and lineage instead of treating the prompt as the memory system.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "memory-traceability",
+      "capability_name": "Perfect memory traceability",
+      "phase8_requirement": "No memory fact is saved without source events or explicit user-provided marking; invalidation preserves lineage.",
+      "zaion_commands": [
+        "zaion memory add-fact",
+        "zaion memory trace <memory-id>",
+        "zaion memory verify <memory-id>",
+        "zaion memory invalidate <memory-id>"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/memory_atoms.rs",
+        "crates/zaion-cli/src/commands/memory.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 289,
+        "top_paths": [
+          "hermes-agent-2026.4.8/agent/prompt_builder.py",
+          "hermes-agent-2026.4.8/environments/benchmarks/yc_bench/yc_bench_env.py",
+          "hermes-agent-2026.4.8/gateway/platforms/feishu.py",
+          "hermes-agent-2026.4.8/gateway/platforms/matrix.py",
+          "hermes-agent-2026.4.8/gateway/platforms/telegram.py"
+        ],
+        "signal_counts": {
+          "identity": 141,
+          "memory": 168,
+          "traceability": 99
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 720,
+        "top_paths": [
+          "cc-haha-main/src/Tool.ts",
+          "cc-haha-main/src/bootstrap/state.ts",
+          "cc-haha-main/src/bridge/bridgeMain.ts",
+          "cc-haha-main/src/bridge/remoteBridgeCore.ts",
+          "cc-haha-main/src/cli/print.ts"
+        ],
+        "signal_counts": {
+          "identity": 440,
+          "memory": 295,
+          "traceability": 197
+        }
+      },
+      "verdict": "paradigm-breaking",
+      "rationale": "Zaion's atom model carries source hashes, validity windows, and verification commands as product behavior.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "activity-continuity",
+      "capability_name": "Activity continuity engine",
+      "phase8_requirement": "Activity continuity must be off by default, opt-in, stochastic rather than cron-fixed, preference-aware, budgeted, and traceable.",
+      "zaion_commands": [
+        "zaion activity status",
+        "zaion activity configure --enable --ack-cost",
+        "zaion activity sample --seed 42",
+        "zaion activity trace <thought-id>"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/activity.rs",
+        "crates/zaion-cli/src/commands/preference.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 656,
+        "top_paths": [
+          "hermes-agent-2026.4.8/agent/auxiliary_client.py",
+          "hermes-agent-2026.4.8/agent/display.py",
+          "hermes-agent-2026.4.8/agent/memory_manager.py",
+          "hermes-agent-2026.4.8/agent/memory_provider.py",
+          "hermes-agent-2026.4.8/agent/models_dev.py"
+        ],
+        "signal_counts": {
+          "activity": 163,
+          "budget": 328,
+          "memory": 169,
+          "tooling": 573
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1709,
+        "top_paths": [
+          "cc-haha-main/src/Tool.ts",
+          "cc-haha-main/src/bootstrap/state.ts",
+          "cc-haha-main/src/bridge/bridgeMain.ts",
+          "cc-haha-main/src/bridge/remoteBridgeCore.ts",
+          "cc-haha-main/src/bridge/replBridge.ts"
+        ],
+        "signal_counts": {
+          "activity": 483,
+          "budget": 507,
+          "memory": 296,
+          "tooling": 1436
+        }
+      },
+      "verdict": "paradigm-breaking",
+      "rationale": "Zaion births thought seeds from traceable preferences and blocks destructive, credential, purchase, and code-modifying autonomy.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "source-comparison",
+      "capability_name": "Source-by-source reference proof",
+      "phase8_requirement": "Every breakthrough claim must be tied to reference source evidence and runnable Zaion proof.",
+      "zaion_commands": [
+        "zaion compare inventory hermes --zip <path>",
+        "zaion compare inventory cchaha --zip <path>",
+        "zaion compare dossier --verify",
+        "zaion compare matrix --verify"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/compare.rs"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 735,
+        "top_paths": [
+          "hermes-agent-2026.4.8/tests/agent/test_anthropic_adapter.py",
+          "hermes-agent-2026.4.8/tests/agent/test_context_compressor.py",
+          "hermes-agent-2026.4.8/tests/agent/test_crossloop_client_cache.py",
+          "hermes-agent-2026.4.8/tests/agent/test_display.py",
+          "hermes-agent-2026.4.8/tests/agent/test_insights.py"
+        ],
+        "signal_counts": {
+          "release": 533,
+          "tests": 621,
+          "tooling": 572
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1971,
+        "top_paths": [
+          "cc-haha-main/adapters/common/__tests__/format.test.ts",
+          "cc-haha-main/adapters/common/__tests__/ws-bridge.test.ts",
+          "cc-haha-main/adapters/feishu/__tests__/feishu.test.ts",
+          "cc-haha-main/adapters/telegram/__tests__/telegram.test.ts",
+          "cc-haha-main/desktop/src/__tests__/agentsSettings.test.tsx"
+        ],
+        "signal_counts": {
+          "release": 1612,
+          "tests": 528,
+          "tooling": 1437
+        }
+      },
+      "verdict": "stronger",
+      "rationale": "Zaion now reads every source file in both archives and refuses matrix verification without dossier-backed rows.",
+      "blocking_gaps": []
+    },
+    {
+      "capability_id": "macro-promotion",
+      "capability_name": "Macro module promotion factory",
+      "phase8_requirement": "Macro modules need status, doctor/docs/tests/safety boundaries, and no high-risk false promotion.",
+      "zaion_commands": [
+        "zaion doctor",
+        "zaion capability show"
+      ],
+      "zaion_source_paths": [
+        "crates/zaion-cli/src/commands/mod.rs",
+        "docs/PHASE8.md",
+        "docs/CAPABILITY_STATUS.md"
+      ],
+      "zaion_tests": [
+        "crates/zaion-cli/tests/phase8_surface.rs",
+        "crates/zaion-cli/tests/cli_stable_surface.rs"
+      ],
+      "hermes_evidence": {
+        "source_files_reviewed": 1361,
+        "matching_files": 654,
+        "top_paths": [
+          "hermes-agent-2026.4.8/tests/agent/test_anthropic_adapter.py",
+          "hermes-agent-2026.4.8/tests/agent/test_credential_pool.py",
+          "hermes-agent-2026.4.8/tests/agent/test_memory_user_id.py",
+          "hermes-agent-2026.4.8/tests/gateway/test_allowlist_startup_check.py",
+          "hermes-agent-2026.4.8/tests/gateway/test_api_server.py"
+        ],
+        "signal_counts": {
+          "capability": 210,
+          "macro": 26,
+          "tests": 620
+        }
+      },
+      "cchaha_evidence": {
+        "source_files_reviewed": 2506,
+        "matching_files": 1073,
+        "top_paths": [
+          "cc-haha-main/adapters/common/__tests__/format.test.ts",
+          "cc-haha-main/adapters/common/__tests__/ws-bridge.test.ts",
+          "cc-haha-main/adapters/feishu/__tests__/feishu.test.ts",
+          "cc-haha-main/adapters/feishu/__tests__/streaming-card.test.ts",
+          "cc-haha-main/adapters/telegram/__tests__/telegram.test.ts"
+        ],
+        "signal_counts": {
+          "capability": 795,
+          "macro": 40,
+          "tests": 528
+        }
+      },
+      "verdict": "stronger",
+      "rationale": "Zaion exposes macro maturity as promotion evidence and keeps high-risk modules experimental unless proof exists.",
+      "blocking_gaps": []
+    }
+  ]
+}

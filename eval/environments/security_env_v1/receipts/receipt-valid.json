@@ -1,0 +1,10 @@
+{
+  "id": "r1",
+  "principal": "alice",
+  "event": "tool_exec:write_file",
+  "payload": {
+    "path": "a.txt",
+    "size": 10
+  },
+  "sha256": "48e54b8ccaddc3d70824081e89ed5f43541d98f3fac41eeeae9fff88b9892240"
+}

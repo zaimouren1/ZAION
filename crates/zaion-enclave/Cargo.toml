@@ -1,0 +1,22 @@
+[package]
+name = "zaion-enclave"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+zaion-types  = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+serde        = { workspace = true }
+serde_json   = { workspace = true }
+# aes-gcm needs "aead" feature for AeadCore/OsRng; pull direct so we can add features
+aes-gcm      = { version = "0.10", features = ["std"] }
+hex          = { workspace = true }
+chrono       = { workspace = true }
+thiserror    = { workspace = true }
+sha2         = { workspace = true }
+uuid         = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

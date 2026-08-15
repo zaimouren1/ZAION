@@ -1,0 +1,28 @@
+[package]
+name = "zaion-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+zaion-paths = { path = "../zaion-paths" }
+zaion-types = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-memory = { path = "../zaion-memory" }
+# Layer discipline: core must not depend on runtime or adapters.
+# (types → crypto → ledger → secrets → core → runtime → adapters → cli)
+serde = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+hex = { workspace = true }
+rusqlite = { workspace = true }
+rand = { workspace = true }
+sha2 = { workspace = true }
+aes-gcm = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

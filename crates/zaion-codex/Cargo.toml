@@ -1,0 +1,32 @@
+[package]
+name = "zaion-codex"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lib]
+name = "zaion_codex"
+path = "src/lib.rs"
+
+[dependencies]
+zaion-types = { path = "../zaion-types" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-crypto = { path = "../zaion-crypto" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+uuid = { workspace = true }
+rusqlite = { workspace = true }
+walkdir = "2"
+strsim = "0.11"
+# Day 1: real AST parsing
+syn = { version = "2", features = ["full", "visit", "extra-traits"] }
+quote = "1"
+proc-macro2 = { version = "1", features = ["span-locations"] }
+# Day 2: HTTP embedding API + pure-Rust cosine search (no ONNX/native deps)
+reqwest = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

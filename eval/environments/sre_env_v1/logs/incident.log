@@ -1,0 +1,3 @@
+2026-08-14T10:00:01Z WARN  health check on :8080 unexpected (config declares :9090)
+2026-08-14T10:00:02Z INFO  status endpoint reported healthy for 12 items (threshold should be 5)
+2026-08-14T10:00:03Z ERROR rollout blocked: service did not honor config port

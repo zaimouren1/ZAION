@@ -1,0 +1,20 @@
+[package]
+name = "zaion-proptest"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[[test]]
+name = "property_tests"
+path = "tests/property_tests.rs"
+
+[dev-dependencies]
+zaion-types  = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-memory = { path = "../zaion-memory" }
+zaion-aci    = { path = "../zaion-aci" }
+proptest     = { workspace = true }
+tempfile     = { workspace = true }
+serde_json   = { workspace = true }

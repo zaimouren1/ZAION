@@ -1,0 +1,33 @@
+[package]
+name = "zaion-opd"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "On-Policy Distillation engine for Zaion - token-level dense training signals from tool interactions"
+
+# H32 fix: use workspace dependencies for version consistency across all crates.
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+async-trait = "0.1"
+reqwest = { workspace = true, features = ["json"] }
+sha2 = { workspace = true }
+ed25519-dalek = { workspace = true }
+rand = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+hex = { workspace = true }
+regex = "1.0"
+# shell-words: safe argv-level splitting without invoking a shell (CRITICAL #2)
+shell-words = "1.1"
+axum = "0.7"
+
+[dev-dependencies]
+tokio-test = "0.4"
+tempfile = { workspace = true }

@@ -1,0 +1,14 @@
+{
+  "sessions": {
+    "s-root": {
+      "parent": null,
+      "lines": 3,
+      "created": true
+    }
+  },
+  "lineage_of": {
+    "s-root": [
+      "s-root"
+    ]
+  }
+}

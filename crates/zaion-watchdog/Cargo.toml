@@ -1,0 +1,34 @@
+[package]
+name = "zaion-watchdog"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Zaion Ouroboros Watchdog — crash detection, LLM-powered self-healing, millisecond resurrection"
+
+[[bin]]
+name = "zaion-watchdog"
+path = "src/main.rs"
+
+[dependencies]
+zaion-paths  = { path = "../zaion-paths" }
+zaion-types  = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-core   = { path = "../zaion-core" }
+serde        = { workspace = true }
+serde_json   = { workspace = true }
+uuid         = { workspace = true }
+chrono       = { workspace = true }
+thiserror    = { workspace = true }
+tokio        = { workspace = true }
+reqwest      = { workspace = true }
+sha2         = { workspace = true }
+hex          = { workspace = true }
+toml         = { workspace = true }
+rusqlite     = { workspace = true }
+ed25519-dalek = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

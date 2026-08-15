@@ -1,0 +1,22 @@
+[package]
+name = "zaion-proprioception"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+zaion-types = { path = "../zaion-types" }
+zaion-ledger = { path = "../zaion-ledger" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+hostname = "0.4"
+sys-info = "0.9"
+num_cpus = "1.16"
+
+[dev-dependencies]
+tempfile = { workspace = true }

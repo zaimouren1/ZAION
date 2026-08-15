@@ -1,0 +1,16 @@
+[package]
+name = "zaion-contract-macros"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1"
+syn = { version = "2", features = ["full", "visit"] }
+
+[dev-dependencies]
+trybuild = "1"

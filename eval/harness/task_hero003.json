@@ -1,0 +1,27 @@
+{
+  "id": "ZAION-300-HERO-003",
+  "category": "hero_mission",
+  "slots": 1,
+  "title": "Apply a fix, run tests, and produce a signed evidence pack",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Evidence pack is independently verifiable."
+    ],
+    "parity": [
+      "Agent modifies code, runs verification, and emits a signed evidence pack with proof closure."
+    ],
+    "ten_out_of_ten": [
+      "100 percent of successful fixes are verifiable."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "evidence"
+}

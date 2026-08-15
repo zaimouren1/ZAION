@@ -1,0 +1,31 @@
+{
+  "id": "ZAION-300-EVD-001",
+  "category": "memory",
+  "slots": 1,
+  "title": "Every memory write records source and proof lineage",
+  "status": "planned",
+  "source": {
+    "path": "plans/zaion-10-10-leap-plan.md",
+    "ref": "main",
+    "kind": "zaion_spec"
+  },
+  "acceptance": {
+    "surpass": [
+      "Lineage is verifiable end to end."
+    ],
+    "parity": [
+      "Memory atom write includes source binding and proof join."
+    ],
+    "ten_out_of_ten": [
+      "Zero unverifiable memory writes in the suite."
+    ]
+  },
+  "score": null,
+  "evidence": [],
+  "result": null,
+  "task_type": "evidence",
+  "output": {
+    "path": "evidence.json",
+    "format": "see verifier (JSON artifact checked by the benchmark verifier)"
+  }
+}

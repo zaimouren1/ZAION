@@ -1,0 +1,12 @@
+target/
+.git/
+.claude/
+node_modules/
+zaion-website/
+zaion-data/
+plans/
+docs/
+*.zip
+*.md
+review报告/
+test-skills/

@@ -1,0 +1,39 @@
+[package]
+name = "zaion-mcp"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Zaion inline MCP (Model Context Protocol) engine — tool registration, dispatch, and sandboxed execution"
+
+[dependencies]
+zaion-types = { path = "../zaion-types" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-crypto  = { path = "../zaion-crypto" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = "0.9"
+toml = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+reqwest = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+ureq = { version = "2.10", features = ["json"] }
+num_cpus = "1.16"
+sysinfo = "0.30"
+flate2 = "1.0"
+base64 = "0.22"
+regex = "1"
+rand = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+criterion = "0.5"
+
+[[bench]]
+name = "tool_dispatch"
+harness = false

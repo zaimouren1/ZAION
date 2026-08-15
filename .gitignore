@@ -1,0 +1,33 @@
+/target/
+**/target/
+**/*.rs.bk
+*.pdb
+.DS_Store
+
+# Tool/plugin artifacts
+.ralph/
+.ralphrc
+ralph-run.ps1
+.tmp_hermes_ls/
+.claude/.session_injected/
+.claude/settings.local.json
+
+# Large binaries
+*.zip
+
+# Runtime data
+zaion-data/
+
+# Reference/source extraction sandboxes
+temp_extract/
+temp_extract*/
+claude-code-source/
+
+# Tool worktrees / external agent scratch
+.codex/
+.claude/worktrees/
+
+# Temp files
+review报告/
+CODE_REVIEW_REPORT.md
+.gstack/

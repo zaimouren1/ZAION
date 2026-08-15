@@ -1,0 +1,469 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zaion.ai/schemas/benchmark-manifest-v1.json",
+  "title": "Zaion Product Benchmark Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "title",
+    "status",
+    "created_at",
+    "target_task_slots",
+    "claimed_verified_slots",
+    "score_policy",
+    "baselines",
+    "categories",
+    "tasks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "benchmark_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "scaffold",
+        "active",
+        "frozen",
+        "retired"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "target_task_slots": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "claimed_verified_slots": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "score_policy": {
+      "$ref": "#/$defs/scorePolicy"
+    },
+    "baselines": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hermes"
+      ],
+      "properties": {
+        "hermes": {
+          "$ref": "#/$defs/baseline"
+        },
+        "openclaw": {
+          "$ref": "#/$defs/baseline"
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/task"
+      }
+    }
+  },
+  "$defs": {
+    "scorePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scale_min",
+        "scale_max",
+        "unverified_score",
+        "ten_requires_status",
+        "ten_requires_evidence_grade",
+        "risk_adjusted_weights"
+      ],
+      "properties": {
+        "scale_min": {
+          "const": 0
+        },
+        "scale_max": {
+          "const": 10
+        },
+        "unverified_score": {
+          "type": "null"
+        },
+        "ten_requires_status": {
+          "const": "verified"
+        },
+        "ten_requires_evidence_grade": {
+          "const": "release_verified"
+        },
+        "risk_adjusted_weights": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "task_success",
+            "no_human_rework",
+            "recovery",
+            "trust_verification",
+            "cost_latency"
+          ],
+          "properties": {
+            "task_success": {
+              "const": 40
+            },
+            "no_human_rework": {
+              "const": 20
+            },
+            "recovery": {
+              "const": 15
+            },
+            "trust_verification": {
+              "const": 15
+            },
+            "cost_latency": {
+              "const": 10
+            }
+          }
+        }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "repository",
+        "ref",
+        "commit",
+        "commit_date",
+        "mirror",
+        "status",
+        "source"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri"
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "commit_date": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mirror": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "source_calibrated",
+            "locally_verified"
+          ]
+        },
+        "source": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "weight",
+        "task_slots",
+        "parity_gate",
+        "surpass_gate",
+        "ten_out_of_ten"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weight": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100
+        },
+        "task_slots": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "parity_gate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surpass_gate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ten_out_of_ten": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "repository",
+        "path",
+        "ref",
+        "commit"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "hermes_source",
+            "zaion_source",
+            "standard",
+            "user_research"
+          ]
+        },
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parity",
+        "surpass",
+        "ten_out_of_ten"
+      ],
+      "properties": {
+        "parity": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "surpass": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "ten_out_of_ten": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        }
+      }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "path",
+        "result",
+        "observed_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "command_output",
+            "test_report",
+            "source_inspection",
+            "release_artifact",
+            "live_smoke",
+            "security_review"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "partial"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verified_slots",
+        "score",
+        "evidence_grade",
+        "summary"
+      ],
+      "properties": {
+        "verified_slots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "evidence_grade": {
+          "enum": [
+            "source_only",
+            "local_verified",
+            "cross_platform_verified",
+            "release_verified"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "slots",
+        "title",
+        "status",
+        "source",
+        "acceptance",
+        "score",
+        "evidence",
+        "result"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9_-]*$"
+        },
+        "category": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$"
+        },
+        "slots": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "ready",
+            "running",
+            "verified",
+            "blocked",
+            "retired"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/sourceRef"
+        },
+        "acceptance": {
+          "$ref": "#/$defs/acceptance"
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "result": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/result"
+            }
+          ]
+        },
+        "task_type": {
+          "enum": ["happy_path", "approval", "recovery", "idempotency", "security", "evidence"]
+        },
+        "risk_profile": {
+          "type": ["object", "null"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+[package]
+name = "zaion-runtime"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+zaion-paths = { path = "../zaion-paths" }
+zaion-types = { path = "../zaion-types" }
+zaion-crypto = { path = "../zaion-crypto" }
+zaion-ledger = { path = "../zaion-ledger" }
+zaion-memory = { path = "../zaion-memory" }
+zaion-adapters = { path = "../zaion-adapters" }
+zaion-ego = { path = "../zaion-ego" }
+zaion-checkpoint = { path = "../zaion-checkpoint" }
+zaion-federation = { path = "../zaion-federation" }
+zaion-contract-macros = { path = "../zaion-contract-macros" }
+tokio = { version = "1", features = ["full"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+hex = { workspace = true }
+rusqlite = { workspace = true }
+reqwest  = { workspace = true }
+git2 = { workspace = true }
+sha2 = "0.10"
+ed25519-dalek = { workspace = true }
+toml = "0.8"
+scraper = "0.26"
+urlencoding = "2.1"
+glob = "0.3"
+dirs = "5.0"
+
+[dev-dependencies]
+tempfile = { workspace = true }
+futures = "0.3"
+anyhow = { workspace = true }
+
+[dependencies.tempfile]
+workspace = true

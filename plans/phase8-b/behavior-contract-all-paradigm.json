@@ -1,0 +1,1532 @@
+{
+  "schema_version": 1,
+  "generated_at": "deterministic",
+  "batch": "all",
+  "active_stage": "paradigm",
+  "strict_order": [
+    "1. copy every Hermes module behavior into Zaion module-by-module",
+    "2. improve the copied Zaion module behavior",
+    "3. prove the module-level paradigm breakthrough",
+    "4. only then continue Zaion native 12 modules"
+  ],
+  "hermes_zip": "hermes-agent-2026.4.8.zip",
+  "hermes_zip_sha256": "4225e325414982db2d13132fb345be9c1c97867e2f1f03917d3072f54fe798b8",
+  "module_count": 14,
+  "behavior_count": 93,
+  "phase_status": "all modules have executable behavior contracts for 3/3 hermes behavior copy -> zaion improvement -> paradigm breakthrough",
+  "modules": [
+    {
+      "module_id": "agent-runtime-loop",
+      "module_name": "Agent Runtime Loop",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 7,
+      "source_evidence_paths": [
+        "agent/context_compressor.py",
+        "agent/prompt_builder.py",
+        "gateway/run.py",
+        "hermes_cli/commands.py",
+        "hermes_cli/main.py",
+        "model_tools.py",
+        "run_agent.py",
+        "tools/registry.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "cli-chat-entry",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "run_agent.py"
+          ],
+          "reference_behavior": "CLI chat/default entry dispatches user prompts into the agent runtime loop",
+          "zaion_surface": "zaion chat",
+          "verification_command": "zaion chat \"Hello\"",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "cli-chat-reference-flags",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "run_agent.py"
+          ],
+          "reference_behavior": "CLI chat accepts query, model, provider, session, worktree, checkpoint, max-turn, source, skills, and quiet/verbose flags without rejecting migrated workflows",
+          "zaion_surface": "zaion chat",
+          "verification_command": "zaion chat --query <message> -m <model> --provider <provider> --resume <session> --continue <name> --skills research --max-turns 5 --source telegram --quiet",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "top-level-session-flags",
+          "reference_paths": [
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "top-level resume, continue, worktree, skills, yolo, and pass-session-id flags launch the interactive path without being rejected",
+          "zaion_surface": "zaion -c",
+          "verification_command": "zaion -c --check --worktree --skills research --yolo --pass-session-id",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "slash-command-registry",
+          "reference_paths": [
+            "hermes_cli/commands.py",
+            "gateway/run.py"
+          ],
+          "reference_behavior": "central slash command registry covers new, retry, undo, background, queue, model, provider, usage, and quit",
+          "zaion_surface": "zaion tui",
+          "verification_command": "zaion tui --check",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "prompt-assembly",
+          "reference_paths": [
+            "agent/prompt_builder.py",
+            "agent/context_compressor.py"
+          ],
+          "reference_behavior": "prompt construction combines system prompt, context, history, tools, and compression boundaries",
+          "zaion_surface": "zaion context build",
+          "verification_command": "zaion context build <pid> --budget 4000 --verify",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "tool-dispatch-loop",
+          "reference_paths": [
+            "model_tools.py",
+            "tools/registry.py"
+          ],
+          "reference_behavior": "model tool calls are parsed and dispatched through a tool registry inside the turn loop",
+          "zaion_surface": "zaion tool receipts",
+          "verification_command": "zaion tool receipts <pid>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "turn-history-retry",
+          "reference_paths": [
+            "hermes_cli/commands.py",
+            "gateway/run.py"
+          ],
+          "reference_behavior": "retry, undo, resume, branch, compress, and rollback operate on the active session turn history",
+          "zaion_surface": "zaion turn latest",
+          "verification_command": "zaion turn latest",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "turn execution emits identity, capability, context pack, answer span, and channel lineage evidence; bare zaion remains Zaion-native and does not expose reference-project commands",
+      "paradigm_breakthrough_gate": "a turn is no longer an opaque model response; it is a replayable proof object with parent lineage; terminal and channel turns can be verified through one TurnProof chain",
+      "verification_commands": [
+        "zaion chat \"Hello\"",
+        "zaion chat --query <message> -m <model> --provider <provider> --resume <session> --continue <name> --skills research --max-turns 5 --source telegram --quiet",
+        "zaion -c --check --worktree --skills research --yolo --pass-session-id",
+        "zaion turn latest",
+        "zaion answer trace <event-id>",
+        "cargo test -p zaion-cli chat_parser_accepts_reference_query_model_and_session_flags -- --test-threads=1",
+        "cargo test -p zaion-cli --test beginner_golden_path -- --test-threads=1"
+      ],
+      "proof_hash": "e9cd221afd40212289c42923f42ca06e4c5c6f3f9cefcdf87cd3847114fdaa99"
+    },
+    {
+      "module_id": "identity-continuity",
+      "module_name": "Identity And Continuity",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 9,
+      "source_evidence_paths": [
+        "acp_adapter/server.py",
+        "acp_adapter/session.py",
+        "docker/SOUL.md",
+        "gateway/run.py",
+        "gateway/session.py",
+        "hermes_cli/config.py",
+        "hermes_cli/default_soul.py",
+        "hermes_cli/main.py",
+        "hermes_cli/profiles.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "profile-home-config",
+          "reference_paths": [
+            "hermes_cli/config.py",
+            "hermes_cli/main.py",
+            "hermes_cli/profiles.py"
+          ],
+          "reference_behavior": "profiles and home directories persist runtime identity and config across restarts",
+          "zaion_surface": "zaion profile",
+          "verification_command": "zaion profile list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "global-profile-selection",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/profiles.py"
+          ],
+          "reference_behavior": "top-level --profile/-p selects an isolated profile home before command dispatch",
+          "zaion_surface": "zaion --profile <name>",
+          "verification_command": "zaion --profile work config show",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "profile-sticky-default",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/profiles.py"
+          ],
+          "reference_behavior": "profile use writes a sticky active profile, and later commands use that profile until default is selected again",
+          "zaion_surface": "zaion profile use",
+          "verification_command": "zaion profile use work && zaion config show && zaion profile use default",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "profile-strict-resolution",
+          "reference_paths": [
+            "hermes_cli/profiles.py"
+          ],
+          "reference_behavior": "named profiles must already exist, and reserved command names cannot become profile aliases",
+          "zaion_surface": "zaion --profile <name>",
+          "verification_command": "zaion --profile missing config show && zaion profile create chat",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "profile-management",
+          "reference_paths": [
+            "hermes_cli/profiles.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "profiles can be listed with gateway/skill status, created, config-cloned, full-cloned with runtime strip, shown, renamed, aliased, exported with credential/runtime exclusions, imported with archive-name inference, selected, and deleted",
+          "zaion_surface": "zaion profile",
+          "verification_command": "zaion profile show <name> && zaion profile rename <old> <new>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "config-cli",
+          "reference_paths": [
+            "hermes_cli/config.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "config supports show, edit, set, optional set key/value query forms, path, env-path, check, and migrate command flows",
+          "zaion_surface": "zaion config",
+          "verification_command": "zaion config set && zaion config set provider && zaion config path && zaion config check",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "gateway-session-identity",
+          "reference_paths": [
+            "gateway/session.py",
+            "gateway/run.py"
+          ],
+          "reference_behavior": "gateway sessions bind user/channel identity to persistent conversation state",
+          "zaion_surface": "zaion identity continuity",
+          "verification_command": "zaion identity continuity",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "acp-session-principal",
+          "reference_paths": [
+            "acp_adapter/session.py",
+            "acp_adapter/server.py"
+          ],
+          "reference_behavior": "ACP sessions preserve agent/client identity through remote tool and event exchange",
+          "zaion_surface": "zaion identity verify",
+          "verification_command": "zaion identity verify",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "default-soul-bootstrap",
+          "reference_paths": [
+            "docker/SOUL.md",
+            "hermes_cli/default_soul.py"
+          ],
+          "reference_behavior": "first startup includes a default soul/personality seed before normal conversation",
+          "zaion_surface": "zaion identity show",
+          "verification_command": "zaion identity show",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "startup identity contract names the small-octopus role, environment, tools, and forbidden claims; rename and verify operations preserve continuity instead of replacing the identity",
+      "paradigm_breakthrough_gate": "model personality is subordinated to a signed identity contract and continuity ledger; provider, channel, and import/export changes are treated as continuity checks",
+      "verification_commands": [
+        "zaion profile list",
+        "zaion --profile work config show",
+        "zaion --profile missing config show",
+        "zaion profile create chat",
+        "zaion profile use work && zaion config show && zaion profile use default",
+        "zaion profile create copy --clone --clone-from work --no-alias",
+        "zaion profile create copyall --clone-all --clone-from work --no-alias",
+        "zaion profile show <name>",
+        "zaion profile rename <old> <new>",
+        "zaion profile import <archive>",
+        "zaion identity show",
+        "zaion identity continuity",
+        "zaion identity verify",
+        "cargo test -p zaion-cli --test phase8_surface -- --test-threads=1"
+      ],
+      "proof_hash": "d41d9b8cb58f4dce53d172080434a35c12efbe156f4daa2632180e53ef0a5268"
+    },
+    {
+      "module_id": "channel-gateway-bridge",
+      "module_name": "Channel Gateway And Bridge",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 8,
+      "source_evidence_paths": [
+        "gateway/channel_directory.py",
+        "gateway/delivery.py",
+        "gateway/pairing.py",
+        "gateway/platforms/base.py",
+        "gateway/platforms/telegram.py",
+        "gateway/platforms/webhook.py",
+        "gateway/run.py",
+        "hermes_cli/commands.py",
+        "hermes_cli/gateway.py",
+        "hermes_cli/main.py",
+        "hermes_cli/profiles.py",
+        "scripts/whatsapp-bridge/bridge.js"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "gateway-lifecycle",
+          "reference_paths": [
+            "hermes_cli/gateway.py",
+            "gateway/run.py"
+          ],
+          "reference_behavior": "gateway has run, start, stop, stop --all, restart, status, install, uninstall, and setup lifecycle commands",
+          "zaion_surface": "zaion gateway",
+          "verification_command": "zaion gateway stop --all && zaion gateway status --deep",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "gateway-profile-scoped-service",
+          "reference_paths": [
+            "hermes_cli/gateway.py",
+            "hermes_cli/profiles.py"
+          ],
+          "reference_behavior": "gateway service names and generated service definitions are scoped by active profile to avoid cross-profile collisions",
+          "zaion_surface": "zaion --profile <name> gateway status",
+          "verification_command": "zaion --profile edge gateway status --deep",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "telegram-platform",
+          "reference_paths": [
+            "gateway/platforms/telegram.py",
+            "gateway/platforms/base.py"
+          ],
+          "reference_behavior": "Telegram adapter receives messages, normalizes platform metadata, enforces allowed-user/home-channel setup, and sends replies",
+          "zaion_surface": "zaion tg",
+          "verification_command": "zaion tg set-token <token> --allow <ids> --home-channel <id> && zaion tg status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "whatsapp-setup",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "scripts/whatsapp-bridge/bridge.js"
+          ],
+          "reference_behavior": "WhatsApp setup chooses bot/self-chat mode, enables the bridge, records allowed users, and prepares session pairing",
+          "zaion_surface": "zaion whatsapp",
+          "verification_command": "zaion whatsapp setup --mode self-chat --allow <phone>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "platform-delivery",
+          "reference_paths": [
+            "gateway/delivery.py",
+            "gateway/platforms/webhook.py"
+          ],
+          "reference_behavior": "gateway delivery abstracts outbound messages across platform adapters and webhooks",
+          "zaion_surface": "zaion webhook",
+          "verification_command": "zaion webhook list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "webhook-dynamic-subscriptions",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "gateway/platforms/webhook.py"
+          ],
+          "reference_behavior": "webhooks can be added, listed, removed, tested, and bound to dynamic prompt subscriptions",
+          "zaion_surface": "zaion webhook",
+          "verification_command": "zaion webhook add research --prompt <template> --events paper.found",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "gateway-slash-commands",
+          "reference_paths": [
+            "gateway/run.py",
+            "hermes_cli/commands.py"
+          ],
+          "reference_behavior": "messaging channels expose slash commands like help, model, status, approve, deny, and background",
+          "zaion_surface": "zaion omni trace",
+          "verification_command": "zaion omni trace --channel telegram --sender owner --thread t --message-id m",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "pairing-and-home-channel",
+          "reference_paths": [
+            "gateway/pairing.py",
+            "gateway/channel_directory.py"
+          ],
+          "reference_behavior": "gateway supports pending pairing codes, approval, revocation, clearing pending requests, approved users, and selecting a home channel",
+          "zaion_surface": "zaion pairing",
+          "verification_command": "zaion pairing list && zaion pairing approve telegram <code> && zaion pairing revoke telegram <user-id>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "there is one official Telegram entry point: zaion tg; channel input is normalized into a canonical envelope before runtime proof creation; Telegram access policy is stored beside the channel profile and denied runtime messages produce signed telegram.denied evidence; Telegram doctor can emit a machine-readable JSON readiness and access-policy report for gateways and dashboards",
+      "paradigm_breakthrough_gate": "channels are views over one identity/session/event graph instead of separate bot contexts; Telegram thread and message IDs are visible inside the same TurnProof lineage as terminal turns",
+      "verification_commands": [
+        "zaion gateway status --deep --system",
+        "zaion gateway stop --all --system",
+        "zaion --profile edge gateway status --deep",
+        "zaion gateway setup",
+        "zaion webhook add research --prompt <template> --events paper.found --description <text> --skills papers,summary --deliver telegram --deliver-chat-id <chat>",
+        "zaion pairing list && zaion pairing approve telegram <code> && zaion pairing revoke telegram <user-id> && zaion pairing clear-pending",
+        "zaion tg doctor",
+        "zaion tg doctor --json",
+        "zaion tg set-token <token> --allow 42,43 --home-channel 42 --reply-mode first",
+        "zaion whatsapp status",
+        "zaion omni trace --channel telegram --sender owner --thread t --message-id m",
+        "cargo test -p zaion-cli --test beginner_golden_path wake_channel_envelope_records_telegram_thread_in_turn_proof -- --test-threads=1",
+        "cargo test -p zaion-cli --test cli_stable_surface telegram_command_copies_reference_allowlist_home_channel_setup -- --test-threads=1"
+      ],
+      "proof_hash": "f0697495d27057ccdf03095c3bc19589831f1378fa2b23f8f7067876f8859e32"
+    },
+    {
+      "module_id": "memory-session-memory",
+      "module_name": "Memory And Session Memory",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 8,
+      "source_evidence_paths": [
+        "agent/builtin_memory_provider.py",
+        "agent/memory_manager.py",
+        "agent/memory_provider.py",
+        "hermes_cli/main.py",
+        "hermes_cli/memory_setup.py",
+        "hermes_state.py",
+        "tests/hermes_cli/test_session_browse.py",
+        "tests/hermes_cli/test_sessions_delete.py",
+        "tests/tools/test_memory_tool.py",
+        "tools/memory_tool.py",
+        "website/docs/user-guide/sessions.md"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "memory-manager",
+          "reference_paths": [
+            "agent/memory_manager.py"
+          ],
+          "reference_behavior": "memory manager stores and retrieves session memory for later prompt construction",
+          "zaion_surface": "zaion memory status",
+          "verification_command": "zaion memory status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "builtin-memory-provider",
+          "reference_paths": [
+            "agent/builtin_memory_provider.py",
+            "agent/memory_provider.py"
+          ],
+          "reference_behavior": "built-in and external memory providers share a common provider interface",
+          "zaion_surface": "zaion memory setup",
+          "verification_command": "zaion memory setup --provider <provider> --model <embedding-model>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "memory-tool",
+          "reference_paths": [
+            "tools/memory_tool.py",
+            "tests/tools/test_memory_tool.py"
+          ],
+          "reference_behavior": "memory is also reachable as a tool path in the runtime",
+          "zaion_surface": "zaion memory add-fact",
+          "verification_command": "zaion memory add-fact <pid> <fact> --user-provided",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "memory-setup-cli",
+          "reference_paths": [
+            "hermes_cli/memory_setup.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "CLI exposes memory setup, status, and disable flows",
+          "zaion_surface": "zaion memory off",
+          "verification_command": "zaion memory off && zaion memory status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "session-control-cli",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_state.py",
+            "website/docs/user-guide/sessions.md"
+          ],
+          "reference_behavior": "CLI exposes sessions list, browse, export, delete, prune, stats, and rename",
+          "zaion_surface": "zaion sessions",
+          "verification_command": "zaion sessions list --source telegram",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "session-source-filtering",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "tests/hermes_cli/test_session_browse.py",
+            "tests/hermes_cli/test_sessions_delete.py"
+          ],
+          "reference_behavior": "session listing and browsing hide tool sessions by default and honor explicit source filters",
+          "zaion_surface": "zaion sessions list",
+          "verification_command": "zaion sessions list --source tool",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "session-delete-confirmation",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "tests/hermes_cli/test_sessions_delete.py"
+          ],
+          "reference_behavior": "session deletion resolves id/key targets and refuses destructive deletion until --yes is supplied in non-interactive flows",
+          "zaion_surface": "zaion sessions delete",
+          "verification_command": "zaion sessions delete <session-id> --yes",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "session-prune-scope",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_state.py"
+          ],
+          "reference_behavior": "session pruning uses confirmation by default and accepts --yes bypass with older-than days and optional source scope",
+          "zaion_surface": "zaion sessions prune",
+          "verification_command": "zaion sessions prune --older-than 30 --source telegram --yes",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "memory facts carry source evidence, explicit user-provided markers, verification, and invalidation; sync export/import preserves proof artifacts for later trace commands; memory atoms carry proof hashes and trace/graph commands can emit JSON evidence for control planes",
+      "paradigm_breakthrough_gate": "memory is an atom graph with validity and evidence rather than a pile of summarized text; old answers can be rechecked against active or invalidated memory atoms",
+      "verification_commands": [
+        "zaion memory setup --provider <provider> --model <embedding-model>",
+        "zaion memory status",
+        "zaion memory off",
+        "zaion memory add-fact <pid> <fact> --user-provided",
+        "zaion memory trace <memory-id>",
+        "zaion memory trace <memory-id> --json",
+        "zaion memory verify <memory-id>",
+        "zaion memory invalidate <memory-id>",
+        "zaion memory graph <pid> --json",
+        "zaion sessions list --source telegram",
+        "zaion sessions browse --source telegram --limit 50",
+        "zaion sessions export <out.jsonl> --session-id <id> --source telegram",
+        "zaion sessions delete <id> --yes",
+        "zaion sessions prune --older-than 30 --source telegram --yes",
+        "zaion sessions stats",
+        "zaion sessions rename <id> <title>",
+        "zaion insights --days 7 --source telegram",
+        "cargo test -p zaion-cli --test beginner_golden_path wake_memory_turn_proof_links_context_pack_and_memory_atoms -- --test-threads=1",
+        "cargo test -p zaion-cli --test cli_stable_surface sessions_command_copies_reference_filters_and_yes_flags -- --test-threads=1",
+        "cargo test -p zaion-cli --test phase8_surface phase8b_config_auth_sessions_and_tools_copy_reference_cli_behaviors -- --test-threads=1"
+      ],
+      "proof_hash": "81fed4c554a9f55fbc076a178582e44cdd57dbf63567d01dcd9add875332febf"
+    },
+    {
+      "module_id": "context-infinite-context",
+      "module_name": "Context Compression And Infinite Context",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 4,
+      "source_evidence_paths": [
+        "agent/context_compressor.py",
+        "agent/context_references.py",
+        "agent/memory_manager.py",
+        "agent/prompt_builder.py",
+        "agent/trajectory.py",
+        "trajectory_compressor.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "context-compressor",
+          "reference_paths": [
+            "agent/context_compressor.py"
+          ],
+          "reference_behavior": "conversation history is compressed before prompt construction when budgets require it",
+          "zaion_surface": "zaion context build",
+          "verification_command": "zaion context build <pid> --budget 4000 --verify",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "context-references",
+          "reference_paths": [
+            "agent/context_references.py"
+          ],
+          "reference_behavior": "context references preserve links back to source files and prior turns",
+          "zaion_surface": "zaion context trace",
+          "verification_command": "zaion context trace <context-pack-id>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "prompt-builder-context",
+          "reference_paths": [
+            "agent/prompt_builder.py",
+            "agent/memory_manager.py"
+          ],
+          "reference_behavior": "prompt builder integrates compressed history, memory, and tool descriptions",
+          "zaion_surface": "zaion answer trace",
+          "verification_command": "zaion answer trace <event-id>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "trajectory-compression",
+          "reference_paths": [
+            "trajectory_compressor.py",
+            "agent/trajectory.py"
+          ],
+          "reference_behavior": "trajectory compression turns long interaction history into compact training/runtime artifacts",
+          "zaion_surface": "zaion context replay",
+          "verification_command": "zaion context replay <context-pack-id>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "ContextPack records budget, source events, memory atoms, projection refs, and replay hash; 4k budgets are verified without losing source traceability; context verification can emit JSON proof for dashboards, gates, and small-window runtime controllers",
+      "paradigm_breakthrough_gate": "small-window models receive a bounded execution cache while full memory remains outside the prompt; context replay detects missing source events and stale projections",
+      "verification_commands": [
+        "zaion context build <pid> --budget 4000 --verify",
+        "zaion context trace <context-pack-id>",
+        "zaion context verify <context-pack-id> --json",
+        "zaion context replay <context-pack-id>",
+        "cargo test -p zaion-cli --test phase8_surface phase8b_context_pack_large_history_under_4k_has_event_lineage -- --test-threads=1"
+      ],
+      "proof_hash": "82f9961f805a92bb83f55c7a7cd84f41ad2c7a4330e0b9c97e0ea39bd90c8495"
+    },
+    {
+      "module_id": "tools-permissions-safety",
+      "module_name": "Tools, Permissions, And Safety",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 8,
+      "source_evidence_paths": [
+        "environments/tool_call_parsers/hermes_parser.py",
+        "environments/tool_context.py",
+        "hermes_cli/main.py",
+        "hermes_cli/mcp_config.py",
+        "hermes_cli/tools_config.py",
+        "mcp_serve.py",
+        "model_tools.py",
+        "tests/tools/test_approval.py",
+        "tools/approval.py",
+        "tools/registry.py",
+        "tools/tirith_security.py",
+        "tools/url_safety.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "tool-registry",
+          "reference_paths": [
+            "tools/registry.py",
+            "model_tools.py"
+          ],
+          "reference_behavior": "tool definitions are registered centrally and exposed to models through controlled schemas",
+          "zaion_surface": "zaion capability show",
+          "verification_command": "zaion capability show",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "approval-gate",
+          "reference_paths": [
+            "tools/approval.py",
+            "tests/tools/test_approval.py"
+          ],
+          "reference_behavior": "dangerous actions pass through explicit approval gates",
+          "zaion_surface": "zaion tool verify",
+          "verification_command": "zaion tool verify <pid>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "security-policy",
+          "reference_paths": [
+            "tools/tirith_security.py",
+            "tools/url_safety.py"
+          ],
+          "reference_behavior": "security policy blocks sensitive, local, and exfiltration-prone operations",
+          "zaion_surface": "zaion security",
+          "verification_command": "zaion security status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "mcp-control-plane",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/mcp_config.py",
+            "mcp_serve.py"
+          ],
+          "reference_behavior": "MCP servers can be added, removed, listed, tested, configured, and served with stdio inference from --command, stdio args, auth mode, overwrite confirmation bypass, and verbose serve startup",
+          "zaion_surface": "zaion mcp",
+          "verification_command": "zaion mcp add node-server --command npx --args @modelcontextprotocol/server-filesystem . --auth oauth --force",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "mcp-stdio-inference",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/mcp_config.py"
+          ],
+          "reference_behavior": "MCP add infers stdio transport from --command without requiring a separate --transport stdio flag",
+          "zaion_surface": "zaion mcp add",
+          "verification_command": "zaion mcp add node-server --command npx --args @modelcontextprotocol/server-filesystem .",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "tools-cli",
+          "reference_paths": [
+            "hermes_cli/tools_config.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "tools can be summarized, listed, enabled, disabled, default reference-off for moa/homeassistant/rl, and scoped by platform or MCP server tool target",
+          "zaion_surface": "zaion tools",
+          "verification_command": "zaion tools --summary && zaion tools disable web --platform telegram",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "tools-reference-defaults",
+          "reference_paths": [
+            "hermes_cli/tools_config.py"
+          ],
+          "reference_behavior": "reference toolset keys include image_gen, moa, skills, todo, session_search, clarify, delegation, cronjob, and rl, with moa/homeassistant/rl off by default",
+          "zaion_surface": "zaion tools list",
+          "verification_command": "zaion tools list --platform cli",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "tool-call-parsers",
+          "reference_paths": [
+            "environments/tool_call_parsers/hermes_parser.py",
+            "environments/tool_context.py"
+          ],
+          "reference_behavior": "multiple model tool-call formats are parsed into a normalized tool context",
+          "zaion_surface": "crate:zaion-adapters tool parsers",
+          "verification_command": "cargo test -p zaion-adapters",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "parser-visible tool calls are recorded as receipts when explicit dispatch is not granted; capability manifest and tool verification fail closed instead of silently executing",
+      "paradigm_breakthrough_gate": "tool use becomes an auditable capability receipt, not raw function dispatch; unsafe autonomy can be proven blocked by receipt state and capability scope",
+      "verification_commands": [
+        "zaion capability show",
+        "zaion capability show --json",
+        "zaion tools --summary",
+        "zaion mcp add node-server --transport stdio --command npx --args @modelcontextprotocol/server-filesystem . --auth oauth",
+        "zaion mcp configure node-server --args server --auth header",
+        "zaion mcp serve --verbose",
+        "zaion tool receipts <pid>",
+        "zaion tool verify <pid>",
+        "cargo test -p zaion-cli --test cli_stable_surface mcp_aliases_and_positional_add_match_reference_behavior -- --test-threads=1",
+        "cargo test -p zaion-cli --test beginner_golden_path wake_parser_tool_call_records_permission_receipt -- --test-threads=1"
+      ],
+      "proof_hash": "0d727809629f11c7f0805222ef4efac454f23a9d863d927ccdc90717e46fcf56"
+    },
+    {
+      "module_id": "skills-plugins",
+      "module_name": "Skills And Plugins",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 8,
+      "source_evidence_paths": [
+        "agent/skill_commands.py",
+        "agent/skill_utils.py",
+        "hermes_cli/commands.py",
+        "hermes_cli/main.py",
+        "hermes_cli/plugins_cmd.py",
+        "hermes_cli/tools_config.py",
+        "optional-skills/DESCRIPTION.md",
+        "skills/software-development/plan/SKILL.md",
+        "tools/skill_manager_tool.py",
+        "tools/skills_hub.py",
+        "tools/skills_sync.py",
+        "tools/skills_tool.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "skill-loading",
+          "reference_paths": [
+            "agent/skill_utils.py",
+            "agent/skill_commands.py"
+          ],
+          "reference_behavior": "skills are discovered from installed skill directories and injected into runtime prompts",
+          "zaion_surface": "zaion skill list",
+          "verification_command": "zaion skill list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "skill-manager-tool",
+          "reference_paths": [
+            "tools/skill_manager_tool.py",
+            "tools/skills_tool.py"
+          ],
+          "reference_behavior": "skills can be searched, inspected, installed, updated, and managed through tool surfaces",
+          "zaion_surface": "zaion skill promote",
+          "verification_command": "zaion skill promote <skill_dir> --capability <scope>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "skill-hub",
+          "reference_paths": [
+            "tools/skills_hub.py",
+            "tools/skills_sync.py"
+          ],
+          "reference_behavior": "skill registries and sync flows support browse, check, update, audit, and snapshot operations",
+          "zaion_surface": "zaion skill search",
+          "verification_command": "zaion skill search capability_scope=<scope>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "skills-and-plugins-cli",
+          "reference_paths": [
+            "hermes_cli/tools_config.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "skills expose publish, snapshot export/import, tap, and plugin install/update/remove/list/enable/disable command surfaces with restored snapshot state",
+          "zaion_surface": "zaion skills and plugins",
+          "verification_command": "zaion skills snapshot export - && zaion plugins list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "skills-snapshot-import-state",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "tools/skills_sync.py"
+          ],
+          "reference_behavior": "skills snapshot import restores configured taps, hub-installed skills, and plugin registry state rather than only parsing the file",
+          "zaion_surface": "zaion skills snapshot import",
+          "verification_command": "zaion skills snapshot import <snapshot.json> --force",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "plugin-git-installer",
+          "reference_paths": [
+            "hermes_cli/plugins_cmd.py"
+          ],
+          "reference_behavior": "plugins install from Git URLs or owner/repo shorthand, validate plugin names against path traversal, read plugin.yaml, copy .example files, show after-install.md, update git plugins, and remove plugin directories",
+          "zaion_surface": "zaion plugins install",
+          "verification_command": "zaion plugins install owner/repo --dry-run && zaion plugins install <local-plugin> --force",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "builtin-skill-pack",
+          "reference_paths": [
+            "skills/software-development/plan/SKILL.md",
+            "optional-skills/DESCRIPTION.md"
+          ],
+          "reference_behavior": "built-in and optional skill packs provide reusable domain behavior",
+          "zaion_surface": "zaion skill promote",
+          "verification_command": "zaion skill promote <skill_dir> --capability <scope>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "plugin-command-registry",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/commands.py"
+          ],
+          "reference_behavior": "plugins can register top-level CLI command surfaces without hardcoded product command entries",
+          "zaion_surface": "zaion <plugin-name>",
+          "verification_command": "zaion plugins install owner/repo --name example --force && zaion example --help",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "promotion refuses packages without docs, test proof, explicit capability scope, or safety scan pass; promotion prints the rollback command before writing the skill entry; plugin install records capability scope, permissions, required environment variables, source digest, safety digest, install path, and rollback command; plugin inspect exposes that metadata so installed top-level commands remain accountable capabilities rather than anonymous command aliases",
+      "paradigm_breakthrough_gate": "skills become accountable capability modules instead of prompt snippets; promotion is gated by source trace, tests, capability boundary, safety scan, and rollback path",
+      "verification_commands": [
+        "zaion skills learn <rule>",
+        "zaion skills search <query>",
+        "zaion skills browse --page 2 --size 5 --source github",
+        "zaion skills install openai/skills/skill-creator --category planning --force --yes",
+        "zaion skills list --source github",
+        "zaion skills check skill-creator && zaion skills update skill-creator && zaion skills audit skill-creator",
+        "zaion skills snapshot export - && zaion skills tap add owner/repo && zaion skills tap remove owner-repo",
+        "zaion skill promote <skill_dir> --capability <scope>",
+        "zaion skill forget <skill-id>",
+        "zaion plugins install <owner/repo> --force && zaion plugins uninstall <name>",
+        "zaion plugins install owner/repo --name example --force && zaion example --help && zaion example run arg",
+        "zaion plugins inspect <name>",
+        "cargo test -p zaion-cli --test cli_stable_surface skills_and_tools_accept_reference_style_global_forms -- --test-threads=1",
+        "cargo test -p zaion-cli --test cli_stable_surface plugins_install_copies_reference_git_manifest_and_safety_behavior -- --test-threads=1",
+        "cargo test -p zaion-cli --test phase8_surface phase8_identity_config_activity_context_memory_and_compare_are_wired -- --test-threads=1"
+      ],
+      "proof_hash": "e6ab53c5ca1f315200893150808b13e22739cc2e137e24fe1a5aadfa1dc1723d"
+    },
+    {
+      "module_id": "activity-continuity",
+      "module_name": "Activity Continuity, Cron, Proactive, Dreaming",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 4,
+      "source_evidence_paths": [
+        "cron/jobs.py",
+        "cron/scheduler.py",
+        "gateway/delivery.py",
+        "gateway/run.py",
+        "hermes_cli/cron.py",
+        "hermes_cli/main.py",
+        "tests/tools/test_cronjob_tools.py",
+        "tools/cronjob_tools.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "cron-scheduler",
+          "reference_paths": [
+            "cron/scheduler.py",
+            "cron/jobs.py"
+          ],
+          "reference_behavior": "scheduler ticks due jobs and stores scheduled prompt/job metadata",
+          "zaion_surface": "zaion activity status",
+          "verification_command": "zaion activity status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "cron-cli",
+          "reference_paths": [
+            "hermes_cli/cron.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "CLI exposes cron list, create, edit, pause, resume, run, remove, status, and tick with reference-style optional principal resolution",
+          "zaion_surface": "zaion cron",
+          "verification_command": "zaion cron create 30m <prompt> --name research --deliver local --repeat 2 --skill papers",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "cron-tools",
+          "reference_paths": [
+            "tools/cronjob_tools.py",
+            "tests/tools/test_cronjob_tools.py"
+          ],
+          "reference_behavior": "scheduled jobs can be managed as tools under runtime policy",
+          "zaion_surface": "zaion thought list",
+          "verification_command": "zaion thought list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "gateway-cron-ticker",
+          "reference_paths": [
+            "gateway/run.py",
+            "gateway/delivery.py"
+          ],
+          "reference_behavior": "gateway starts a ticker so scheduled activity can deliver through messaging channels",
+          "zaion_surface": "zaion activity sample",
+          "verification_command": "zaion activity sample --seed 42",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "activity is disabled by default and enabling requires an explicit token/network cost acknowledgement; thought birth uses a bounded stochastic sampler over traceable user preferences; activity status emits JSON for control planes and thought seeds carry replayable proof hashes; activity sample supports dry-run preview so random thought birth can be audited before it is persisted",
+      "paradigm_breakthrough_gate": "activity continuity is not a fixed cron loop; it creates budgeted thought seeds from preference evidence; destructive, credential, purchase, and code-modifying autonomy is blocked at policy creation time",
+      "verification_commands": [
+        "zaion activity status",
+        "zaion activity status --json",
+        "zaion activity configure --enable --ack-cost",
+        "zaion activity sample --seed 42 --dry-run",
+        "zaion activity sample --seed 42",
+        "zaion thought show <thought-id>",
+        "zaion cron create 30m <prompt> --name research --deliver local",
+        "zaion cron edit <job-id> --deliver telegram:42 --repeat 3 --skill research --add-skill summarize --remove-skill old",
+        "zaion cron status",
+        "zaion cron run <job-id>",
+        "cargo test -p zaion-cli --test cli_stable_surface cron_command_accepts_reference_create_without_explicit_pid -- --test-threads=1",
+        "cargo test -p zaion-cli --test phase8_surface phase8_identity_config_activity_context_memory_and_compare_are_wired -- --test-threads=1"
+      ],
+      "proof_hash": "bb9e333e1e46f62ecdf52a80de10328ced66322bcaacb0157c1085d08e52645c"
+    },
+    {
+      "module_id": "multi-agent-delegation",
+      "module_name": "Multi-Agent, Delegation, Teams",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 5,
+      "source_evidence_paths": [
+        "acp_adapter/entry.py",
+        "acp_adapter/events.py",
+        "acp_adapter/permissions.py",
+        "acp_adapter/server.py",
+        "acp_adapter/session.py",
+        "acp_adapter/tools.py",
+        "agent/auxiliary_client.py",
+        "agent/copilot_acp_client.py",
+        "tests/tools/test_delegate.py",
+        "tools/delegate_tool.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "acp-server",
+          "reference_paths": [
+            "acp_adapter/server.py",
+            "acp_adapter/entry.py"
+          ],
+          "reference_behavior": "ACP server exposes help, readiness check, agent sessions, and event streams for external clients without accidentally blocking on help",
+          "zaion_surface": "zaion acp",
+          "verification_command": "zaion acp --check",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "acp-session",
+          "reference_paths": [
+            "acp_adapter/session.py",
+            "acp_adapter/events.py"
+          ],
+          "reference_behavior": "remote sessions preserve event history, tool calls, and session state",
+          "zaion_surface": "zaion agent proof",
+          "verification_command": "zaion agent proof <pid> <delegate_principal> <task> --scope <scope>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "acp-tools",
+          "reference_paths": [
+            "acp_adapter/tools.py",
+            "acp_adapter/permissions.py"
+          ],
+          "reference_behavior": "remote tools carry permission context and capability boundaries",
+          "zaion_surface": "zaion agent receipts",
+          "verification_command": "zaion agent receipts <pid>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "delegate-tool",
+          "reference_paths": [
+            "tools/delegate_tool.py",
+            "tests/tools/test_delegate.py"
+          ],
+          "reference_behavior": "delegation exists as a tool-level operation with scoped toolsets",
+          "zaion_surface": "zaion honcho",
+          "verification_command": "zaion honcho status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "copilot-acp-client",
+          "reference_paths": [
+            "agent/copilot_acp_client.py",
+            "agent/auxiliary_client.py"
+          ],
+          "reference_behavior": "auxiliary/ACP clients allow work to be delegated outside the local process",
+          "zaion_surface": "zaion agent spawn",
+          "verification_command": "zaion agent status <pid>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "local delegation proof writes principal, delegate, scope, input hash, output hash, and merge receipt to the ledger; delegation receipts can be listed without contacting a remote worker",
+      "paradigm_breakthrough_gate": "subagents become accountable delegated principals with proof receipts instead of hidden workers; merge evidence is represented by a deterministic receipt hash tied to the delegated IO boundary",
+      "verification_commands": [
+        "zaion acp --help",
+        "zaion acp --check",
+        "zaion agent proof <pid> <delegate_principal> <task> --scope <scope>",
+        "zaion agent receipts <pid>",
+        "cargo test -p zaion-cli --test phase8_surface phase8_identity_config_activity_context_memory_and_compare_are_wired -- --test-threads=1"
+      ],
+      "proof_hash": "83959ac64b7e5ce0e42dd46a251549f810e15570bfa31ff7592b886037380503"
+    },
+    {
+      "module_id": "providers-credentials-cost",
+      "module_name": "Provider, Credential, Cost, Budget",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 11,
+      "source_evidence_paths": [
+        "agent/credential_pool.py",
+        "agent/insights.py",
+        "agent/model_metadata.py",
+        "agent/smart_model_routing.py",
+        "agent/usage_pricing.py",
+        "hermes_cli/auth.py",
+        "hermes_cli/main.py",
+        "hermes_cli/model_normalize.py",
+        "hermes_cli/model_switch.py",
+        "hermes_cli/models.py",
+        "hermes_cli/providers.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "model-switch",
+          "reference_paths": [
+            "hermes_cli/model_switch.py",
+            "hermes_cli/models.py"
+          ],
+          "reference_behavior": "model switching parses flags, validates models, resolves provider-specific IDs, and can save provider URL/key/model directly",
+          "zaion_surface": "zaion model",
+          "verification_command": "zaion model --provider openai --base-url <url> --api-key <key> --model <model-id>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "provider-model-catalog",
+          "reference_paths": [
+            "hermes_cli/models.py"
+          ],
+          "reference_behavior": "model catalogs can be fetched or curated per provider before selection",
+          "zaion_surface": "zaion provider models",
+          "verification_command": "zaion provider models ollama --base-url http://localhost:11434/v1",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "provider-model-syntax",
+          "reference_paths": [
+            "hermes_cli/model_normalize.py",
+            "hermes_cli/model_switch.py"
+          ],
+          "reference_behavior": "provider aliases and provider:model syntax are normalized before model config is saved",
+          "zaion_surface": "zaion model --model <provider>:<model>",
+          "verification_command": "zaion model --model openrouter:anthropic/claude-sonnet-4.5 --api-key <key>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "provider-gateway-aliases",
+          "reference_paths": [
+            "hermes_cli/auth.py",
+            "hermes_cli/providers.py",
+            "hermes_cli/models.py"
+          ],
+          "reference_behavior": "provider aliases cover Google/Gemini, GLM/Z.AI, Moonshot/Kimi, MiniMax, Vercel AI Gateway, OpenCode, Kilo Code, DashScope, and Hugging Face",
+          "zaion_surface": "zaion model --provider <alias>",
+          "verification_command": "zaion model --provider google-ai-studio --api-key <key> --model gemini-3.1-pro-preview",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "provider-gateway-default-urls",
+          "reference_paths": [
+            "hermes_cli/auth.py",
+            "hermes_cli/providers.py"
+          ],
+          "reference_behavior": "gateway providers carry default inference base URLs and provider-specific base URL environment overrides",
+          "zaion_surface": "zaion provider list",
+          "verification_command": "zaion provider list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "provider-env-key-aliases",
+          "reference_paths": [
+            "hermes_cli/auth.py",
+            "hermes_cli/providers.py"
+          ],
+          "reference_behavior": "provider key resolution checks provider-specific environment variables before declaring credentials missing",
+          "zaion_surface": "zaion provider doctor",
+          "verification_command": "zaion provider doctor",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "kimi-code-endpoint",
+          "reference_paths": [
+            "hermes_cli/auth.py"
+          ],
+          "reference_behavior": "Kimi keys prefixed sk-kimi- route to the Kimi coding endpoint when no explicit base URL overrides it",
+          "zaion_surface": "zaion model --provider moonshot",
+          "verification_command": "zaion model --provider moonshot --api-key sk-kimi-... --model kimi-k2.5",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "provider-model-normalization",
+          "reference_paths": [
+            "hermes_cli/model_normalize.py",
+            "hermes_cli/model_switch.py"
+          ],
+          "reference_behavior": "model identifiers normalize per provider for aggregators, Anthropic/OpenCode hyphen rules, OpenCode Go bare names, and DeepSeek aliases",
+          "zaion_surface": "zaion model --provider <provider> --model <model>",
+          "verification_command": "zaion model --provider vercel-ai-gateway --api-key <key> --model claude-sonnet-4.6",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "credential-pool",
+          "reference_paths": [
+            "agent/credential_pool.py",
+            "hermes_cli/auth.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "credential pools support labels, provider keys, exhaustion reset, login/logout --provider, OAuth-shaped flags, and auth commands",
+          "zaion_surface": "zaion auth",
+          "verification_command": "zaion login --provider openai-codex --client-id <id> --scope <scope> && zaion auth reset openai-codex && zaion logout --provider openai-codex",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "smart-routing",
+          "reference_paths": [
+            "agent/smart_model_routing.py",
+            "agent/model_metadata.py"
+          ],
+          "reference_behavior": "routing chooses models using metadata, provider state, and task needs",
+          "zaion_surface": "zaion provider status",
+          "verification_command": "zaion provider status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "usage-pricing",
+          "reference_paths": [
+            "agent/usage_pricing.py",
+            "agent/insights.py"
+          ],
+          "reference_behavior": "usage and pricing are summarized as cost analytics",
+          "zaion_surface": "zaion provider cost",
+          "verification_command": "zaion provider cost --model llama3.2 --input 1000 --output 500",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "model discovery fetches provider model IDs when an endpoint supports it; provider status ties configured model, key state, pricing snapshot, and route decision together",
+      "paradigm_breakthrough_gate": "provider choice is an auditable route decision under pricing and budget evidence; model switching preserves identity because provider config is below the continuity contract",
+      "verification_commands": [
+        "zaion model --check",
+        "zaion model --provider openai --base-url <url> --api-key <key> --model <model-id>",
+        "zaion model --model openrouter:anthropic/claude-sonnet-4.5 --api-key <key>",
+        "zaion model --provider google-ai-studio --api-key <key> --model gemini-3.1-pro-preview",
+        "zaion model --provider vercel-ai-gateway --api-key <key> --model claude-sonnet-4.6",
+        "zaion model --provider moonshot --api-key sk-kimi-... --model kimi-k2.5",
+        "zaion model --inference-url <url> --client-id <id> --scope <scope> --no-browser --timeout 15 --ca-bundle <pem> --insecure",
+        "zaion auth add <provider> --api-key <key> --client-id <id> --scope <scope> --no-browser --timeout 15 --ca-bundle <pem> --insecure",
+        "zaion login --provider openai-codex --portal-url <url> --inference-url <url> --client-id <id> --scope <scope> --no-browser --timeout 15 --ca-bundle <pem> --insecure",
+        "zaion logout --provider openai-codex",
+        "zaion provider status",
+        "zaion provider models ollama --base-url http://localhost:11434/v1",
+        "zaion provider models google --base-url http://127.0.0.1:9",
+        "zaion provider cost --model llama3.2 --input 1000 --output 500",
+        "cargo test -p zaion-cli --test cli_stable_surface auth_command_copies_reference_oauth_flags -- --test-threads=1",
+        "cargo test -p zaion-cli --test cli_stable_surface model_command_copies_reference_gateway_aliases_and_model_normalization -- --test-threads=1",
+        "cargo test -p zaion-cli --test cli_stable_surface provider_models_falls_back_to_reference_curated_catalog -- --test-threads=1",
+        "cargo test -p zaion-cli --test beginner_golden_path onboard_fetches_model_list_and_saves_selected_model -- --test-threads=1"
+      ],
+      "proof_hash": "45ed888556a53ca90795b8afd83cfcd84418da0ec1695fd364d28e7b392bd707"
+    },
+    {
+      "module_id": "execution-sandbox-computer-use",
+      "module_name": "Execution Environments, Computer Use, Sandbox",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 5,
+      "source_evidence_paths": [
+        "environments/agent_loop.py",
+        "environments/hermes_base_env.py",
+        "tests/tools/test_checkpoint_manager.py",
+        "tests/tools/test_terminal_tool_requirements.py",
+        "tools/browser_camofox.py",
+        "tools/browser_tool.py",
+        "tools/checkpoint_manager.py",
+        "tools/file_operations.py",
+        "tools/file_tools.py",
+        "tools/terminal_tool.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "base-environment",
+          "reference_paths": [
+            "environments/hermes_base_env.py",
+            "environments/agent_loop.py"
+          ],
+          "reference_behavior": "evaluation/runtime environments define reset, step, tool execution, and observation contracts",
+          "zaion_surface": "zaion checkpoint guard",
+          "verification_command": "zaion checkpoint guard <dir> <label> --scope <scope>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "terminal-tool",
+          "reference_paths": [
+            "tools/terminal_tool.py",
+            "tests/tools/test_terminal_tool_requirements.py"
+          ],
+          "reference_behavior": "terminal execution is wrapped with timeouts, output handling, and safety checks",
+          "zaion_surface": "zaion shadow spawn",
+          "verification_command": "zaion shadow list",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "file-tools",
+          "reference_paths": [
+            "tools/file_tools.py",
+            "tools/file_operations.py"
+          ],
+          "reference_behavior": "file reads and writes are handled through guarded file tools",
+          "zaion_surface": "zaion checkpoint snap",
+          "verification_command": "zaion checkpoint list <dir>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "checkpoint-manager",
+          "reference_paths": [
+            "tools/checkpoint_manager.py",
+            "tests/tools/test_checkpoint_manager.py"
+          ],
+          "reference_behavior": "filesystem checkpoints can be created, listed, and restored around risky edits",
+          "zaion_surface": "zaion checkpoint restore",
+          "verification_command": "zaion checkpoint restore <dir> <checkpoint-id>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "browser-computer-use",
+          "reference_paths": [
+            "tools/browser_tool.py",
+            "tools/browser_camofox.py"
+          ],
+          "reference_behavior": "browser/computer-use tools expose stateful web interaction behind policy gates",
+          "zaion_surface": "zaion capability show",
+          "verification_command": "zaion capability show",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "checkpoint guard snapshots a directory before a labeled action and emits a receipt; optional syntax-file gate refuses invalid code before a guarded write proceeds",
+      "paradigm_breakthrough_gate": "local action safety is a receipt-bearing envelope of checkpoint, syntax gate, scope, and rollback command; write-before recovery becomes a verifiable action boundary rather than an informal operator habit",
+      "verification_commands": [
+        "zaion checkpoint guard <dir> <label> --scope <scope> --syntax-file <file>",
+        "zaion checkpoint restore <dir> <checkpoint-id>",
+        "cargo test -p zaion-cli --test phase8_surface phase8_identity_config_activity_context_memory_and_compare_are_wired -- --test-threads=1"
+      ],
+      "proof_hash": "4d12f09a67cc80e71fc02747bbb1954b8d9fa75a2ba1a79159bfdf6d0dfbbcc3"
+    },
+    {
+      "module_id": "opd-trajectory-learning",
+      "module_name": "OPD, Trajectory, Learning Loop",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 4,
+      "source_evidence_paths": [
+        "batch_runner.py",
+        "environments/agentic_opd_env.py",
+        "rl_cli.py",
+        "tests/test_trajectory_compressor.py",
+        "tools/rl_training_tool.py",
+        "trajectory_compressor.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "agentic-opd-env",
+          "reference_paths": [
+            "environments/agentic_opd_env.py"
+          ],
+          "reference_behavior": "agentic OPD environment converts agent steps into trainable observation/action/reward traces",
+          "zaion_surface": "zaion opd export",
+          "verification_command": "zaion opd export <pid> --out <trajectory.json>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "batch-runner",
+          "reference_paths": [
+            "batch_runner.py"
+          ],
+          "reference_behavior": "batch runner executes configured tasks and records trajectory outcomes",
+          "zaion_surface": "zaion opd verify",
+          "verification_command": "zaion opd verify <trajectory.json>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "rl-cli",
+          "reference_paths": [
+            "rl_cli.py",
+            "tools/rl_training_tool.py"
+          ],
+          "reference_behavior": "RL training command surfaces connect trajectories to training/evaluation workflows",
+          "zaion_surface": "zaion evolve",
+          "verification_command": "zaion evolve status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "trajectory-compressor-tests",
+          "reference_paths": [
+            "trajectory_compressor.py",
+            "tests/test_trajectory_compressor.py"
+          ],
+          "reference_behavior": "trajectory compression is regression-tested for long traces",
+          "zaion_surface": "zaion opd verify",
+          "verification_command": "zaion opd verify <trajectory.json>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "OPD export reads the signed ledger and records source event hashes, turn proofs, tool receipts, delegation receipts, and evolution counts; trajectory verify recomputes the proof hash before accepting an export",
+      "paradigm_breakthrough_gate": "learning data is no longer detached logs; it is a replayable proof over source runtime events; distillation candidates inherit identity and receipt provenance before training use",
+      "verification_commands": [
+        "zaion opd export <pid> --out <trajectory.json>",
+        "zaion opd verify <trajectory.json>",
+        "cargo test -p zaion-cli --test phase8_surface phase8_identity_config_activity_context_memory_and_compare_are_wired -- --test-threads=1"
+      ],
+      "proof_hash": "cd6038e67de84a6e590fd800030d35abb597a3c329062008b04e91b41f134532"
+    },
+    {
+      "module_id": "frontends-control-plane",
+      "module_name": "Frontend, TUI, Desktop, Control Plane",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 6,
+      "source_evidence_paths": [
+        "gateway/status.py",
+        "hermes_cli/banner.py",
+        "hermes_cli/callbacks.py",
+        "hermes_cli/curses_ui.py",
+        "hermes_cli/doctor.py",
+        "hermes_cli/logs.py",
+        "hermes_cli/main.py",
+        "website/docs/user-guide/skills/godmode.md",
+        "website/src/pages/skills/index.tsx"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "cli-main-and-banner",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/banner.py"
+          ],
+          "reference_behavior": "CLI provides a branded interactive entry, banner, command parser, and help surface",
+          "zaion_surface": "zaion help --all",
+          "verification_command": "zaion help --all",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "terminal-curses-ui",
+          "reference_paths": [
+            "hermes_cli/curses_ui.py",
+            "hermes_cli/callbacks.py"
+          ],
+          "reference_behavior": "terminal UI/callbacks provide an interactive control surface beyond raw log output",
+          "zaion_surface": "zaion tui",
+          "verification_command": "zaion tui --check",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "doctor-control-plane",
+          "reference_paths": [
+            "hermes_cli/doctor.py",
+            "gateway/status.py"
+          ],
+          "reference_behavior": "doctor/status commands summarize config, provider, gateway, and local runtime health, with a safe fix flag for missing local state",
+          "zaion_surface": "zaion doctor",
+          "verification_command": "zaion doctor --fix",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "logs-viewer",
+          "reference_paths": [
+            "hermes_cli/logs.py",
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "logs command lists and filters agent, error, and gateway log files by line count, severity level, session, and relative time window",
+          "zaion_surface": "zaion logs",
+          "verification_command": "zaion logs agent -n 50 --level WARNING --session <id> --since 30m",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "completion-script",
+          "reference_paths": [
+            "hermes_cli/main.py"
+          ],
+          "reference_behavior": "completion command prints shell completion scripts and completes profile names after -p/--profile",
+          "zaion_surface": "zaion completion",
+          "verification_command": "zaion completion bash",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "skills-website",
+          "reference_paths": [
+            "website/src/pages/skills/index.tsx",
+            "website/docs/user-guide/skills/godmode.md"
+          ],
+          "reference_behavior": "web/docs surfaces expose skills and operational concepts to users",
+          "zaion_surface": "zaion dashboard status",
+          "verification_command": "zaion dashboard status <pid>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "dashboard status shows identity continuity, provider route evidence, channels, activity, process, ledger, memory, context, tools, delegation, OPD, and checkpoint guards in one plane; dashboard trace maps every control-plane panel back to the exact Zaion proof command that verifies it; the control plane stays Zaion-native and exposes no reference-project user-facing commands",
+      "paradigm_breakthrough_gate": "the interface is a proof-aware control plane over identity, context, memory, permission, activity, delegation, OPD, and checkpoint evidence; users can audit the agent's state graph from the UI surface instead of trusting a chat transcript or scrolling logs",
+      "verification_commands": [
+        "zaion logs list",
+        "zaion logs agent -n 5 --level WARNING --session <id> --since 30m",
+        "zaion doctor --fix",
+        "zaion completion bash",
+        "zaion completion fish",
+        "zaion completion zsh",
+        "zaion dashboard status <pid>",
+        "zaion dashboard status <pid> --json",
+        "zaion dashboard trace <pid>",
+        "zaion dashboard trace <pid> --json",
+        "zaion dashboard open",
+        "cargo test -p zaion-cli --test phase8_surface phase8_identity_config_activity_context_memory_and_compare_are_wired -- --test-threads=1"
+      ],
+      "proof_hash": "f21e3b1b0b3c80a793cbb7cf90691bd13f77bb7ab8cb314fa6459d0499895710"
+    },
+    {
+      "module_id": "release-tests-public-proof",
+      "module_name": "Release, Tests, Public Proof",
+      "active_stage": "stage3-paradigm-breakthrough-proved",
+      "hermes_behavior_count": 6,
+      "source_evidence_paths": [
+        ".github/workflows/supply-chain-audit.yml",
+        ".github/workflows/tests.yml",
+        "README.md",
+        "RELEASE_v0.8.0.md",
+        "docker/entrypoint.sh",
+        "hermes_cli/claw.py",
+        "hermes_cli/main.py",
+        "hermes_cli/setup.py",
+        "hermes_cli/uninstall.py",
+        "pyproject.toml",
+        "scripts/install.sh",
+        "tests/test_mcp_serve.py"
+      ],
+      "copied_hermes_behaviors": [
+        {
+          "behavior_id": "ci-tests",
+          "reference_paths": [
+            ".github/workflows/tests.yml",
+            "tests/test_mcp_serve.py"
+          ],
+          "reference_behavior": "test workflows and regression tests are tracked as release gates",
+          "zaion_surface": "zaion phase8b proof",
+          "verification_command": "cargo test -p zaion-cli --test phase8_surface -- --test-threads=1",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "supply-chain-audit",
+          "reference_paths": [
+            ".github/workflows/supply-chain-audit.yml",
+            "pyproject.toml"
+          ],
+          "reference_behavior": "supply chain checks and package metadata are explicit release artifacts",
+          "zaion_surface": "zaion doctor",
+          "verification_command": "zaion doctor",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "documentation-release-notes",
+          "reference_paths": [
+            "README.md",
+            "RELEASE_v0.8.0.md"
+          ],
+          "reference_behavior": "README and release notes document behavior, install, and operational surfaces",
+          "zaion_surface": "zaion phase8b status",
+          "verification_command": "zaion phase8b status",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "version-update-uninstall",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/uninstall.py"
+          ],
+          "reference_behavior": "version, update, uninstall, and completion-style release commands are exposed as explicit lifecycle surfaces with gateway/check/dry-run safety flags",
+          "zaion_surface": "zaion version",
+          "verification_command": "zaion -V && zaion update --check --gateway && zaion uninstall --keep-data --dry-run",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "claw-workspace-migration",
+          "reference_paths": [
+            "hermes_cli/main.py",
+            "hermes_cli/claw.py"
+          ],
+          "reference_behavior": "OpenClaw migration accepts --workspace-target and --yes, copies workspace instruction files, and treats full preset secrets as enabled by default",
+          "zaion_surface": "zaion claw migrate",
+          "verification_command": "zaion claw migrate --source <openclaw> --workspace-target <workspace> --yes",
+          "status": "stage3-paradigm-breakthrough-proved"
+        },
+        {
+          "behavior_id": "install-packaging",
+          "reference_paths": [
+            "docker/entrypoint.sh",
+            "scripts/install.sh",
+            "hermes_cli/setup.py"
+          ],
+          "reference_behavior": "packaging and installers make the runtime reproducible outside a dev checkout",
+          "zaion_surface": "zaion compare inventory",
+          "verification_command": "zaion compare inventory <reference> --zip <path>",
+          "status": "stage3-paradigm-breakthrough-proved"
+        }
+      ],
+      "zaion_improvement_gate": "source map, crosswalk, dossier, matrix, and implementation proof are separate verifiable gates; full completion verification is stricter than foundation-batch verification",
+      "paradigm_breakthrough_gate": "Zaion refuses full Phase 8-B completion claims unless every module has source evidence and implemented proof; proof commands are checked for reference-project command name leakage",
+      "verification_commands": [
+        "zaion version",
+        "zaion -V",
+        "zaion update --check --gateway",
+        "zaion uninstall --full",
+        "zaion uninstall --keep-data --dry-run",
+        "zaion claw migrate --dry-run --source <missing-openclaw>",
+        "zaion claw migrate --source <openclaw> --workspace-target <workspace> --preset user-data --yes",
+        "zaion phase8b source-map --verify",
+        "zaion phase8b crosswalk --verify",
+        "zaion phase8b proof --batch foundation --verify",
+        "zaion phase8b proof --all --stage paradigm --verify",
+        "cargo test -p zaion-cli --test phase8_surface -- --test-threads=1"
+      ],
+      "proof_hash": "71fc1731bd639a9e07b988ab322a0df9f254f99a894bb1cbc064850fc2faf43f"
+    }
+  ]
+}
