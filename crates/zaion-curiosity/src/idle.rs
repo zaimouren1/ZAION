@@ -89,7 +89,10 @@ mod tests {
     #[test]
     fn timer_becomes_idle() {
         let timer = IdleTimer::new(Duration::from_millis(50));
-        thread::sleep(Duration::from_millis(60));
+        // generous sleep: macOS thread::sleep can return early, so 3x the
+        // timer window keeps this deterministic across runners.
+        // sleep in (50ms, 150ms): past idle_threshold, before deep_idle (x3).
+        thread::sleep(Duration::from_millis(100));
         assert_eq!(timer.state(), IdleState::Idle);
         assert!(timer.is_idle());
     }
@@ -97,7 +100,8 @@ mod tests {
     #[test]
     fn timer_becomes_deep_idle() {
         let timer = IdleTimer::new(Duration::from_millis(20));
-        thread::sleep(Duration::from_millis(70));
+        // past deep_idle (20ms x3 = 60ms), generous for early-return sleep.
+        thread::sleep(Duration::from_millis(120));
         assert_eq!(timer.state(), IdleState::DeepIdle);
         assert!(timer.is_deep_idle());
     }
