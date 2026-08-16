@@ -298,7 +298,14 @@ mod tests {
         }
         match child.try_wait() {
             Ok(Some(status)) => {
-                assert!(status.code().is_some(), "child terminated (pid {})", pid);
+                // cancel kills the pid tree: non-success exit (nonzero code on
+                // Windows, signal termination on unix). A successfully exited
+                // child means it finished before cancel took effect.
+                assert!(
+                    !status.success(),
+                    "child terminated (pid {})",
+                    pid
+                );
             }
             _ => panic!("child pid {} still running after cancel", pid),
         }
