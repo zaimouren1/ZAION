@@ -65,3 +65,8 @@ base64 = "0.22"
 crossterm = { workspace = true }
 ratatui = { workspace = true }
 sha1 = "0.10"
+
+# Unix-only process control (is_process_alive / kill_process use libc::kill).
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
