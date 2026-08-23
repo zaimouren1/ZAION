@@ -41,7 +41,7 @@ CRATES = [
   ("zaion-opd",        "OPD-001", "Distillation Fidelity",    2, "cargo test -p zaion-opd --quiet"),
   ("zaion-pricing",    "PRC-001", "Cost Estimation",          2, "cargo test -p zaion-pricing --quiet"),
   ("zaion-telemetry",  "TEL-001", "Observability Completeness",2, "cargo test -p zaion-telemetry --quiet"),
-  ("zaion-contract-macros","CM-001","Contract Enforcement",   1, "cargo test -p zaion-contract-macros --quiet"),
+  ("zaion-contract-macros","CM-001","Contract Enforcement",   2, "cargo test -p zaion-contract-macros --quiet"),
   ("zaion-proptest",   "PRP-001", "Property Discovery",       2, "cargo test -p zaion-proptest --quiet"),
 ]
 
