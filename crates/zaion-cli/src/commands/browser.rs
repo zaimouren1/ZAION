@@ -38,10 +38,10 @@ fn open_url_impl(url: &str) -> Result<std::process::ExitStatus, String> {
 
     #[cfg(target_os = "macos")]
     {
-        return Command::new("open")
+        Command::new("open")
             .arg(url)
             .status()
-            .map_err(|e| e.to_string());
+            .map_err(|e| e.to_string())
     }
 
     #[cfg(all(unix, not(target_os = "macos")))]
