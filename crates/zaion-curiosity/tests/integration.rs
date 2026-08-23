@@ -25,7 +25,12 @@ fn test_idle_timer_with_custom_thresholds() {
 #[test]
 fn test_idle_timer_becomes_idle() {
     let timer = IdleTimer::new(Duration::from_millis(50));
-    thread::sleep(Duration::from_millis(60));
+    // poll until no longer active (macOS thread::sleep may return early or
+    // overshoot under load, so a fixed sleep is not deterministic).
+    let deadline = std::time::Instant::now() + Duration::from_secs(2);
+    while timer.state() == IdleState::Active && std::time::Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(10));
+    }
 
     assert_eq!(timer.state(), IdleState::Idle);
     assert!(timer.is_idle());
@@ -35,7 +40,10 @@ fn test_idle_timer_becomes_idle() {
 #[test]
 fn test_idle_timer_becomes_deep_idle() {
     let timer = IdleTimer::new(Duration::from_millis(20));
-    thread::sleep(Duration::from_millis(70));
+    let deadline = std::time::Instant::now() + Duration::from_secs(2);
+    while timer.state() != IdleState::DeepIdle && std::time::Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(10));
+    }
 
     assert_eq!(timer.state(), IdleState::DeepIdle);
     assert!(timer.is_idle());
@@ -45,7 +53,10 @@ fn test_idle_timer_becomes_deep_idle() {
 #[test]
 fn test_idle_timer_reset() {
     let mut timer = IdleTimer::new(Duration::from_millis(50));
-    thread::sleep(Duration::from_millis(60));
+    let deadline = std::time::Instant::now() + Duration::from_secs(2);
+    while !timer.is_idle() && std::time::Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(10));
+    }
     assert!(timer.is_idle());
 
     timer.reset();
