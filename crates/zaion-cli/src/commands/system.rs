@@ -7330,7 +7330,7 @@ pub fn is_process_alive(pid: u32) -> bool {
 
 #[cfg(not(windows))]
 pub fn is_process_alive(pid: u32) -> bool {
-    unsafe { libc::kill(pid as i32, 0) == 0 }
+    libc::kill(pid as i32, 0) == 0
 }
 
 #[cfg(windows)]
@@ -7343,9 +7343,7 @@ pub fn kill_process(pid: u32) {
 
 #[cfg(not(windows))]
 pub fn kill_process(pid: u32) {
-    unsafe {
-        libc::kill(pid as i32, 15);
-    }
+    libc::kill(pid as i32, 15);
 }
 
 pub fn cmd_update(args: &[String]) -> Result<(), CliError> {

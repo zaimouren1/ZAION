@@ -30,7 +30,7 @@ pub fn is_process_alive(pid: u32) -> bool {
     #[cfg(unix)]
     {
         // kill(pid, 0) — 发送零信号，仅检测进程是否存在
-        let result = unsafe { libc_kill(pid as i32, 0) };
+        let result = libc_kill(pid as i32, 0);
         result == 0
     }
     #[cfg(windows)]

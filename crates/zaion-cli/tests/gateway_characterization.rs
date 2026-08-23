@@ -15,7 +15,7 @@ fn test_home(label: &str) -> PathBuf {
 }
 
 fn run_dashboard(home: &Path, port: u16) -> Output {
-    Command::new(env!("CARGO_BIN_EXE_zaion"))
+    let mut child = Command::new(env!("CARGO_BIN_EXE_zaion"))
         .args([
             "dashboard",
             "open",
@@ -28,8 +28,42 @@ fn run_dashboard(home: &Path, port: u16) -> Output {
         .env("ZAION_HOME", home)
         .env("ZAION_DATA_DIR", home.join("data"))
         .env_remove("ZAION_GATEWAY_BIND")
-        .output()
-        .unwrap()
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .unwrap();
+
+    // Guard against a dashboard subprocess that never exits (seen hanging on
+    // the Windows CI runner under network-stack variance): kill after 30s and
+    // surface the hang instead of deadlocking the whole job for hours.
+    let deadline = Instant::now() + Duration::from_secs(30);
+    loop {
+        match child.try_wait() {
+            Ok(Some(status)) => {
+                let mut stdout = Vec::new();
+                let mut stderr = Vec::new();
+                if let Some(mut pipe) = child.stdout.take() {
+                    pipe.read_to_end(&mut stdout).ok();
+                }
+                if let Some(mut pipe) = child.stderr.take() {
+                    pipe.read_to_end(&mut stderr).ok();
+                }
+                return Output {
+                    status,
+                    stdout,
+                    stderr,
+                };
+            }
+            Ok(None) if Instant::now() < deadline => {
+                thread::sleep(Duration::from_millis(100));
+            }
+            _ => {
+                let _ = child.kill();
+                let _ = child.wait();
+                panic!("dashboard open did not exit within 30s (subprocess hung)");
+            }
+        }
+    }
 }
 
 fn unused_local_port() -> u16 {
