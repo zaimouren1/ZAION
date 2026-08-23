@@ -180,3 +180,13 @@ Correctness 4/5 · Reliability 5/5 · Safety 4/5
 Performance 3/5 · Observability 5/5 · LLM Evidence 4/5
 Evidence Level 4
 ```
+
+---
+
+## 7. 可执行证据矩阵
+
+上面的 Eval Contract 有对应的可执行证据报告，由 eval/harness/module_eval_runner.py 自动生成（运行 36 crate 的证据命令 + 输出 evidence_level 评分矩阵）：
+
+- 运行：python eval/harness/module_eval_runner.py（或 --quick 只跑关键 crate）
+- 报告：eval/results/MODULE_EVAL_REPORT.md（当前 35/36 pass，zaion-cli 为本地资源竞争 flaky，单独+CI 全绿）
+
