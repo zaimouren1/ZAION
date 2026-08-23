@@ -65,6 +65,10 @@ jobs:
       - name: Format check
         run: cargo fmt --all -- --check
 
+      - name: Cross-system semantic chain eval
+        if: runner.os == 'Linux'
+        run: python3 eval/harness/cross_system_eval.py target/debug/zaion
+
   release-validation:
     name: Release Validation
     if: github.event_name != 'schedule'
