@@ -4,8 +4,8 @@ pub mod audit;
 pub mod auth;
 pub mod csrf;
 pub mod rate_limit;
-pub mod ssrf;
 pub mod server;
+pub mod ssrf;
 pub mod streaming;
 pub mod websocket;
 

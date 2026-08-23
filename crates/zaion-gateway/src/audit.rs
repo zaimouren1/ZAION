@@ -90,7 +90,9 @@ pub struct AuditLayer {
 
 impl AuditLayer {
     pub fn new(audit: WriteAudit) -> Self {
-        Self { audit: Arc::new(audit) }
+        Self {
+            audit: Arc::new(audit),
+        }
     }
 }
 
@@ -98,7 +100,10 @@ impl<S> Layer<S> for AuditLayer {
     type Service = AuditMiddleware<S>;
 
     fn layer(&self, inner: S) -> Self::Service {
-        AuditMiddleware { inner, audit: self.audit.clone() }
+        AuditMiddleware {
+            inner,
+            audit: self.audit.clone(),
+        }
     }
 }
 
@@ -176,7 +181,10 @@ mod tests {
         let audit = WriteAudit::new(64);
         let router = axum::Router::new()
             .route("/read", get(|| async { "ok" }))
-            .route("/write", post(|| async { (axum::http::StatusCode::CREATED, "created") }))
+            .route(
+                "/write",
+                post(|| async { (axum::http::StatusCode::CREATED, "created") }),
+            )
             .layer(AuditLayer::new(audit.clone()));
         (router, audit)
     }

@@ -372,7 +372,10 @@ const SUBCOMMAND_HINTS: &[(&str, &str)] = &[
     ("status", "Show process or runtime status."),
     ("sleep", "Park a process."),
     ("wake", "Run the lower-level process wake path."),
-    ("hero", "Run a mission with the core tool subset (hero mode)."),
+    (
+        "hero",
+        "Run a mission with the core tool subset (hero mode).",
+    ),
     ("export", "Export key material for one process."),
     ("import", "Import key material into a new process."),
     ("events", "List recent signed ledger events."),

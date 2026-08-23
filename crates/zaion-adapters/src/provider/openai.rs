@@ -659,8 +659,9 @@ impl LlmProvider for OpenAiProvider {
             cache_write_tokens,
             tool_calls,
             finish_reason,
-        
-    reasoning_content: String::new(),})
+
+            reasoning_content: String::new(),
+        })
     }
 
     fn complete(&self, req: &CompletionRequest) -> Result<CompletionResponse, AdapterError> {
@@ -714,8 +715,9 @@ impl LlmProvider for OpenAiProvider {
                     cache_write_tokens: cache_write,
                     tool_calls: Vec::new(),
                     finish_reason: FinishReason::Stop,
-                
-    reasoning_content: String::new(),});
+
+                    reasoning_content: String::new(),
+                });
             }
             let preview = raw_body[..raw_body.len().min(200)].to_string();
             return Err(AdapterError::Provider(format!(
@@ -769,8 +771,9 @@ impl LlmProvider for OpenAiProvider {
             cache_write_tokens: cache_write,
             tool_calls,
             finish_reason,
-        
-    reasoning_content: String::new(),})
+
+            reasoning_content: String::new(),
+        })
     }
 }
 

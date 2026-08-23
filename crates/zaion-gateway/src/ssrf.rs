@@ -62,7 +62,9 @@ impl SsfrGuard {
     where
         R: Fn(&str) -> Vec<IpAddr> + Send + Sync + 'static,
     {
-        Self { resolver: Arc::new(resolver) }
+        Self {
+            resolver: Arc::new(resolver),
+        }
     }
 
     /// Validate a URL; Ok means it is safe to fetch.
@@ -91,8 +93,7 @@ fn parse_host(url: &str) -> Result<&str, SsfrError> {
     };
     let end = rest.find(['/', '?', '#']).unwrap_or(rest.len());
     let hostport = &rest[..end];
-    let host = if let Some(stripped) =
-        hostport.strip_prefix('[').and_then(|h| h.strip_suffix(']'))
+    let host = if let Some(stripped) = hostport.strip_prefix('[').and_then(|h| h.strip_suffix(']'))
     {
         stripped // bracketed IPv6 literal, no port to split
     } else {
@@ -152,30 +153,53 @@ fn default_resolver(host: &str) -> Vec<IpAddr> {
 mod tests {
     use super::*;
 
-    fn resolver_for(addrs: &'static [&'static str]) -> impl Fn(&str) -> Vec<IpAddr> + Send + Sync + 'static {
+    fn resolver_for(
+        addrs: &'static [&'static str],
+    ) -> impl Fn(&str) -> Vec<IpAddr> + Send + Sync + 'static {
         move |_host| addrs.iter().filter_map(|a| a.parse().ok()).collect()
     }
 
     #[test]
     fn rejects_loopback_literal() {
         let g = SsfrGuard::new();
-        assert_eq!(g.validate("http://127.0.0.1/admin").unwrap_err(), SsfrError::LoopbackAddress);
-        assert_eq!(g.validate("http://[::1]/x").unwrap_err(), SsfrError::LoopbackAddress);
+        assert_eq!(
+            g.validate("http://127.0.0.1/admin").unwrap_err(),
+            SsfrError::LoopbackAddress
+        );
+        assert_eq!(
+            g.validate("http://[::1]/x").unwrap_err(),
+            SsfrError::LoopbackAddress
+        );
     }
 
     #[test]
     fn rejects_private_and_linklocal_literals() {
         let g = SsfrGuard::new();
-        assert_eq!(g.validate("http://10.0.0.5/x").unwrap_err(), SsfrError::PrivateAddress);
-        assert_eq!(g.validate("http://192.168.1.1/x").unwrap_err(), SsfrError::PrivateAddress);
-        assert_eq!(g.validate("http://169.254.169.254/latest").unwrap_err(), SsfrError::LinkLocalAddress);
-        assert_eq!(g.validate("http://0.0.0.0/x").unwrap_err(), SsfrError::UnspecifiedAddress);
+        assert_eq!(
+            g.validate("http://10.0.0.5/x").unwrap_err(),
+            SsfrError::PrivateAddress
+        );
+        assert_eq!(
+            g.validate("http://192.168.1.1/x").unwrap_err(),
+            SsfrError::PrivateAddress
+        );
+        assert_eq!(
+            g.validate("http://169.254.169.254/latest").unwrap_err(),
+            SsfrError::LinkLocalAddress
+        );
+        assert_eq!(
+            g.validate("http://0.0.0.0/x").unwrap_err(),
+            SsfrError::UnspecifiedAddress
+        );
     }
 
     #[test]
     fn rejects_hostname_resolving_to_private() {
         let g = SsfrGuard::with_resolver(resolver_for(&["127.0.0.1"]));
-        assert_eq!(g.validate("http://evil.example/x").unwrap_err(), SsfrError::LoopbackAddress);
+        assert_eq!(
+            g.validate("http://evil.example/x").unwrap_err(),
+            SsfrError::LoopbackAddress
+        );
     }
 
     #[test]
@@ -187,7 +211,10 @@ mod tests {
     #[test]
     fn resolution_failure_rejected() {
         let g = SsfrGuard::with_resolver(|_| vec![]);
-        assert_eq!(g.validate("http://no-such-host.invalid/x").unwrap_err(), SsfrError::ResolutionFailed);
+        assert_eq!(
+            g.validate("http://no-such-host.invalid/x").unwrap_err(),
+            SsfrError::ResolutionFailed
+        );
     }
 
     #[test]

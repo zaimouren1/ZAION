@@ -316,8 +316,7 @@ impl LlmProvider for AnthropicProvider {
             )
         };
         let openai_tools_format = !self.base_url.contains("api.anthropic.com");
-        let body =
-            build_anthropic_body(req, system_text, &human_msgs, true, openai_tools_format);
+        let body = build_anthropic_body(req, system_text, &human_msgs, true, openai_tools_format);
         let url = format!("{}/v1/messages", self.base_url.trim_end_matches('/'));
         let client = reqwest::blocking::Client::new();
         let resp = client
@@ -456,8 +455,7 @@ impl LlmProvider for AnthropicProvider {
             )
         };
         let openai_tools_format = !self.base_url.contains("api.anthropic.com");
-        let body =
-            build_anthropic_body(req, system_text, &human_msgs, false, openai_tools_format);
+        let body = build_anthropic_body(req, system_text, &human_msgs, false, openai_tools_format);
         let url = format!("{}/v1/messages", self.base_url.trim_end_matches('/'));
         let client = reqwest::blocking::Client::new();
         let resp = client
@@ -507,8 +505,9 @@ impl LlmProvider for AnthropicProvider {
             cache_write_tokens: parsed.usage.cache_creation_input_tokens,
             tool_calls,
             finish_reason,
-        
-    reasoning_content: String::new(),})
+
+            reasoning_content: String::new(),
+        })
     }
 }
 

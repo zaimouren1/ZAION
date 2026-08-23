@@ -200,7 +200,9 @@ pub fn cmd_wake_hero(args: &[String]) -> Result<(), CliError> {
     }
     if args.iter().any(|arg| arg == "--help" || arg == "-h") {
         println!("zaion hero <pid> <message> - run a mission with the core tool subset");
-        println!("  (auto-sets ZAION_TOOL_SUBSET to fs_read,fs_write,fs_list,fs_search,shell_exec)");
+        println!(
+            "  (auto-sets ZAION_TOOL_SUBSET to fs_read,fs_write,fs_list,fs_search,shell_exec)"
+        );
         return Ok(());
     }
     cmd_wake(args)
@@ -269,10 +271,7 @@ impl WakeTurnKernelEntry {
             req.effective_features(wake_feature_defaults(&req, &cfg));
         // M2c entry chain: per-turn cancel token (injectable for tests; a cancel
         // marker file written by the command surface is checked alongside it).
-        let cancel_token = self
-            .cancel
-            .clone()
-            .unwrap_or_default();
+        let cancel_token = self.cancel.clone().unwrap_or_default();
         // Clean any stale cancel marker from a previous run; the command
         // surface writes a marker to cancel this turn (marker exists = cancel).
         let cancel_marker = CancelMarker::cleanup(&req.pid);
@@ -1403,8 +1402,9 @@ impl WakeTurnKernelEntry {
                         cache_write_tokens: 0,
                         tool_calls: Vec::new(),
                         finish_reason: FinishReason::Stop,
-                    
-                reasoning_content: String::new(),};
+
+                        reasoning_content: String::new(),
+                    };
                     break;
                 }
 
@@ -1908,10 +1908,10 @@ impl WakeTurnKernelEntry {
                 next.source_message_id = None;
                 next.source_hash = None;
                 return WakeTurnKernelEntry {
-        callback,
-        cancel: None,
-    }
-    .execute(next);
+                    callback,
+                    cancel: None,
+                }
+                .execute(next);
             }
 
             Ok(runtime_execution)
@@ -2177,10 +2177,10 @@ fn dispatch_scheduled_wake_task(
                 "slash_command_queue",
             )?;
             WakeTurnKernelEntry {
-        callback,
-        cancel: None,
-    }
-    .execute(next)
+                callback,
+                cancel: None,
+            }
+            .execute(next)
         }
         TaskMode::Background => {
             let background_req = build_internal_task_wake_request(
@@ -2542,8 +2542,9 @@ struct CancelMarker {
 impl CancelMarker {
     /// Remove any stale marker (wake start); the command surface writes it on cancel.
     fn cleanup(pid: &str) -> Self {
-        let path =
-            crate::commands::data_dir().join("turns").join(format!("{pid}.cancel"));
+        let path = crate::commands::data_dir()
+            .join("turns")
+            .join(format!("{pid}.cancel"));
         let _ = std::fs::remove_file(&path);
         Self { path }
     }
@@ -2561,10 +2562,7 @@ impl Drop for CancelMarker {
 
 /// True when the turn should stop: either the injected token was cancelled
 /// or the command surface wrote the cross-process cancel marker.
-fn turn_cancelled(
-    token: &zaion_runtime::cancel::CancelToken,
-    marker: &CancelMarker,
-) -> bool {
+fn turn_cancelled(token: &zaion_runtime::cancel::CancelToken, marker: &CancelMarker) -> bool {
     token.is_cancelled() || marker.exists()
 }
 
@@ -4895,8 +4893,9 @@ mod tests {
             cache_write_tokens: 0,
             tool_calls: Vec::new(),
             finish_reason: FinishReason::Stop,
-        
-                reasoning_content: String::new(),};
+
+            reasoning_content: String::new(),
+        };
 
         let err = ensure_visible_provider_response(&response).unwrap_err();
 
@@ -4919,8 +4918,9 @@ mod tests {
             cache_write_tokens: 0,
             tool_calls: Vec::new(),
             finish_reason: FinishReason::Stop,
-        
-                reasoning_content: String::new(),};
+
+            reasoning_content: String::new(),
+        };
 
         assert!(
             should_forward_final_response_to_callback(&req, false, false, &response),
@@ -4940,8 +4940,9 @@ mod tests {
             cache_write_tokens: 0,
             tool_calls: Vec::new(),
             finish_reason: FinishReason::Stop,
-        
-                reasoning_content: String::new(),};
+
+            reasoning_content: String::new(),
+        };
 
         assert!(
             !should_forward_final_response_to_callback(&req, false, true, &response),
@@ -6787,7 +6788,6 @@ mod tests {
         assert_eq!(output["error"], "destructive command denied");
     }
 
-
     #[test]
     fn wake_entry_injected_cancel_token_is_triggerable() {
         let token = zaion_runtime::cancel::CancelToken::new();
@@ -6797,10 +6797,11 @@ mod tests {
         };
         assert!(!token.is_cancelled(), "token starts live");
         token.cancel();
-        assert!(token.is_cancelled(), "external cancel triggers the entry token");
+        assert!(
+            token.is_cancelled(),
+            "external cancel triggers the entry token"
+        );
     }
-
-
 
     #[test]
     fn turn_cancelled_responds_to_token_and_marker() {
@@ -6815,7 +6816,10 @@ mod tests {
         std::fs::write(&marker_path, "").unwrap();
         assert!(turn_cancelled(&token, &marker), "marker triggers stop");
         token.cancel();
-        assert!(turn_cancelled(&token, &marker), "token cancel also triggers");
+        assert!(
+            turn_cancelled(&token, &marker),
+            "token cancel also triggers"
+        );
         drop(token);
         let token2 = zaion_runtime::cancel::CancelToken::new();
         assert!(turn_cancelled(&token2, &marker), "marker alone triggers");
@@ -6823,8 +6827,6 @@ mod tests {
         drop(marker);
         assert!(!marker_path.exists(), "marker cleaned on drop");
     }
-
-
 
     #[test]
     fn wake_hero_preloads_core_tool_subset() {
@@ -6844,5 +6846,4 @@ mod tests {
             None => std::env::remove_var("ZAION_TOOL_SUBSET"),
         }
     }
-
 }

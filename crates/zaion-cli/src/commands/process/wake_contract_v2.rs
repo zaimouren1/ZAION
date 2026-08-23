@@ -173,8 +173,17 @@ fn classify_turn_store_lookup_error(context: &str, error: TurnStoreError) -> Str
 fn validate_local_source(envelope: &CanonicalEnvelope) -> Result<(), String> {
     if matches!(
         envelope.source.as_str(),
-        "cli" | "internal-queue" | "internal-background" | "telegram" | "http" | "mcp-http"
-            | "acp-stdio" | "api" | "federation" | "slack" | "tui"
+        "cli"
+            | "internal-queue"
+            | "internal-background"
+            | "telegram"
+            | "http"
+            | "mcp-http"
+            | "acp-stdio"
+            | "api"
+            | "federation"
+            | "slack"
+            | "tui"
     ) {
         Ok(())
     } else {
@@ -873,7 +882,6 @@ mod tests {
             local_cli_ingress(&process, &envelope, "default".to_string(), Utc::now()).unwrap_err();
         assert!(error.contains("only for local CLI-derived ingress"));
     }
-
 
     #[test]
     fn adapted_telegram_transport_claims_local_authentication() {

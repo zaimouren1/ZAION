@@ -229,7 +229,6 @@ fn normalize_origin(value: &str) -> Result<Option<String>, String> {
     Ok(Some(origin.to_string()))
 }
 
-
 pub(crate) fn request_header(request: &str, name: &str) -> Option<String> {
     request.lines().skip(1).find_map(|line| {
         let (key, value) = line.split_once(':')?;

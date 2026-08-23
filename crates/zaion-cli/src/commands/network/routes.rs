@@ -3749,14 +3749,20 @@ mod tests {
         use tower::ServiceExt;
         let acp = test_acp_store();
         let router = axum::Router::new()
-            .route("/health", axum::routing::get(gateway_route_axum).post(gateway_route_axum))
+            .route(
+                "/health",
+                axum::routing::get(gateway_route_axum).post(gateway_route_axum),
+            )
             .with_state(acp);
         let req = axum::http::Request::builder()
             .uri("/health")
             .body(axum::body::Body::empty())
             .unwrap();
         let res = router.oneshot(req).await.unwrap();
-        assert_eq!(res.status().as_u16(), 200, "adapter should dispatch /health via gateway_route");
+        assert_eq!(
+            res.status().as_u16(),
+            200,
+            "adapter should dispatch /health via gateway_route"
+        );
     }
-
 }

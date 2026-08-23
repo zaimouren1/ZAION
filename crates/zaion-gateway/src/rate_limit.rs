@@ -33,7 +33,10 @@ impl RateLimiter {
         Self {
             max_requests: max_requests.max(1),
             window,
-            state: Arc::new(Mutex::new(WindowState { window_start: Instant::now(), count: 0 })),
+            state: Arc::new(Mutex::new(WindowState {
+                window_start: Instant::now(),
+                count: 0,
+            })),
         }
     }
 
@@ -69,7 +72,9 @@ pub struct RateLimitLayer {
 
 impl RateLimitLayer {
     pub fn new(limiter: RateLimiter) -> Self {
-        Self { limiter: Arc::new(limiter) }
+        Self {
+            limiter: Arc::new(limiter),
+        }
     }
 }
 
@@ -77,7 +82,10 @@ impl<S> Layer<S> for RateLimitLayer {
     type Service = RateLimitMiddleware<S>;
 
     fn layer(&self, inner: S) -> Self::Service {
-        RateLimitMiddleware { inner, limiter: self.limiter.clone() }
+        RateLimitMiddleware {
+            inner,
+            limiter: self.limiter.clone(),
+        }
     }
 }
 
@@ -154,7 +162,10 @@ mod tests {
 
     async fn get_status(router: axum::Router) -> u16 {
         use tower::ServiceExt;
-        let req = Request::builder().uri("/probe").body(Body::empty()).unwrap();
+        let req = Request::builder()
+            .uri("/probe")
+            .body(Body::empty())
+            .unwrap();
         router.oneshot(req).await.unwrap().status().as_u16()
     }
 

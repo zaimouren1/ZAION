@@ -60,7 +60,9 @@ where
 
     fn call(&mut self, req: Request<Body>) -> Self::Future {
         if is_mutating(req.method()) {
-            let has_auth = req.headers().contains_key(axum::http::header::AUTHORIZATION);
+            let has_auth = req
+                .headers()
+                .contains_key(axum::http::header::AUTHORIZATION);
             let has_csrf = req.headers().contains_key("x-csrf-token");
             if !has_auth && !has_csrf {
                 let mut res = axum::response::Response::new(Body::from(
@@ -83,7 +85,10 @@ mod tests {
         use axum::routing::{get, post};
         axum::Router::new()
             .route("/read", get(|| async { "ok" }))
-            .route("/write", post(|| async { (axum::http::StatusCode::CREATED, "created") }))
+            .route(
+                "/write",
+                post(|| async { (axum::http::StatusCode::CREATED, "created") }),
+            )
             .layer(CsrfLayer::new())
     }
 
@@ -100,13 +105,19 @@ mod tests {
     #[tokio::test]
     async fn mutation_without_credential_rejected() {
         let router = router_with_csrf().await;
-        assert_eq!(call(router.clone(), Method::POST, "/write", false).await, 403);
+        assert_eq!(
+            call(router.clone(), Method::POST, "/write", false).await,
+            403
+        );
     }
 
     #[tokio::test]
     async fn mutation_with_auth_allowed() {
         let router = router_with_csrf().await;
-        assert_eq!(call(router.clone(), Method::POST, "/write", true).await, 201);
+        assert_eq!(
+            call(router.clone(), Method::POST, "/write", true).await,
+            201
+        );
     }
 
     #[tokio::test]

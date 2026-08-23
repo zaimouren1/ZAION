@@ -11,8 +11,9 @@ use crate::{McpParam, McpParamType, McpSchema, McpTool, McpToolMeta, McpToolRegi
 // ── Security allow-list ───────────────────────────────────────────────────────
 
 /// Commands that `shell_exec` is permitted to run.
-pub(super) const ALLOWED_COMMANDS: &[&str] =
-    &["git", "cargo", "echo", "ls", "dir", "cat", "type", "python", "python3"];
+pub(super) const ALLOWED_COMMANDS: &[&str] = &[
+    "git", "cargo", "echo", "ls", "dir", "cat", "type", "python", "python3",
+];
 
 fn is_allowed_command(cmd: &str) -> bool {
     let base = std::path::Path::new(cmd)

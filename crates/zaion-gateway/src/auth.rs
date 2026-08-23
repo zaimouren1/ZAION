@@ -41,7 +41,9 @@ impl BearerAuth {
         if token.is_empty() {
             return None;
         }
-        Some(Self { token: token.to_string() })
+        Some(Self {
+            token: token.to_string(),
+        })
     }
 }
 
@@ -130,7 +132,9 @@ impl AuthPolicy {
         match (&self.bearer_token, auth) {
             (None, _) if self.allow_loopback_anonymous => AuthDecision::Allowed,
             (None, _) => AuthDecision::MissingToken,
-            (Some(expected), Some(given)) if constant_time_eq(expected.as_ref(), &given.token) => AuthDecision::Allowed,
+            (Some(expected), Some(given)) if constant_time_eq(expected.as_ref(), &given.token) => {
+                AuthDecision::Allowed
+            }
             (Some(_), Some(_)) => AuthDecision::InvalidToken,
             (Some(_), None) => AuthDecision::MissingToken,
         }
@@ -150,7 +154,9 @@ pub struct AuthLayer {
 
 impl AuthLayer {
     pub fn new(policy: AuthPolicy) -> Self {
-        Self { policy: Arc::new(policy) }
+        Self {
+            policy: Arc::new(policy),
+        }
     }
 }
 
@@ -191,7 +197,9 @@ where
 
     fn call(&mut self, req: Request<Body>) -> Self::Future {
         let auth = BearerAuth::extract(
-            req.headers().get("authorization").and_then(|v| v.to_str().ok()),
+            req.headers()
+                .get("authorization")
+                .and_then(|v| v.to_str().ok()),
         );
         let decision = self.policy.authorize(auth.as_ref());
         if decision != AuthDecision::Allowed {
@@ -215,7 +223,12 @@ mod tests {
     #[test]
     fn extract_parses_bearer() {
         let auth = BearerAuth::extract(Some("Bearer abc123"));
-        assert_eq!(auth, Some(BearerAuth { token: "abc123".into() }));
+        assert_eq!(
+            auth,
+            Some(BearerAuth {
+                token: "abc123".into()
+            })
+        );
     }
 
     #[test]
@@ -229,14 +242,24 @@ mod tests {
     #[test]
     fn policy_allows_valid_token() {
         let p = AuthPolicy::new(Some("secret".into()), false);
-        assert_eq!(p.authorize(Some(&BearerAuth { token: "secret".into() })), AuthDecision::Allowed);
+        assert_eq!(
+            p.authorize(Some(&BearerAuth {
+                token: "secret".into()
+            })),
+            AuthDecision::Allowed
+        );
         assert!(p.is_allowed(Some("Bearer secret")));
     }
 
     #[test]
     fn policy_rejects_wrong_token() {
         let p = AuthPolicy::new(Some("secret".into()), false);
-        assert_eq!(p.authorize(Some(&BearerAuth { token: "wrong".into() })), AuthDecision::InvalidToken);
+        assert_eq!(
+            p.authorize(Some(&BearerAuth {
+                token: "wrong".into()
+            })),
+            AuthDecision::InvalidToken
+        );
         assert!(!p.is_allowed(Some("Bearer wrong")));
     }
 
@@ -251,7 +274,12 @@ mod tests {
     fn policy_deny_by_default() {
         let p = AuthPolicy::deny_by_default();
         assert_eq!(p.authorize(None), AuthDecision::MissingToken);
-        assert_eq!(p.authorize(Some(&BearerAuth { token: "anything".into() })), AuthDecision::MissingToken);
+        assert_eq!(
+            p.authorize(Some(&BearerAuth {
+                token: "anything".into()
+            })),
+            AuthDecision::MissingToken
+        );
     }
 
     #[test]
@@ -273,7 +301,10 @@ mod tests {
     fn policy_loopback_with_token_still_enforced() {
         let p = AuthPolicy::new(Some("t".into()), true);
         assert_eq!(p.authorize(None), AuthDecision::MissingToken);
-        assert_eq!(p.authorize(Some(&BearerAuth { token: "t".into() })), AuthDecision::Allowed);
+        assert_eq!(
+            p.authorize(Some(&BearerAuth { token: "t".into() })),
+            AuthDecision::Allowed
+        );
     }
 
     // --- AuthLayer middleware integration tests ---
@@ -322,23 +353,31 @@ mod tests {
         assert_eq!(get_status(router, Some("Bearer anything")).await, 401);
     }
 
-
     #[test]
     fn rbac_role_for_registered_token() {
         let p = AuthPolicy::new(Some("admin-token".into()), false)
             .with_role("admin-token", AuthRole::Admin)
             .with_role("op-token", AuthRole::Operator);
-        let admin = BearerAuth { token: "admin-token".into() };
-        let op = BearerAuth { token: "op-token".into() };
+        let admin = BearerAuth {
+            token: "admin-token".into(),
+        };
+        let op = BearerAuth {
+            token: "op-token".into(),
+        };
         assert_eq!(p.role_of(&admin), Some(AuthRole::Admin));
         assert_eq!(p.role_of(&op), Some(AuthRole::Operator));
-        assert_eq!(p.role_of_header(Some("Bearer admin-token")), Some(AuthRole::Admin));
+        assert_eq!(
+            p.role_of_header(Some("Bearer admin-token")),
+            Some(AuthRole::Admin)
+        );
     }
 
     #[test]
     fn rbac_unregistered_token_no_role() {
         let p = AuthPolicy::new(Some("only-token".into()), false);
-        let other = BearerAuth { token: "only-token".into() };
+        let other = BearerAuth {
+            token: "only-token".into(),
+        };
         // authenticated but no role registered -> None (no privilege beyond auth)
         assert_eq!(p.role_of(&other), None);
     }
@@ -348,5 +387,4 @@ mod tests {
         assert_eq!(AuthRole::Admin.as_str(), "admin");
         assert_eq!(AuthRole::Operator.as_str(), "operator");
     }
-
 }

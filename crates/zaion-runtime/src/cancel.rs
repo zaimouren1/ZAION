@@ -153,7 +153,10 @@ mod tests {
         latencies.sort_unstable();
         let p95 = latencies[(latencies.len() * 95 / 100).min(latencies.len() - 1)];
         eprintln!("cancel p95 latency: {} ms (samples: {:?})", p95, latencies);
-        assert!(p95 < 2000, "cancel p95 {} ms exceeds the 2000 ms broken-cancel gate", p95);
+        assert!(
+            p95 < 2000,
+            "cancel p95 {} ms exceeds the 2000 ms broken-cancel gate",
+            p95
+        );
     }
-
 }

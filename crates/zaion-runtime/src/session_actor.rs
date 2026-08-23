@@ -10,9 +10,7 @@ use std::path::Path;
 
 use crate::cancel::CancelToken;
 use crate::turn_state::TurnState;
-use crate::turn_store::{
-    BeginTurnResult, DurableTurnAdmission, DurableTurnStore, TurnStoreError,
-};
+use crate::turn_store::{BeginTurnResult, DurableTurnAdmission, DurableTurnStore, TurnStoreError};
 use crate::AuthenticatedIngress;
 
 /// A session turn-owner: begins durable turns, exposes idempotency, and
@@ -25,7 +23,10 @@ pub struct SessionActor {
 
 impl SessionActor {
     /// Open the durable turn store for this actor.
-    pub fn open(db_path: impl AsRef<Path>, cancel: Option<CancelToken>) -> Result<Self, TurnStoreError> {
+    pub fn open(
+        db_path: impl AsRef<Path>,
+        cancel: Option<CancelToken>,
+    ) -> Result<Self, TurnStoreError> {
         Ok(Self {
             store: DurableTurnStore::open(db_path)?,
             cancel,
@@ -50,12 +51,12 @@ impl SessionActor {
         turn_id: &str,
         now: DateTime<Utc>,
     ) -> Result<crate::turn_store::DurableTurnRecord, TurnStoreError> {
-        let record = self
-            .store
-            .load(tenant_id, turn_id)?
-            .ok_or_else(|| TurnStoreError::UnknownTurn {
-                turn_id: turn_id.to_string(),
-            })?;
+        let record =
+            self.store
+                .load(tenant_id, turn_id)?
+                .ok_or_else(|| TurnStoreError::UnknownTurn {
+                    turn_id: turn_id.to_string(),
+                })?;
         if record.state.state() != TurnState::WaitingApproval {
             return Err(TurnStoreError::NotWaitingApproval {
                 turn_id: turn_id.to_string(),
@@ -67,11 +68,11 @@ impl SessionActor {
             .ok_or_else(|| TurnStoreError::ActorLeaseLost {
                 lease_owner: "missing".to_string(),
             })?;
-        let lease_owner = actor.lease_owner.ok_or_else(|| {
-            TurnStoreError::ActorLeaseLost {
+        let lease_owner = actor
+            .lease_owner
+            .ok_or_else(|| TurnStoreError::ActorLeaseLost {
                 lease_owner: "none".to_string(),
-            }
-        })?;
+            })?;
         self.store.compare_and_transition(
             tenant_id,
             turn_id,
@@ -124,7 +125,8 @@ impl SessionActor {
         now: DateTime<Utc>,
         lease_duration: chrono::Duration,
     ) -> Result<Option<crate::turn_store::TurnOutboxRecord>, TurnStoreError> {
-        self.store.claim_next_outbox(tenant_id, lease_owner, now, lease_duration)
+        self.store
+            .claim_next_outbox(tenant_id, lease_owner, now, lease_duration)
     }
 
     /// Release a claimed outbox entry (error path; schedules retry).
@@ -160,11 +162,13 @@ mod tests {
     use zaion_types::identity::PrincipalId;
     use zaion_types::session::{SessionId, WorkspaceId};
 
-    use crate::{AuthenticatedIngressInput, AuthenticatedSourceInput};
     use crate::turn_store::{DurableTurnAdmission, TurnActorIdentity};
+    use crate::{AuthenticatedIngressInput, AuthenticatedSourceInput};
 
     fn clock() -> DateTime<Utc> {
-        Utc.with_ymd_and_hms(2026, 7, 15, 10, 0, 0).single().unwrap()
+        Utc.with_ymd_and_hms(2026, 7, 15, 10, 0, 0)
+            .single()
+            .unwrap()
     }
 
     fn ingress(tenant: &str, subject: &str, idem: &str) -> AuthenticatedIngress {
@@ -176,7 +180,10 @@ mod tests {
                 workspace_id: WorkspaceId("workspace-test".to_string()),
                 profile_id: "default".to_string(),
                 session_id: SessionId("session-test".to_string()),
-                source: AuthenticatedSourceInput { surface: "cli".into(), source_id: "msg-1".into() },
+                source: AuthenticatedSourceInput {
+                    surface: "cli".into(),
+                    source_id: "msg-1".into(),
+                },
                 deadline: clock() + Duration::minutes(5),
                 scopes: vec!["turn:submit".into()],
                 idempotency_key: idem.to_string(),
@@ -203,9 +210,15 @@ mod tests {
         let ingress = ingress("tenant-a", "worker-a", "idem-key-0001");
         let adm = admission(&ingress);
         let first = actor.begin_turn(&ingress, &adm, clock()).unwrap();
-        assert!(actor.is_created(&first), "new idempotency key should be Created");
+        assert!(
+            actor.is_created(&first),
+            "new idempotency key should be Created"
+        );
         let second = actor.begin_turn(&ingress, &adm, clock()).unwrap();
-        assert!(!actor.is_created(&second), "same idempotency key should be Existing");
+        assert!(
+            !actor.is_created(&second),
+            "same idempotency key should be Existing"
+        );
     }
 
     #[test]
@@ -215,7 +228,10 @@ mod tests {
         let actor = SessionActor::open(dir.path().join("ledger.db"), Some(token.clone())).unwrap();
         assert!(!token.is_cancelled());
         actor.cancel();
-        assert!(token.is_cancelled(), "actor.cancel() should cancel the shared token");
+        assert!(
+            token.is_cancelled(),
+            "actor.cancel() should cancel the shared token"
+        );
     }
 
     #[test]
@@ -230,7 +246,11 @@ mod tests {
         let result = actor.begin_turn(&ingress, &adm, clock()).unwrap();
         assert!(actor.is_created(&result), "new turn accepted");
         let pending = actor.undelivered_outbox("tenant-a", 10).unwrap();
-        assert_eq!(pending.len(), 1, "accepted turn is in the undelivered outbox");
+        assert_eq!(
+            pending.len(),
+            1,
+            "accepted turn is in the undelivered outbox"
+        );
 
         // claim it (processing starts)
         let claim = actor
@@ -242,7 +262,11 @@ mod tests {
         // recoverable (zero loss) and still appear in undelivered (leased).
         let reopened = SessionActor::open(&db, None).unwrap();
         let after_crash = reopened.undelivered_outbox("tenant-a", 10).unwrap();
-        assert_eq!(after_crash.len(), 1, "leased turn survives crash (zero loss)");
+        assert_eq!(
+            after_crash.len(),
+            1,
+            "leased turn survives crash (zero loss)"
+        );
 
         // retry path: release returns the entry to pending (available again),
         // so it must remain visible for recovery/re-claim (zero loss holds).
@@ -258,14 +282,17 @@ mod tests {
             )
             .unwrap();
         let after_release = reopened.undelivered_outbox("tenant-a", 10).unwrap();
-        assert_eq!(after_release.len(), 1, "released entry stays recoverable (retry pending)");
+        assert_eq!(
+            after_release.len(),
+            1,
+            "released entry stays recoverable (retry pending)"
+        );
         // and it can be claimed again (no data loss on the retry path)
         let re_claim = reopened
             .claim_next_outbox("tenant-a", "worker-a", clock(), Duration::seconds(60))
             .unwrap();
         assert!(re_claim.is_some(), "released entry is re-claimable");
     }
-
 
     #[test]
     fn cancel_kills_executing_child() {
@@ -301,17 +328,11 @@ mod tests {
                 // cancel kills the pid tree: non-success exit (nonzero code on
                 // Windows, signal termination on unix). A successfully exited
                 // child means it finished before cancel took effect.
-                assert!(
-                    !status.success(),
-                    "child terminated (pid {})",
-                    pid
-                );
+                assert!(!status.success(), "child terminated (pid {})", pid);
             }
             _ => panic!("child pid {} still running after cancel", pid),
         }
     }
-
-
 
     #[test]
     fn approval_required_waits_then_approve_runs() {
@@ -343,5 +364,4 @@ mod tests {
         let second = actor.approve_turn(ing.tenant_id().as_str(), &turn_id, clock());
         assert!(second.is_err(), "double approval rejected");
     }
-
 }

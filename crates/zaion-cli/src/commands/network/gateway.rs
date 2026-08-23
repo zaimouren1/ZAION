@@ -159,48 +159,54 @@ pub fn cmd_gateway(args: &[String]) -> Result<(), CliError> {
             // stepped build: pin each state explicitly so axum inference is clear
             let expected_token = access_policy.bearer_token().map(str::to_string);
             let cancel_expected = expected_token.clone();
-            let approve_route = axum::routing::post(gateway_turn_approve_handler).layer(
-                axum::middleware::from_fn(move |req: axum::extract::Request, next: axum::middleware::Next| {
-                    use axum::response::IntoResponse;
-                    let expected = expected_token.clone();
-                    async move {
-                        let ok = match (expected.as_deref(), req.headers().get("authorization")) {
-                            (Some(token), Some(hdr)) => hdr
-                                .to_str()
-                                .map(|h| h == format!("Bearer {token}"))
-                                .unwrap_or(false),
-                            (None, _) => true, // loopback-anonymous mode
-                            _ => false,
-                        };
-                        if ok {
-                            next.run(req).await
-                        } else {
-                            (axum::http::StatusCode::UNAUTHORIZED, "unauthorized").into_response()
+            let approve_route =
+                axum::routing::post(gateway_turn_approve_handler).layer(axum::middleware::from_fn(
+                    move |req: axum::extract::Request, next: axum::middleware::Next| {
+                        use axum::response::IntoResponse;
+                        let expected = expected_token.clone();
+                        async move {
+                            let ok = match (expected.as_deref(), req.headers().get("authorization"))
+                            {
+                                (Some(token), Some(hdr)) => hdr
+                                    .to_str()
+                                    .map(|h| h == format!("Bearer {token}"))
+                                    .unwrap_or(false),
+                                (None, _) => true, // loopback-anonymous mode
+                                _ => false,
+                            };
+                            if ok {
+                                next.run(req).await
+                            } else {
+                                (axum::http::StatusCode::UNAUTHORIZED, "unauthorized")
+                                    .into_response()
+                            }
                         }
-                    }
-                }),
-            );
-            let cancel_route = axum::routing::post(gateway_turn_cancel_handler).layer(
-                axum::middleware::from_fn(move |req: axum::extract::Request, next: axum::middleware::Next| {
-                    use axum::response::IntoResponse;
-                    let expected = cancel_expected.clone();
-                    async move {
-                        let ok = match (expected.as_deref(), req.headers().get("authorization")) {
-                            (Some(token), Some(hdr)) => hdr
-                                .to_str()
-                                .map(|h| h == format!("Bearer {token}"))
-                                .unwrap_or(false),
-                            (None, _) => true,
-                            _ => false,
-                        };
-                        if ok {
-                            next.run(req).await
-                        } else {
-                            (axum::http::StatusCode::UNAUTHORIZED, "unauthorized").into_response()
+                    },
+                ));
+            let cancel_route =
+                axum::routing::post(gateway_turn_cancel_handler).layer(axum::middleware::from_fn(
+                    move |req: axum::extract::Request, next: axum::middleware::Next| {
+                        use axum::response::IntoResponse;
+                        let expected = cancel_expected.clone();
+                        async move {
+                            let ok = match (expected.as_deref(), req.headers().get("authorization"))
+                            {
+                                (Some(token), Some(hdr)) => hdr
+                                    .to_str()
+                                    .map(|h| h == format!("Bearer {token}"))
+                                    .unwrap_or(false),
+                                (None, _) => true,
+                                _ => false,
+                            };
+                            if ok {
+                                next.run(req).await
+                            } else {
+                                (axum::http::StatusCode::UNAUTHORIZED, "unauthorized")
+                                    .into_response()
+                            }
                         }
-                    }
-                }),
-            );
+                    },
+                ));
             let app = axum::Router::new()
                 .nest("/", gateway.build_router())
                 .route("/api/v1/turns/approve", approve_route)
@@ -210,22 +216,23 @@ pub fn cmd_gateway(args: &[String]) -> Result<(), CliError> {
                     async move { gateway_route_axum_with_store(acp, req).await }
                 }));
             eprintln!("zaion gateway (unified) listening on {}", addr);
-            let runtime = tokio::runtime::Runtime::new()
-                .map_err(|e| CliError::Usage(e.to_string()))?;
-            runtime
-                .block_on(async move {
-                    let listener = tokio::net::TcpListener::bind(&addr)
-                        .await
-                        .map_err(|e| CliError::Usage(e.to_string()))?;
-                    axum::serve(listener, app)
-                        .await
-                        .map_err(|e| CliError::Usage(e.to_string()))
-                })?;
+            let runtime =
+                tokio::runtime::Runtime::new().map_err(|e| CliError::Usage(e.to_string()))?;
+            runtime.block_on(async move {
+                let listener = tokio::net::TcpListener::bind(&addr)
+                    .await
+                    .map_err(|e| CliError::Usage(e.to_string()))?;
+                axum::serve(listener, app)
+                    .await
+                    .map_err(|e| CliError::Usage(e.to_string()))
+            })?;
         }
         "serve" => {
             // S4 (Strangler): the legacy raw server is deprecated; the unified
             // server is the default. Keep this path for rollback and debugging.
-            eprintln!("zaion gateway serve: DEPRECATED - use the default unified server (gateway run)");
+            eprintln!(
+                "zaion gateway serve: DEPRECATED - use the default unified server (gateway run)"
+            );
             let bind = resolve_gateway_bind(args).map_err(CliError::Usage)?;
             let access_policy = std::sync::Arc::new(
                 GatewayAccessPolicy::from_environment(&bind).map_err(CliError::Usage)?,
@@ -263,12 +270,21 @@ async fn gateway_turn_cancel_handler(
 ) -> axum::response::Response {
     use axum::http::StatusCode;
     use axum::response::IntoResponse;
-    let pid = body.get("pid").and_then(|v| v.as_str()).unwrap_or("").to_string();
+    let pid = body
+        .get("pid")
+        .and_then(|v| v.as_str())
+        .unwrap_or("")
+        .to_string();
     if pid.is_empty() {
-        return (StatusCode::BAD_REQUEST, axum::Json(serde_json::json!({"error": "pid required"})))
+        return (
+            StatusCode::BAD_REQUEST,
+            axum::Json(serde_json::json!({"error": "pid required"})),
+        )
             .into_response();
     }
-    let path = crate::commands::data_dir().join("turns").join(format!("{pid}.cancel"));
+    let path = crate::commands::data_dir()
+        .join("turns")
+        .join(format!("{pid}.cancel"));
     let result = (|| -> Result<(), String> {
         if let Some(parent) = path.parent() {
             std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -276,7 +292,10 @@ async fn gateway_turn_cancel_handler(
         std::fs::write(&path, "").map_err(|e| e.to_string())
     })();
     match result {
-        Ok(()) => (StatusCode::OK, axum::Json(serde_json::json!({"cancelled": true, "pid": pid})))
+        Ok(()) => (
+            StatusCode::OK,
+            axum::Json(serde_json::json!({"cancelled": true, "pid": pid})),
+        )
             .into_response(),
         Err(error) => (
             StatusCode::INTERNAL_SERVER_ERROR,
@@ -304,11 +323,11 @@ async fn gateway_turn_approve_handler(
         .to_string();
     let result = (|| -> Result<serde_json::Value, String> {
         let cfg = crate::config::ZaionConfig::load();
-        let pid = crate::commands::process::resolve_existing_pid(&cfg).map_err(|e| e.to_string())?;
+        let pid =
+            crate::commands::process::resolve_existing_pid(&cfg).map_err(|e| e.to_string())?;
         let store = zaion_core::process::ProcessStore::new(crate::commands::data_dir());
-        let actor =
-            zaion_runtime::session_actor::SessionActor::open(store.ledger_path(&pid), None)
-                .map_err(|e| e.to_string())?;
+        let actor = zaion_runtime::session_actor::SessionActor::open(store.ledger_path(&pid), None)
+            .map_err(|e| e.to_string())?;
         let approved = actor
             .approve_turn(&tenant, &turn_id, chrono::Utc::now())
             .map_err(|e| e.to_string())?;

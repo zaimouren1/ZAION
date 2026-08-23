@@ -54,9 +54,8 @@ fn cmd_turn_approve(args: &[String]) -> Result<(), CliError> {
         .map(Ok)
         .unwrap_or_else(|| crate::commands::process::resolve_existing_pid(&cfg))?;
     let store = zaion_core::process::ProcessStore::new(data_dir());
-    let actor =
-        zaion_runtime::session_actor::SessionActor::open(store.ledger_path(&pid), None)
-            .map_err(|error| CliError::Usage(format!("failed to open turn store: {error}")))?;
+    let actor = zaion_runtime::session_actor::SessionActor::open(store.ledger_path(&pid), None)
+        .map_err(|error| CliError::Usage(format!("failed to open turn store: {error}")))?;
     let approved = actor
         .approve_turn(&tenant, turn_id, chrono::Utc::now())
         .map_err(|error| CliError::Usage(format!("approval failed: {error}")))?;

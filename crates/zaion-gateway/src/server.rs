@@ -76,16 +76,14 @@ impl GatewayServer {
     pub fn build_router(&self) -> Router {
         let state = GatewayState::new(self.bearer_token.clone().unwrap_or_default());
         let auth_layer = AuthLayer::new(self.auth_policy());
-        let mut router = Router::new()
-            .route("/health", get(health_handler))
-            .merge(
-                Router::new()
-                    .route("/", get(console_handler))
-                    .route("/events", get(sse_handler))
-                    .route("/ws", get(ws_handler))
-                    .with_state(state)
-                    .layer(auth_layer),
-            );
+        let mut router = Router::new().route("/health", get(health_handler)).merge(
+            Router::new()
+                .route("/", get(console_handler))
+                .route("/events", get(sse_handler))
+                .route("/ws", get(ws_handler))
+                .with_state(state)
+                .layer(auth_layer),
+        );
         if let Some(limiter) = &self.rate_limit {
             router = router.layer(crate::rate_limit::RateLimitLayer::new(limiter.clone()));
         }
@@ -152,18 +150,20 @@ impl GatewayServer {
                     Err(_) => return,
                 };
                 let io = hyper_util::rt::TokioIo::new(tls);
-                let svc = hyper::service::service_fn(move |req: hyper::Request<hyper::body::Incoming>| {
-                    use tower::ServiceExt;
-                    let app = app.clone();
-                    async move {
-                        let axum_req = req.map(axum::body::Body::new);
-                        let res = app
-                            .oneshot(axum_req)
-                            .await
-                            .map_err(|e| std::io::Error::other(e.to_string()))?;
-                        Ok::<_, std::io::Error>(res)
-                    }
-                });
+                let svc = hyper::service::service_fn(
+                    move |req: hyper::Request<hyper::body::Incoming>| {
+                        use tower::ServiceExt;
+                        let app = app.clone();
+                        async move {
+                            let axum_req = req.map(axum::body::Body::new);
+                            let res = app
+                                .oneshot(axum_req)
+                                .await
+                                .map_err(|e| std::io::Error::other(e.to_string()))?;
+                            Ok::<_, std::io::Error>(res)
+                        }
+                    },
+                );
                 let _ = hyper::server::conn::http1::Builder::new()
                     .serve_connection(io, svc)
                     .await;
@@ -188,7 +188,9 @@ async fn console_handler() -> impl IntoResponse {
 }
 
 /// SSE stream of server events.
-async fn sse_handler(State(state): State<GatewayState>) -> Sse<impl Stream<Item = Result<Event, Infallible>>> {
+async fn sse_handler(
+    State(state): State<GatewayState>,
+) -> Sse<impl Stream<Item = Result<Event, Infallible>>> {
     let rx = state.tx.subscribe();
     let stream = futures::stream::unfold(rx, |mut rx| async move {
         match rx.recv().await {
@@ -257,7 +259,10 @@ mod tests {
         assert_eq!(get(router.clone(), "/ws", None).await, 401);
         // with token but no upgrade headers the ws handler rejects (426/400) -> not 401
         let st = get(router, "/ws", Some("Bearer secret")).await;
-        assert_ne!(st, 401, "authenticated ws request should pass the auth layer");
+        assert_ne!(
+            st, 401,
+            "authenticated ws request should pass the auth layer"
+        );
     }
 
     // --- Live server smoke tests (real bind + TCP probe) ---
@@ -332,7 +337,6 @@ mod tests {
         .await;
     }
 
-
     // --- CORS policy tests ---
 
     #[tokio::test]
@@ -366,7 +370,9 @@ mod tests {
         let res = router.oneshot(req).await.unwrap();
         assert_eq!(res.status().as_u16(), 200);
         assert_eq!(
-            res.headers().get("access-control-allow-origin").and_then(|v| v.to_str().ok()),
+            res.headers()
+                .get("access-control-allow-origin")
+                .and_then(|v| v.to_str().ok()),
             Some("https://console.example")
         );
     }
@@ -388,7 +394,6 @@ mod tests {
         assert!(res.headers().get("access-control-allow-origin").is_none());
     }
 
-
     // --- Rate limit on server ---
 
     #[tokio::test]
@@ -405,11 +410,31 @@ mod tests {
                 .unwrap()
         };
         // /health is public but the rate limit layer applies to all routes
-        assert_eq!(router.clone().oneshot(health()).await.unwrap().status().as_u16(), 200);
-        assert_eq!(router.clone().oneshot(health()).await.unwrap().status().as_u16(), 200);
-        assert_eq!(router.oneshot(health()).await.unwrap().status().as_u16(), 429);
+        assert_eq!(
+            router
+                .clone()
+                .oneshot(health())
+                .await
+                .unwrap()
+                .status()
+                .as_u16(),
+            200
+        );
+        assert_eq!(
+            router
+                .clone()
+                .oneshot(health())
+                .await
+                .unwrap()
+                .status()
+                .as_u16(),
+            200
+        );
+        assert_eq!(
+            router.oneshot(health()).await.unwrap().status().as_u16(),
+            429
+        );
     }
-
 
     #[tokio::test]
     async fn server_audits_writes() {
@@ -430,7 +455,6 @@ mod tests {
         assert_eq!(audit.len(), 1, "write attempt audited");
         assert_eq!(audit.entries()[0].path, "/events");
     }
-
 
     // --- TLS serve test ---
 
@@ -499,7 +523,6 @@ Host: localhost
         handle.abort();
     }
 
-
     // --- Strangler bridge: Router::nest with heterogeneous states ---
 
     #[tokio::test]
@@ -528,7 +551,13 @@ Host: localhost
             .uri("/health")
             .body(Body::empty())
             .unwrap();
-        let health_status = app.clone().oneshot(health_req).await.unwrap().status().as_u16();
+        let health_status = app
+            .clone()
+            .oneshot(health_req)
+            .await
+            .unwrap()
+            .status()
+            .as_u16();
         eprintln!("health through nest: {}", health_status);
         assert_eq!(health_status, 200);
 
@@ -537,7 +566,13 @@ Host: localhost
             .uri("/api/v1/ping")
             .body(Body::empty())
             .unwrap();
-        let ping_status = app.clone().oneshot(ping_req).await.unwrap().status().as_u16();
+        let ping_status = app
+            .clone()
+            .oneshot(ping_req)
+            .await
+            .unwrap()
+            .status()
+            .as_u16();
         eprintln!("ping through nest: {}", ping_status);
         assert_eq!(ping_status, 200);
 
@@ -550,5 +585,4 @@ Host: localhost
         eprintln!("console through nest: {}", console_status);
         assert_eq!(console_status, 401);
     }
-
 }

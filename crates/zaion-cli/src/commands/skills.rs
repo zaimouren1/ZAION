@@ -70,10 +70,15 @@ pub fn cmd_run(args: &[String]) -> Result<(), CliError> {
             let model_owned = model.clone();
             // M2a idempotency: reuse a cached result for the same (task_type, input).
             let cache_key = skill_run_cache_key(task_type, &input.to_string());
-            let cache_path = data_dir().join("skill-run-cache").join(format!("{}.json", cache_key));
+            let cache_path = data_dir()
+                .join("skill-run-cache")
+                .join(format!("{}.json", cache_key));
             if let Ok(cached_text) = std::fs::read_to_string(&cache_path) {
                 if let Ok(cached) = serde_json::from_str::<serde_json::Value>(&cached_text) {
-                    println!("task completed: {}", cached["task_id"].as_str().unwrap_or("-"));
+                    println!(
+                        "task completed: {}",
+                        cached["task_id"].as_str().unwrap_or("-")
+                    );
                     println!("status : {:?}", cached["status"].as_str().unwrap_or(""));
                     if let Some(out) = cached.get("output") {
                         println!(
@@ -2399,4 +2404,3 @@ fn skill_run_cache_key(task_type: &str, input: &str) -> String {
     let digest = hasher.finalize();
     digest.iter().map(|b| format!("{:02x}", b)).collect()
 }
-

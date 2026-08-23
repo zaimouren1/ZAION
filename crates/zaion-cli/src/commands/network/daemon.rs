@@ -243,21 +243,25 @@ impl DaemonOutboxRuntime {
             // M2 S4: adopt SessionActor as the durable turn-store wrapper (idempotent
             // begin + cancel token available for the daemon's turn lifecycle).
             let cancel = zaion_runtime::cancel::CancelToken::new();
-            let actor = SessionActor::open(store.ledger_path(&listed.principal_id), Some(cancel.clone()))
-                .map_err(|error| {
-                    CliError::Usage(format!(
-                        "failed to open durable turn store for {}: {error}",
-                        listed.principal_id
-                    ))
-                })?;
+            let actor = SessionActor::open(
+                store.ledger_path(&listed.principal_id),
+                Some(cancel.clone()),
+            )
+            .map_err(|error| {
+                CliError::Usage(format!(
+                    "failed to open durable turn store for {}: {error}",
+                    listed.principal_id
+                ))
+            })?;
             let resolver: Arc<dyn OutboxSignerResolver> = self.resolver.clone();
-            let dispatcher = OutboxDispatcher::start(actor.store().clone(), resolver, self.config.clone())
-                .map_err(|error| {
-                    CliError::Usage(format!(
-                        "failed to start outbox dispatcher for {}: {error}",
-                        listed.principal_id
-                    ))
-                })?;
+            let dispatcher =
+                OutboxDispatcher::start(actor.store().clone(), resolver, self.config.clone())
+                    .map_err(|error| {
+                        CliError::Usage(format!(
+                            "failed to start outbox dispatcher for {}: {error}",
+                            listed.principal_id
+                        ))
+                    })?;
             dispatcher.wake();
             self.turn_cancels
                 .insert(listed.principal_id.clone(), cancel);
@@ -1981,7 +1985,6 @@ mod tests {
         }
     }
 
-
     #[test]
     fn cancel_registry_token_is_isolated_and_triggerable() {
         // M2c: per-principal cancel tokens are independently triggerable.
@@ -1991,5 +1994,4 @@ mod tests {
         assert!(first.is_cancelled(), "first principal cancelled");
         assert!(!second.is_cancelled(), "second principal isolated");
     }
-
 }

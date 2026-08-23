@@ -26,7 +26,9 @@ pub fn cmd_gateway(args: &[String]) -> Result<(), String> {
             forwarded.extend_from_slice(&args[1..]);
             run_http_gateway(&forwarded)
         }
-        "start" | "stop" | "restart" | "health" | "serve" | "serve-unified" => run_http_gateway(args),
+        "start" | "stop" | "restart" | "health" | "serve" | "serve-unified" => {
+            run_http_gateway(args)
+        }
         "install" => cmd_gateway_install(&args[1..]),
         "uninstall" => cmd_gateway_uninstall(&args[1..]),
         "setup" => cmd_gateway_setup(&args[1..]),
