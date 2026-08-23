@@ -262,4 +262,47 @@ mod tests {
         assert_eq!(paths.home.path, PathBuf::from("/tmp/user-home/.zaion"));
         assert_eq!(paths.data_dir.path, PathBuf::from("/tmp/user-home/.zaion"));
     }
+
+
+    #[test]
+    fn blank_zaion_home_falls_back_to_default() {
+        let _test_guard = env_lock();
+        let _guard = EnvGuard::capture();
+        std::env::set_var("HOME", "/tmp/user-home");
+        std::env::remove_var("USERPROFILE");
+        std::env::set_var(ENV_ZAION_HOME, "   ");
+        std::env::remove_var(ENV_ZAION_DATA_DIR);
+
+        let paths = ZaionPaths::from_env();
+
+        assert_eq!(paths.home.path, PathBuf::from("/tmp/user-home/.zaion"));
+        assert!(!paths.home.path.as_os_str().is_empty());
+    }
+
+    #[test]
+    fn derived_paths_stay_under_home() {
+        let _test_guard = env_lock();
+        let _guard = EnvGuard::capture();
+        std::env::set_var(ENV_ZAION_HOME, "/tmp/zaion-home");
+        std::env::remove_var(ENV_ZAION_DATA_DIR);
+
+        let paths = ZaionPaths::from_env();
+
+        for derived in [
+            paths.config_path(),
+            paths.channels_path(),
+            paths.webhooks_path(),
+            paths.mcp_path(),
+            paths.profiles_dir(),
+            paths.skills_dir(),
+            paths.checkpoint_root(),
+        ] {
+            assert!(
+                derived.starts_with(&paths.home.path),
+                "derived path escapes home: {}",
+                derived.display()
+            );
+        }
+    }
+
 }
