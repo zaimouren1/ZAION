@@ -102,6 +102,19 @@
 | 评测规模化 | ✅ 真实 LLM 9/14（执行类 pass / 流程类 fail 边界实证） |
 | 使用指南 | ✅ plans/M3-USAGE-GUIDE.md |
 
+## 十六、公共仓库 + CI 全绿 + 官网准备（第 186 轮）
+
+| 项 | 状态 |
+|---|---|
+| 仓库转公共 | ✅ zaimouren1/ZAION（visibility PUBLIC） |
+| 隐私清理 | ✅ 泄露凭据（服务器密码/API key）从历史清除（干净快照 d2cf357） |
+| CI 全绿 | ✅ ubuntu + macos + windows + Docker 全通过（10 个修复：libc/rustls/idle×8/cancel/clippy×7/windows 挂起/fmt） |
+| 官网简报 | ✅ docs/website/ZAION_WEBSITE_BRIEF.md（229 行，准确无夸张） |
+| release | 🟡 v0.1.0 未打 tag（release 链就绪——用户决策发布时机） |
+
+**resume 后实质成果**：公共仓库质量门（CI 全绿）+ 对外材料（官网简报）。
+
+
 **M3 技术侧完成**。剩余：设计伙伴（外部）· 产品化扩展（可选）· 评测继续（可选）。
 
 
