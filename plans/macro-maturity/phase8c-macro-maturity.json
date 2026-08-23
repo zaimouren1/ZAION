@@ -36,6 +36,9 @@
       "promotion_gate": "real provider token accounting and activity budget enforcement",
       "proof": "budget CLI plus context/activity budget checks"
     },
+    "effective_status": "beta",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -86,6 +89,9 @@
       "promotion_gate": "identity import/export/sync continuity proof",
       "proof": "small-octopus startup identity and continuity ledger"
     },
+    "effective_status": "beta",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -133,6 +139,9 @@
       "promotion_gate": "real event sources, reflex audit trail, pause/resume, and destructive-action gate",
       "proof": "experimental warning plus activity-continuity gate"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -181,6 +190,9 @@
       "promotion_gate": "queued research briefs with source/cost traces and quiet-hour budget enforcement",
       "proof": "opt-in warning, seeded stochastic sampler, thought trace"
     },
+    "effective_status": "beta",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -228,6 +240,9 @@
       "promotion_gate": "cooldown, owner controls, ledgered prompts, and topic provenance",
       "proof": "preference-backed thought seeds and experimental warning"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -275,6 +290,9 @@
       "promotion_gate": "Ed25519 pairing challenge and recoverable lockdown tests",
       "proof": "status/check surfaces plus explicit unlock refusal"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -325,6 +343,9 @@
       "promotion_gate": "answer trace hooks and sync-preserved proof chains",
       "proof": "memory atom trace/verify/invalidate commands"
     },
+    "effective_status": "beta",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -374,6 +395,9 @@
       "promotion_gate": "large synthetic history regression and answer-span trace",
       "proof": "4k context pack build/verify/trace"
     },
+    "effective_status": "beta",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -421,6 +445,9 @@
       "promotion_gate": "terminal, Telegram, TUI, HTTP, and MCP route integration tests",
       "proof": "canonical envelope status and trace"
     },
+    "effective_status": "beta",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -468,6 +495,9 @@
       "promotion_gate": "real proof generation, verifier, and negative-proof fixtures",
       "proof": "explicit experimental warning and commitment verification surface"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -515,6 +545,9 @@
       "promotion_gate": "long-running daemon, reflex registry, activity trace, and recovery tests",
       "proof": "five-system status surface with experimental warning"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -562,6 +595,9 @@
       "promotion_gate": "crash fixture, backup/rollback proof, signed resurrection event verification",
       "proof": "guardian status/log surface and experimental maturity row"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -610,6 +646,9 @@
       "promotion_gate": "signed proposal chain, rollback, mandatory tests, and owner approval",
       "proof": "scan/propose/review/apply stages with experimental warning"
     },
+    "effective_status": "experimental",
+    "promotion_status": "not-promoted",
+    "promotion_detail": "verified Promoted record is missing",
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -654,6 +693,9 @@
       "promotion_gate": "real dataset runner, reproducible metrics, and benchmark comparison reports",
       "proof": "crate tests plus macro status surface; no standalone CLI promotion yet"
     },
+    "effective_status": "experimental",
+    "promotion_status": "not-promoted",
+    "promotion_detail": "verified Promoted record is missing",
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -701,6 +743,9 @@
       "promotion_gate": "hardware attestation backend and verifier interoperability tests",
       "proof": "attest/seal/unseal surface with simulation warning"
     },
+    "effective_status": "experimental",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
@@ -723,7 +768,7 @@
       "crate_path": "crates/zaion-tui",
       "source_paths": [
         "crates/zaion-cli/src/commands/process/tui/mod.rs",
-        "crates/zaion-tui/src/main.rs"
+        "crates/zaion-tui/src/lib.rs"
       ],
       "status_surfaces": [
         "zaion macro status tui",
@@ -748,6 +793,9 @@
       "promotion_gate": "Phase 9 visual, accessibility, and encoding regression gates",
       "proof": "tui --check and stable-extension maturity status"
     },
+    "effective_status": "stable-extension",
+    "promotion_status": null,
+    "promotion_detail": null,
     "crate_exists": true,
     "source_paths_ok": true,
     "docs_ok": true,
