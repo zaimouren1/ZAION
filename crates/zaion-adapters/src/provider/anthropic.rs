@@ -84,67 +84,83 @@ fn tools_format_is_openai() -> bool {
 }
 
 /// Build Anthropic messages array, handling tool-related messages.
+///
+/// Anthropic requires every assistant tool_use block to be answered by a
+/// tool_result block in the *immediately following* message, and parallel
+/// tool calls must have all their tool_result blocks in a single user
+/// message. We therefore coalesce consecutive tool messages into one user
+/// message. The OpenAI-shape path keeps one tool message per result.
 fn build_anthropic_messages(
     messages: &[ChatMessage],
     openai_tools_format: bool,
 ) -> Vec<serde_json::Value> {
-    messages
-        .iter()
-        .map(|m| {
-            if m.role == "tool" && openai_tools_format {
-                serde_json::json!({
-                    "role": "tool",
-                    "tool_call_id": m.tool_call_id,
-                    "content": m.content,
-                })
-            } else if m.role == "tool" {
-                serde_json::json!({
-                    "role": "user",
-                    "content": [{
-                        "type": "tool_result",
-                        "tool_use_id": m.tool_call_id,
-                        "content": m.content,
-                    }]
-                })
-            } else if !m.tool_calls.is_empty() && openai_tools_format {
-                let mut assistant = serde_json::json!({
-                    "role": "assistant",
-                    "content": m.content,
-                    "tool_calls": m.tool_calls.iter().map(|tc| serde_json::json!({
-                        "id": tc.id,
-                        "type": "function",
-                        "function": {
-                            "name": tc.name,
-                            "arguments": tc.arguments.to_string(),
-                        },
-                    })).collect::<Vec<_>>(),
-                });
-                if let Some(reasoning) = &m.reasoning_content {
-                    assistant["reasoning_content"] = serde_json::Value::String(reasoning.clone());
-                }
-                assistant
-            } else if !m.tool_calls.is_empty() {
-                let mut content_blocks: Vec<serde_json::Value> = Vec::new();
-                if !m.content.is_empty() {
-                    content_blocks.push(serde_json::json!({"type": "text", "text": m.content}));
-                }
-                for tc in &m.tool_calls {
-                    content_blocks.push(serde_json::json!({
-                        "type": "tool_use",
-                        "id": tc.id,
-                        "name": tc.name,
-                        "input": tc.arguments,
-                    }));
-                }
-                serde_json::json!({
-                    "role": "assistant",
-                    "content": content_blocks,
-                })
-            } else {
-                serde_json::json!({ "role": m.role, "content": m.content })
+    let mut out: Vec<serde_json::Value> = Vec::with_capacity(messages.len());
+    let mut i = 0usize;
+    while i < messages.len() {
+        let m = &messages[i];
+        if m.role == "tool" && openai_tools_format {
+            out.push(serde_json::json!({
+                "role": "tool",
+                "tool_call_id": m.tool_call_id,
+                "content": m.content,
+            }));
+            i += 1;
+        } else if m.role == "tool" {
+            let mut blocks: Vec<serde_json::Value> = Vec::new();
+            while i < messages.len() && messages[i].role == "tool" {
+                blocks.push(serde_json::json!({
+                    "type": "tool_result",
+                    "tool_use_id": messages[i].tool_call_id,
+                    "content": messages[i].content,
+                }));
+                i += 1;
             }
-        })
-        .collect()
+            out.push(serde_json::json!({
+                "role": "user",
+                "content": blocks,
+            }));
+        } else if !m.tool_calls.is_empty() && openai_tools_format {
+            let mut assistant = serde_json::json!({
+                "role": "assistant",
+                "content": m.content,
+                "tool_calls": m.tool_calls.iter().map(|tc| serde_json::json!({
+                    "id": tc.id,
+                    "type": "function",
+                    "function": {
+                        "name": tc.name,
+                        "arguments": tc.arguments.to_string(),
+                    },
+                })).collect::<Vec<_>>(),
+            });
+            if let Some(reasoning) = &m.reasoning_content {
+                assistant["reasoning_content"] = serde_json::Value::String(reasoning.clone());
+            }
+            out.push(assistant);
+            i += 1;
+        } else if !m.tool_calls.is_empty() {
+            let mut content_blocks: Vec<serde_json::Value> = Vec::new();
+            if !m.content.is_empty() {
+                content_blocks.push(serde_json::json!({"type": "text", "text": m.content}));
+            }
+            for tc in &m.tool_calls {
+                content_blocks.push(serde_json::json!({
+                    "type": "tool_use",
+                    "id": tc.id,
+                    "name": tc.name,
+                    "input": tc.arguments,
+                }));
+            }
+            out.push(serde_json::json!({
+                "role": "assistant",
+                "content": content_blocks,
+            }));
+            i += 1;
+        } else {
+            out.push(serde_json::json!({ "role": m.role, "content": m.content }));
+            i += 1;
+        }
+    }
+    out
 }
 
 /// Build the JSON request body for the Anthropic API.
