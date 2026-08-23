@@ -313,7 +313,7 @@ fn wait_with_timeout(
             #[cfg(not(target_os = "windows"))]
             {
                 let _ = std::process::Command::new("kill")
-                    .args(&["-9", &child_id.to_string()])
+                    .args(["-9", &child_id.to_string()])
                     .output();
             }
             Err(format!("timed out after {}s", timeout.as_secs()))

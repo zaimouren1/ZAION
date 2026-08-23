@@ -528,7 +528,7 @@ mod tests {
         std::os::unix::fs::symlink(&secret, &link).unwrap();
 
         let text = "@file:link.txt";
-        let (expanded, errors) = expand_references(&text, &sub_dir);
+        let (expanded, errors) = expand_references(text, &sub_dir);
 
         assert!(
             !errors.is_empty(),

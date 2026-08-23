@@ -514,6 +514,7 @@ impl UdsCodeExecutor {
 
     /// RPC server loop (runs in background thread)
     #[cfg(unix)]
+    #[allow(clippy::too_many_arguments)]
     fn rpc_server_loop(
         listener: UnixListener,
         dispatcher: ToolDispatcher,
@@ -556,6 +557,7 @@ impl UdsCodeExecutor {
 
     /// Handle RPC connection from child process
     #[cfg(unix)]
+    #[allow(clippy::too_many_arguments)]
     fn handle_rpc_connection(
         mut stream: UnixStream,
         dispatcher: ToolDispatcher,

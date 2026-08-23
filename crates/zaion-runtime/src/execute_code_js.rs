@@ -373,6 +373,7 @@ impl JsCodeExecutor {
 
     /// RPC server loop (runs in background thread)
     #[cfg(unix)]
+    #[allow(clippy::too_many_arguments)]
     fn rpc_server_loop(
         listener: UnixListener,
         dispatcher: super::execute_code_uds::ToolDispatcher,
@@ -414,6 +415,7 @@ impl JsCodeExecutor {
 
     /// Handle RPC connection from child process
     #[cfg(unix)]
+    #[allow(clippy::too_many_arguments)]
     fn handle_rpc_connection(
         mut stream: UnixStream,
         dispatcher: super::execute_code_uds::ToolDispatcher,
