@@ -73,6 +73,16 @@ fn parse_anthropic_stop_reason(reason: Option<&str>) -> FinishReason {
     }
 }
 
+/// Whether the anthropic provider should emit OpenAI-shaped tools. Some
+/// gateways speak the Anthropic messages path but expect OpenAI tool shapes;
+/// the default is the standard Anthropic tool shape. Set
+/// ZAION_ANTHROPIC_TOOLS_FORMAT=openai to opt into OpenAI-shaped tools.
+fn tools_format_is_openai() -> bool {
+    std::env::var("ZAION_ANTHROPIC_TOOLS_FORMAT")
+        .map(|value| value.eq_ignore_ascii_case("openai"))
+        .unwrap_or(false)
+}
+
 /// Build Anthropic messages array, handling tool-related messages.
 fn build_anthropic_messages(
     messages: &[ChatMessage],
@@ -315,7 +325,7 @@ impl LlmProvider for AnthropicProvider {
                     .join("\n"),
             )
         };
-        let openai_tools_format = !self.base_url.contains("api.anthropic.com");
+        let openai_tools_format = tools_format_is_openai();
         let body = build_anthropic_body(req, system_text, &human_msgs, true, openai_tools_format);
         let url = format!("{}/v1/messages", self.base_url.trim_end_matches('/'));
         let client = reqwest::blocking::Client::new();
@@ -454,7 +464,7 @@ impl LlmProvider for AnthropicProvider {
                     .join("\n"),
             )
         };
-        let openai_tools_format = !self.base_url.contains("api.anthropic.com");
+        let openai_tools_format = tools_format_is_openai();
         let body = build_anthropic_body(req, system_text, &human_msgs, false, openai_tools_format);
         let url = format!("{}/v1/messages", self.base_url.trim_end_matches('/'));
         let client = reqwest::blocking::Client::new();
