@@ -120,6 +120,7 @@ zaion chat "Hello"
 
 ## Documentation
 
+- [Changelog](CHANGELOG.md)
 - [Project map](docs/PROJECT_MAP.md)
 - [Current project status](docs/PROJECT_STATUS.md)
 - [Active roadmap](ROADMAP.md)
