@@ -4294,7 +4294,42 @@ fn architecture_source_gate_issues(root: &Path) -> Vec<String> {
     issues.extend(opd_promotion_gate_issues(root));
     issues.extend(architecture_contract_implementation_gate_issues(root));
     issues.extend(architecture_source_scan_issues(root));
+    issues.extend(module_eval_contract_issues(root));
 
+    issues
+}
+
+/// Module Eval Contract gate: docs/ZAION-MODULE-EVAL.md must exist and
+/// name every workspace crate with a module eval contract (Eval ID).
+fn module_eval_contract_issues(root: &Path) -> Vec<String> {
+    let mut issues = Vec::new();
+    let eval_doc = root.join("docs/ZAION-MODULE-EVAL.md");
+    let content = std::fs::read_to_string(&eval_doc).unwrap_or_default();
+    if content.is_empty() {
+        issues.push(
+            "architecture source gate: docs/ZAION-MODULE-EVAL.md is missing; every crate needs a module eval contract"
+                .to_string(),
+        );
+        return issues;
+    }
+    let crates_dir = root.join("crates");
+    if let Ok(entries) = std::fs::read_dir(&crates_dir) {
+        for entry in entries.flatten() {
+            let name = entry.file_name().to_string_lossy().to_string();
+            if name.starts_with('.') {
+                continue;
+            }
+            let path = entry.path();
+            if !path.is_dir() || !path.join("Cargo.toml").exists() {
+                continue;
+            }
+            if !content.contains(&format!("`{name}`")) && !content.contains(name.as_str()) {
+                issues.push(format!(
+                    "architecture source gate: crate {name} has no module eval contract in docs/ZAION-MODULE-EVAL.md"
+                ));
+            }
+        }
+    }
     issues
 }
 
