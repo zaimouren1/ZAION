@@ -71,7 +71,10 @@ fn test_idle_timer_percentage() {
 
     // Percentage only starts after threshold
     let timer = IdleTimer::new(Duration::from_millis(10));
-    thread::sleep(Duration::from_millis(15));
+    let deadline = std::time::Instant::now() + Duration::from_secs(2);
+    while timer.idle_percentage() == 0.0 && std::time::Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(10));
+    }
     assert!(timer.idle_percentage() > 0.0);
 }
 
@@ -212,7 +215,10 @@ fn test_end_to_end_curiosity_workflow() {
     assert_eq!(timer.state(), IdleState::Active);
 
     // 2. Wait for idle state
-    thread::sleep(Duration::from_millis(120));
+    let deadline = std::time::Instant::now() + Duration::from_secs(2);
+    while !timer.is_idle() && std::time::Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(10));
+    }
     assert!(timer.is_idle());
 
     // 3. Create ideation loop

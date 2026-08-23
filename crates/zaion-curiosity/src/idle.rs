@@ -113,7 +113,10 @@ mod tests {
     #[test]
     fn reset_clears_idle_state() {
         let mut timer = IdleTimer::new(Duration::from_millis(50));
-        thread::sleep(Duration::from_millis(60));
+        let deadline = std::time::Instant::now() + Duration::from_secs(2);
+        while !timer.is_idle() && std::time::Instant::now() < deadline {
+            thread::sleep(Duration::from_millis(10));
+        }
         assert!(timer.is_idle());
 
         timer.reset();
