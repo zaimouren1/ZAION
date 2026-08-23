@@ -83,6 +83,13 @@ def main():
     with open(out, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print("report written:", out)
+    # 结构化 evidence 数据（供 architecture-audit / doctor 读取门槛）
+    ev_json = {crate: {"eval_id": eid, "evidence_level": lvl, "pass": ok}
+               for crate, eid, _dim, lvl, ok, _s in rows}
+    jout = "eval/results/MODULE_EVAL.json"
+    with open(jout, "w", encoding="utf-8") as f:
+        json.dump(ev_json, f, indent=2, sort_keys=True)
+    print("json written:", jout)
     print(f"total {len(rows)} | pass {n_pass} | fail {len(rows)-n_pass}")
 
 if __name__ == "__main__":

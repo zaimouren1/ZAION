@@ -1,0 +1,32 @@
+{
+  "zaion-adapters": {
+    "eval_id": "ADP-001",
+    "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-cli": {
+    "eval_id": "CLI-001",
+    "evidence_level": 4,
+    "pass": true
+  },
+  "zaion-gateway": {
+    "eval_id": "GW-001",
+    "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-mcp": {
+    "eval_id": "MCP-001",
+    "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-runtime": {
+    "eval_id": "RT-001",
+    "evidence_level": 4,
+    "pass": true
+  },
+  "zaion-safety": {
+    "eval_id": "SAF-001",
+    "evidence_level": 3,
+    "pass": true
+  }
+}

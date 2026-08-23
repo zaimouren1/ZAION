@@ -4330,6 +4330,37 @@ fn module_eval_contract_issues(root: &Path) -> Vec<String> {
             }
         }
     }
+
+    // Evidence 门槛：security-critical crates 必须达到 evidence_level >= 3
+    // 且 evidence 测试通过（数据由 module_eval_runner.py 生成）。
+    if let Ok(text) = std::fs::read_to_string(root.join("eval/results/MODULE_EVAL.json")) {
+        if let Ok(evidence) = serde_json::from_str::<serde_json::Value>(&text) {
+            for security_critical in [
+                "zaion-gateway",
+                "zaion-safety",
+                "zaion-mcp",
+                "zaion-secrets",
+                "zaion-adapters",
+            ] {
+                if let Some(entry) = evidence.get(security_critical) {
+                    let level = entry
+                        .get("evidence_level")
+                        .and_then(|v| v.as_i64())
+                        .unwrap_or(0);
+                    if level < 3 {
+                        issues.push(format!(
+                            "architecture source gate: security-critical crate {security_critical} has evidence_level {level} (requires >= 3)"
+                        ));
+                    }
+                    if entry.get("pass").and_then(|v| v.as_bool()) != Some(true) {
+                        issues.push(format!(
+                            "architecture source gate: crate {security_critical} module eval test is failing"
+                        ));
+                    }
+                }
+            }
+        }
+    }
     issues
 }
 
