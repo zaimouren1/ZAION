@@ -718,7 +718,9 @@ fn force_kill_daemon_process(pid: u32) {
 #[cfg(not(windows))]
 fn force_kill_daemon_process(pid: u32) {
     if pid > 0 {
-        libc::kill(pid as i32, 9);
+        unsafe {
+            libc::kill(pid as i32, 9);
+        }
     }
 }
 
