@@ -11,7 +11,7 @@ CRATES = [
   ("zaion-core",       "CORE-001","Process Lifecycle",        2, "cargo test -p zaion-core --quiet"),
   ("zaion-types",      "TYPES-001","Type Contract",           2, "cargo test -p zaion-types --quiet"),
   ("zaion-paths",      "PATHS-001","Path Isolation",          2, "cargo test -p zaion-paths --quiet"),
-  ("zaion-crypto",     "CRY-001", "Crypto Correctness",       2, "cargo test -p zaion-crypto --quiet"),
+  ("zaion-crypto",     "CRY-001", "Crypto Correctness",       3, "cargo test -p zaion-crypto --quiet"),
   ("zaion-secrets",    "SEC-001", "Secret Lifecycle",         3, "cargo test -p zaion-secrets --quiet"),
   ("zaion-enclave",    "ENC-001", "Seal/Unseal Integrity",    2, "cargo test -p zaion-enclave --quiet"),
   ("zaion-safety",     "SAF-001", "Injection/Redaction",      3, "cargo test -p zaion-safety --quiet"),

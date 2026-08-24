@@ -34,6 +34,49 @@ mod tests {
         assert!(verify_signature(&pub_key, message, &sig).is_ok());
     }
 
+
+    #[test]
+    fn tampered_message_fails_verification() {
+        use crate::verify::verify_signature;
+        let kp = ZaionKeypair::generate();
+        let message = b"genesis event";
+        let sig = kp.sign(message);
+        let pub_key = kp.public_key_bytes();
+        let tampered = b"genesis event (tampered)";
+        assert!(verify_signature(&pub_key, tampered, &sig).is_err());
+    }
+
+    #[test]
+    fn wrong_key_fails_verification() {
+        use crate::verify::verify_signature;
+        let kp1 = ZaionKeypair::generate();
+        let kp2 = ZaionKeypair::generate();
+        let message = b"shared message";
+        let sig = kp1.sign(message);
+        // kp2's public key must not verify kp1's signature.
+        assert!(verify_signature(&kp2.public_key_bytes(), message, &sig).is_err());
+    }
+
+    #[test]
+    fn tampered_signature_fails_verification() {
+        use crate::verify::verify_signature;
+        let kp = ZaionKeypair::generate();
+        let message = b"event payload";
+        let mut sig = kp.sign(message);
+        sig.0[0] ^= 0xff; // flip one byte
+        assert!(verify_signature(&kp.public_key_bytes(), message, &sig).is_err());
+    }
+
+    #[test]
+    fn replayed_signature_on_different_message_fails() {
+        use crate::verify::verify_signature;
+        let kp = ZaionKeypair::generate();
+        let message = b"event A";
+        let sig = kp.sign(message);
+        // Same signature replayed against a different message must fail.
+        assert!(verify_signature(&kp.public_key_bytes(), b"event B", &sig).is_err());
+    }
+
     #[test]
     fn test_session_key_no_style_fingerprint() {
         let kp = ZaionKeypair::generate();
