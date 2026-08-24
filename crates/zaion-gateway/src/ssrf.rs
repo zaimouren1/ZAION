@@ -123,6 +123,11 @@ fn check_address(addr: IpAddr) -> Result<(), SsfrError> {
             }
         }
         IpAddr::V6(v6) => {
+            // IPv4-mapped IPv6 (e.g. ::ffff:127.0.0.1) re-checks the
+            // embedded IPv4 address so it cannot bypass IPv4 guards.
+            if let Some(v4) = v6.to_ipv4_mapped() {
+                return check_address(IpAddr::V4(v4));
+            }
             if v6.is_loopback() {
                 return Err(SsfrError::LoopbackAddress);
             }
@@ -214,6 +219,35 @@ mod tests {
         assert_eq!(
             g.validate("http://no-such-host.invalid/x").unwrap_err(),
             SsfrError::ResolutionFailed
+        );
+    }
+
+    #[test]
+    fn rejects_ipv4_mapped_ipv6_loopback() {
+        // ::ffff:127.0.0.1 must not bypass the loopback guard.
+        let g = SsfrGuard::new();
+        assert_eq!(
+            g.validate("http://[::ffff:127.0.0.1]/admin").unwrap_err(),
+            SsfrError::LoopbackAddress
+        );
+    }
+
+    #[test]
+    fn rejects_dns_rebinding_mixed_addresses() {
+        // One public + one private address: the private one must win.
+        let g = SsfrGuard::with_resolver(resolver_for(&["93.184.216.34", "10.0.0.5"]));
+        assert_eq!(
+            g.validate("http://rebind.example/x").unwrap_err(),
+            SsfrError::PrivateAddress
+        );
+    }
+
+    #[test]
+    fn rejects_private_ipv6_unique_local() {
+        let g = SsfrGuard::new();
+        assert_eq!(
+            g.validate("http://[fd00::1]/x").unwrap_err(),
+            SsfrError::PrivateAddress
         );
     }
 
