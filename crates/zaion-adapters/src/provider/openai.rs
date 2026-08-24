@@ -661,6 +661,7 @@ impl LlmProvider for OpenAiProvider {
             finish_reason,
 
             reasoning_content: String::new(),
+    reasoning_signature: String::new(),
         })
     }
 
@@ -717,6 +718,7 @@ impl LlmProvider for OpenAiProvider {
                     finish_reason: FinishReason::Stop,
 
                     reasoning_content: String::new(),
+    reasoning_signature: String::new(),
                 });
             }
             let preview = raw_body[..raw_body.len().min(200)].to_string();
@@ -773,6 +775,7 @@ impl LlmProvider for OpenAiProvider {
             finish_reason,
 
             reasoning_content: String::new(),
+    reasoning_signature: String::new(),
         })
     }
 }

@@ -1381,6 +1381,7 @@ impl WakeTurnKernelEntry {
                 tool_calls: Vec::new(),
                 finish_reason: FinishReason::Stop,
                 reasoning_content: String::new(),
+    reasoning_signature: String::new(),
             };
                     break;
                 }
@@ -1404,6 +1405,7 @@ impl WakeTurnKernelEntry {
                         finish_reason: FinishReason::Stop,
 
                         reasoning_content: String::new(),
+    reasoning_signature: String::new(),
                     };
                     break;
                 }
@@ -2521,6 +2523,8 @@ fn assistant_message_from_response(resp: &CompletionResponse) -> ChatMessage {
         tool_call_id: None,
         reasoning_content: (!resp.reasoning_content.is_empty())
             .then(|| resp.reasoning_content.clone()),
+        reasoning_signature: (!resp.reasoning_signature.is_empty())
+            .then(|| resp.reasoning_signature.clone()),
     }
 }
 
@@ -4895,6 +4899,7 @@ mod tests {
             finish_reason: FinishReason::Stop,
 
             reasoning_content: String::new(),
+    reasoning_signature: String::new(),
         };
 
         let err = ensure_visible_provider_response(&response).unwrap_err();
@@ -4920,6 +4925,7 @@ mod tests {
             finish_reason: FinishReason::Stop,
 
             reasoning_content: String::new(),
+    reasoning_signature: String::new(),
         };
 
         assert!(
@@ -4942,6 +4948,7 @@ mod tests {
             finish_reason: FinishReason::Stop,
 
             reasoning_content: String::new(),
+    reasoning_signature: String::new(),
         };
 
         assert!(

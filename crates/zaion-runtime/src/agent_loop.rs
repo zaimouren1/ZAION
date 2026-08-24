@@ -60,6 +60,7 @@ impl AgentLoop {
             tool_calls: Vec::new(),
             tool_call_id: None,
             reasoning_content: None,
+            reasoning_signature: None,
         };
         self.fsm
             .on_user_message(user_msg)

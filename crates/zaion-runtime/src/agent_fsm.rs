@@ -246,6 +246,7 @@ impl AgentFsm {
                 tool_calls: Vec::new(),
                 tool_call_id: Some(result.tool_call_id.clone()),
                 reasoning_content: None,
+            reasoning_signature: None,
             });
         }
 
@@ -375,6 +376,7 @@ impl AgentFsm {
             tool_calls: Vec::new(),
             tool_call_id: None,
             reasoning_content: None,
+            reasoning_signature: None,
         });
     }
 }
@@ -411,6 +413,7 @@ mod tests {
             tool_calls: Vec::new(),
             tool_call_id: None,
             reasoning_content: None,
+            reasoning_signature: None,
         }
     }
 

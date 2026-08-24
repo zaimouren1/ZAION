@@ -139,6 +139,17 @@ fn build_anthropic_messages(
             i += 1;
         } else if !m.tool_calls.is_empty() {
             let mut content_blocks: Vec<serde_json::Value> = Vec::new();
+            // Thinking-mode endpoints (tokenrhythm/deepseek) require the
+            // assistant thinking block (with signature) to be echoed back.
+            if let Some(reasoning) = &m.reasoning_content {
+                if !reasoning.is_empty() {
+                    content_blocks.push(serde_json::json!({
+                        "type": "thinking",
+                        "thinking": reasoning,
+                        "signature": m.reasoning_signature.as_deref().unwrap_or(""),
+                    }));
+                }
+            }
             if !m.content.is_empty() {
                 content_blocks.push(serde_json::json!({"type": "text", "text": m.content}));
             }
@@ -362,6 +373,7 @@ impl LlmProvider for AnthropicProvider {
         let reader = BufReader::new(resp);
         let mut full_content = String::new();
         let mut reasoning_content = String::new();
+        let mut reasoning_signature = String::new();
         let mut model_name = req.model.clone();
         let mut input_tokens = 0u32;
         let mut output_tokens = 0u32;
@@ -430,6 +442,11 @@ impl LlmProvider for AnthropicProvider {
                                     reasoning_content.push_str(thinking);
                                 }
                             }
+                            Some("signature_delta") => {
+                                if let Some(signature) = delta["signature"].as_str() {
+                                    reasoning_signature.push_str(signature);
+                                }
+                            }
                             _ => {}
                         }
                     }
@@ -460,6 +477,7 @@ impl LlmProvider for AnthropicProvider {
             tool_calls,
             finish_reason,
             reasoning_content,
+            reasoning_signature,
         })
     }
 
@@ -533,6 +551,7 @@ impl LlmProvider for AnthropicProvider {
             finish_reason,
 
             reasoning_content: String::new(),
+    reasoning_signature: String::new(),
         })
     }
 }
@@ -550,6 +569,7 @@ mod cache_tests {
             tool_calls: vec![],
             tool_call_id: None,
             reasoning_content: None,
+            reasoning_signature: None,
         }
     }
 

@@ -160,6 +160,9 @@ pub struct ChatMessage {
     /// DeepSeek thinking-mode reasoning text to echo back (assistant turns).
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reasoning_content: Option<String>,
+    /// Thinking block signature to echo back (thinking-mode endpoints).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reasoning_signature: Option<String>,
 }
 
 impl ChatMessage {
@@ -170,6 +173,7 @@ impl ChatMessage {
             tool_calls: Vec::new(),
             tool_call_id: None,
             reasoning_content: None,
+            reasoning_signature: None,
         }
     }
 
@@ -180,6 +184,7 @@ impl ChatMessage {
             tool_calls,
             tool_call_id: None,
             reasoning_content: None,
+            reasoning_signature: None,
         }
     }
 
@@ -190,6 +195,7 @@ impl ChatMessage {
             tool_calls: Vec::new(),
             tool_call_id: Some(tool_call_id.into()),
             reasoning_content: None,
+            reasoning_signature: None,
         }
     }
 }
@@ -229,6 +235,10 @@ pub struct CompletionResponse {
     /// next assistant turn for multi-turn tool calls).
     #[serde(default)]
     pub reasoning_content: String,
+    /// Signature of the thinking block (echoed back alongside reasoning_content
+    /// so thinking-mode endpoints accept the multi-turn request).
+    #[serde(default)]
+    pub reasoning_signature: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
