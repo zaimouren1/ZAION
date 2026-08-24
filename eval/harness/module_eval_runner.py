@@ -17,7 +17,7 @@ CRATES = [
   ("zaion-safety",     "SAF-001", "Injection/Redaction",      3, "cargo test -p zaion-safety --quiet"),
   ("zaion-memory",     "MEM-001", "Memory Lifecycle",         3, "cargo test -p zaion-memory --quiet"),
   ("zaion-ledger",     "LED-001", "Event Non-repudiation",    3, "cargo test -p zaion-ledger --quiet"),
-  ("zaion-gitledger",  "GIT-001", "Spatiotemporal Rebuild",   2, "cargo test -p zaion-gitledger --quiet"),
+  ("zaion-gitledger",  "GIT-001", "Spatiotemporal Rebuild",   3, "cargo test -p zaion-gitledger --quiet"),
   ("zaion-federation", "FED-001", "Distributed Consistency",  2, "cargo test -p zaion-federation --quiet"),
   ("zaion-sync",       "SYNC-001","Cross-device Convergence", 3, "cargo test -p zaion-sync --quiet"),
   ("zaion-checkpoint", "CKPT-001","Disaster Recovery",        3, "cargo test -p zaion-checkpoint --quiet"),
