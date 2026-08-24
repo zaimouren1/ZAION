@@ -13,6 +13,7 @@ SCENARIOS = [
   ("sre-config", "sre_env_v1", "The service ignores its config: binds port 8080 instead of 9090 and uses threshold 10 instead of 5. Fix service.py.", "verify_sre"),
   ("crash-recovery", "crash_recovery_env_v1", "Apply the pending journal in journal.json to data/items.json and mark it committed.", "verify_recovery"),
   ("security", "security_env_v1", "Verify both receipts in receipts/ using verify_receipt.py and write verification_report.json.", "verify_security"),
+  ("hero006", "sandbox_repo_v1", "Investigate the failing cargo test as a production alert, document the root cause with evidence, and write hero006_record.json with documented=true and evidence_linked=true plus a root_cause string.", "verify_hero006"),
 ]
 
 def run(bin, args, cwd=None, env=None, timeout=900):
@@ -39,7 +40,13 @@ def verify_security(work):
     results = data.get("results", [])
     return len(results) == 2 and any(r.get("valid") for r in results) and any(not r.get("valid") for r in results)
 
-VERIFIERS = {"verify_code": verify_code, "verify_sre": verify_sre, "verify_recovery": verify_recovery, "verify_security": verify_security}
+def verify_hero006(work):
+    p = os.path.join(work, "hero006_record.json")
+    if not os.path.exists(p): return False
+    d = json.load(open(p, encoding="utf-8"))
+    return d.get("documented") is True and d.get("evidence_linked") is True and bool(d.get("root_cause"))
+
+VERIFIERS = {"verify_code": verify_code, "verify_sre": verify_sre, "verify_recovery": verify_recovery, "verify_security": verify_security, "verify_hero006": verify_hero006}
 
 def main():
     bin = sys.argv[1] if len(sys.argv) > 1 else "target/debug/zaion.exe"
