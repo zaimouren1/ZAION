@@ -26,10 +26,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate product gates
-        # Non-blocking during development: benchmark data governance (609 items:
-        # source/commit/weights/slots) is a tracked workline to finish before the
-        # M4 formal adjudication. Compile/test/clippy gates above stay strict.
-        continue-on-error: true
         if: runner.os == 'Windows'
         shell: powershell
         run: powershell -ExecutionPolicy Bypass -File scripts/validate-product-gates.ps1
