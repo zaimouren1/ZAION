@@ -158,6 +158,21 @@ mod tests {
         assert_eq!(sanitize_session_key("valid-key_123"), "valid-key_123");
     }
 
+
+    #[test]
+    fn sanitize_session_key_neutralizes_path_traversal() {
+        // Session keys feed file paths; traversal must be neutralized.
+        let s = sanitize_session_key("../etc/passwd");
+        assert!(!s.contains(".."));
+        assert!(!s.contains('/'));
+        assert!(!s.contains('\\'));
+    }
+
+    #[test]
+    fn sanitize_session_key_empty_input_is_empty() {
+        assert_eq!(sanitize_session_key(""), "");
+    }
+
     #[test]
     fn test_federated_session_creation() {
         let session = FederatedSession::new(
