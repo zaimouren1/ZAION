@@ -190,3 +190,41 @@ Evidence Level 4
 - 运行：python eval/harness/module_eval_runner.py（或 --quick 只跑关键 crate）
 - 报告：eval/results/MODULE_EVAL_REPORT.md（当前 35/36 pass，zaion-cli 为本地资源竞争 flaky，单独+CI 全绿）
 
+---
+
+## 8. 可执行组件总览 + 运行指南
+
+### 8.1 组件清单（三层证据 + 三层门禁 + 展示）
+
+| 组件 | 类型 | 路径 | 状态 |
+|---|---|---|---|
+| module_eval_runner.py | 单模块证据（36 crate） | eval/harness/ | 36/36 |
+| cross_system_eval.py | 跨模块语义链 | eval/harness/ | 5/5（进 CI） |
+| hero_eval.py | 真实 LLM 4 场景 | eval/harness/ | 3/4 稳定 |
+| MODULE_EVAL_REPORT.md / .json | 证据矩阵（数据源） | eval/results/ | 已生成 |
+| HERO_EVAL_REPORT.md | 真实 LLM 报告 | eval/results/ | 已生成 |
+| architecture-audit 覆盖检查 | 门禁 | system.rs | 36 crate 有 contract |
+| architecture-audit 证据门槛 | 门禁 | system.rs | 安全模块 >= level 3 |
+| CI cross-system gate | 门禁 | ci.yml | Linux 语义链 |
+| doctor module-eval 段落 | 展示 | system.rs | evidence 分布 |
+
+### 8.2 运行指南
+
+单模块证据（36 crate，10+ 分钟）:
+  python eval/harness/module_eval_runner.py        # 或 --quick 关键 6 crate
+
+跨模块语义链（本地秒级，不依赖 LLM）:
+  python eval/harness/cross_system_eval.py target/debug/zaion.exe
+
+真实 LLM 4 场景（需 key，约 5 分钟）:
+  ANTHROPIC_API_KEY=sk-... python eval/harness/hero_eval.py target/debug/zaion.exe
+
+门禁 + 展示:
+  zaion architecture-audit    # 覆盖 + 证据门槛
+  zaion doctor                # 展示 module-eval 分布
+
+### 8.3 诚实状态（2026-08-24）
+
+- 单模块：36/36（zaion-cli 本地资源竞争 flaky，单独+CI 全绿）
+- 跨模块：5/5（memory->context->ledger->sync）
+- 真实 LLM：代码/SRE/恢复稳定；安全场景间歇性（tokenrhythm 大工具结果多轮请求端点超时，功能已验证）
