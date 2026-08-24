@@ -1,7 +1,7 @@
 {
   "zaion-a2a": {
     "eval_id": "A2A-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-aci": {
@@ -21,7 +21,7 @@
   },
   "zaion-checkpoint": {
     "eval_id": "CKPT-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-cli": {
@@ -41,12 +41,12 @@
   },
   "zaion-core": {
     "eval_id": "CORE-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-crypto": {
     "eval_id": "CRY-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-curiosity": {
@@ -61,17 +61,17 @@
   },
   "zaion-enclave": {
     "eval_id": "ENC-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-evolve": {
     "eval_id": "EVO-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-federation": {
     "eval_id": "FED-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-gateway": {
@@ -81,7 +81,7 @@
   },
   "zaion-gitledger": {
     "eval_id": "GIT-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-ledger": {
@@ -96,7 +96,7 @@
   },
   "zaion-memory": {
     "eval_id": "MEM-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-metabolic": {
@@ -106,7 +106,7 @@
   },
   "zaion-opd": {
     "eval_id": "OPD-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-paths": {
@@ -132,7 +132,7 @@
   "zaion-runtime": {
     "eval_id": "RT-001",
     "evidence_level": 4,
-    "pass": false
+    "pass": true
   },
   "zaion-safety": {
     "eval_id": "SAF-001",
@@ -146,7 +146,7 @@
   },
   "zaion-shadow": {
     "eval_id": "SHD-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-singularity": {
@@ -156,7 +156,7 @@
   },
   "zaion-sync": {
     "eval_id": "SYNC-001",
-    "evidence_level": 2,
+    "evidence_level": 3,
     "pass": true
   },
   "zaion-telemetry": {
