@@ -246,7 +246,7 @@ impl AgentFsm {
                 tool_calls: Vec::new(),
                 tool_call_id: Some(result.tool_call_id.clone()),
                 reasoning_content: None,
-            reasoning_signature: None,
+                reasoning_signature: None,
             });
         }
 

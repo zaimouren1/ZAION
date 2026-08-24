@@ -208,7 +208,7 @@ mod tests {
             tool_calls: vec![],
             finish_reason: FinishReason::Stop,
             reasoning_content: String::new(),
-    reasoning_signature: String::new(),
+            reasoning_signature: String::new(),
         }
     }
 

@@ -426,7 +426,6 @@ mod tests {
         assert!(shadow.join(".git").exists());
     }
 
-
     #[test]
     fn restore_rolls_back_to_snapshot_state() {
         let tmp = TempDir::new().unwrap();
@@ -450,5 +449,4 @@ mod tests {
         let bogus = CheckpointId("deadbeefdeadbeefdeadbeefdeadbeefdeadbeef".to_string());
         assert!(mgr.restore(source.path(), &bogus).is_err());
     }
-
 }

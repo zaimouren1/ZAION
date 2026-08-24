@@ -263,7 +263,6 @@ mod tests {
         assert_eq!(paths.data_dir.path, PathBuf::from("/tmp/user-home/.zaion"));
     }
 
-
     #[test]
     fn blank_zaion_home_falls_back_to_default() {
         let _test_guard = env_lock();
@@ -304,5 +303,4 @@ mod tests {
             );
         }
     }
-
 }

@@ -158,7 +158,6 @@ mod tests {
         assert_eq!(sanitize_session_key("valid-key_123"), "valid-key_123");
     }
 
-
     #[test]
     fn sanitize_session_key_neutralizes_path_traversal() {
         // Session keys feed file paths; traversal must be neutralized.

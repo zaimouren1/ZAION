@@ -1405,7 +1405,7 @@ impl WakeTurnKernelEntry {
                         finish_reason: FinishReason::Stop,
 
                         reasoning_content: String::new(),
-    reasoning_signature: String::new(),
+                        reasoning_signature: String::new(),
                     };
                     break;
                 }
@@ -4899,7 +4899,7 @@ mod tests {
             finish_reason: FinishReason::Stop,
 
             reasoning_content: String::new(),
-    reasoning_signature: String::new(),
+            reasoning_signature: String::new(),
         };
 
         let err = ensure_visible_provider_response(&response).unwrap_err();
@@ -4925,7 +4925,7 @@ mod tests {
             finish_reason: FinishReason::Stop,
 
             reasoning_content: String::new(),
-    reasoning_signature: String::new(),
+            reasoning_signature: String::new(),
         };
 
         assert!(
@@ -4948,7 +4948,7 @@ mod tests {
             finish_reason: FinishReason::Stop,
 
             reasoning_content: String::new(),
-    reasoning_signature: String::new(),
+            reasoning_signature: String::new(),
         };
 
         assert!(

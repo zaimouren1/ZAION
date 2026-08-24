@@ -25,10 +25,7 @@ pub struct NetEvolutionGain {
 impl NetEvolutionGain {
     /// 计算净收益。
     pub fn net_gain(&self) -> i64 {
-        self.post_evolution_capability
-            - self.regression_cost
-            - self.review_cost
-            - self.runtime_cost
+        self.post_evolution_capability - self.regression_cost - self.review_cost - self.runtime_cost
     }
 
     /// 进化是否真的更好（净收益 >= 0）。

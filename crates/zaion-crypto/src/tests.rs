@@ -34,7 +34,6 @@ mod tests {
         assert!(verify_signature(&pub_key, message, &sig).is_ok());
     }
 
-
     #[test]
     fn tampered_message_fails_verification() {
         use crate::verify::verify_signature;
