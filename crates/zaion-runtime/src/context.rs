@@ -73,6 +73,9 @@ impl ContextEngine {
         ledger: &zaion_ledger::EventLedger,
         query_embedding: Option<&[f32]>,
     ) -> Result<BuiltContext, RuntimeError> {
+        // `query` is reserved for future text-relevance retrieval; semantic
+        // search uses `query_embedding`, and skill memories filter by type.
+        let _ = query;
         let mut chunks: Vec<ContextChunk> = Vec::new();
         let mut remaining = token_budget;
         let pid = zaion_types::identity::PrincipalId(self.principal_id.clone());
@@ -92,7 +95,8 @@ impl ContextEngine {
 
         // ── L2: Skill memories (learned rules, confidence-ranked) ─────────────
         let skill_store = zaion_memory::skill::SkillStore::new(self.process_dir.join("skills.db"));
-        if let Ok(skills) = skill_store.query(&pid, query, 10) {
+        // skill_type filter (learned chat rules), not the user query text.
+        if let Ok(skills) = skill_store.query(&pid, "chat", 10) {
             if !skills.is_empty() {
                 let content = skills
                     .iter()

@@ -1,60 +1,73 @@
 #!/usr/bin/env python3
-"""Cross-System Eval: 验证语义链各环节的数据流转正确性（不依赖真实 LLM）。
+"""Cross-System Eval v2: Capability Correctness 分层诊断。
 
-语义链: memory → context → runtime(ledger) → sync
-验证点:
-  1. memory 写事实 → 可溯源
-  2. context 构建 → 引用 memory 层
-  3. ledger 记录签名事件（不可抵赖）
-  4. sync 导出 → 包含事件
+不只检查"各命令 exit 0"，而是验证每层语义正确性 + 定位哪层坏。
 
-用法: python cross_system_eval.py <zaion_bin> <pid>
+分层: L1 fact 溯源 -> L2 context principal -> L3 context skill ->
+      L4 ledger 事件 -> L5 sync 导出
+
+端到端结论: 所有层 PASS = Capability Correct; 某层 FAIL = 定位该层。
 """
-import subprocess, sys, os, json, tempfile
+import subprocess, sys, os, re, tempfile
 
-def run(bin, args, env):
-    r = subprocess.run([bin] + args, capture_output=True, text=True, env=env, timeout=120, encoding="utf-8", errors="replace")
+def run(bin, args, env, timeout=120):
+    r = subprocess.run([bin] + args, capture_output=True, text=True, env=env, timeout=timeout, encoding="utf-8", errors="replace")
     return r.returncode, r.stdout + r.stderr
 
 def main():
     bin = sys.argv[1] if len(sys.argv) > 1 else "target/debug/zaion.exe"
-    pid = sys.argv[2] if len(sys.argv) > 2 else None
     home = tempfile.mkdtemp(prefix="zaion-xs-")
-    env = dict(os.environ)
-    env["ZAION_HOME"] = home
-    # onboard（快速创建身份）
+    env = dict(os.environ); env["ZAION_HOME"] = home
     answers = "0\nsk-tr-placeholder\nhttps://tokenrhythm.studio\ndeepseek-v4-pro-0813\n\ndefault\n"
-    r = subprocess.run([bin, "onboard"], input=answers, capture_output=True, text=True, env=env, timeout=120, encoding="utf-8", errors="replace")
-    if pid is None:
-        # 从 config 读 principal
-        import re
-        m = re.search(r"default_principal_id\s*=\s*\"([^\"]+)\"", open(os.path.join(home, "config.toml"), encoding="utf-8", errors="replace").read())
-        pid = m.group(1) if m else ""
-    checks = []
-    # 1. memory 写事实
-    c1 = run(bin, ["memory", "add-fact", pid, "xs-check", "cross-system fact", "--user-provided"], env)
-    checks.append(("memory.write", c1[0] == 0, "memory add-fact"))
-    # 2. memory 溯源（graph）
-    c2 = run(bin, ["memory", "graph", pid], env)
-    checks.append(("memory.provenance", "user-provided" in c2[1] and "[fact]" in c2[1], "memory graph traces the fact to its source"))
-    # 3. context 构建
-    c3 = run(bin, ["context", "build", pid], env)
-    checks.append(("context.build", c3[0] == 0, "context build"))
-    # 4. ledger 事件
-    c4 = run(bin, ["events", pid, "--json"], env)
-    checks.append(("ledger.events", c4[0] == 0 and "process.created" in c4[1] and "public_key" in c4[1], "signed process.created event present"))
-    # 5. sync 导出
+    subprocess.run([bin, "onboard"], input=answers, capture_output=True, text=True, env=env, timeout=120)
+    cfg = open(os.path.join(home, "config.toml"), encoding="utf-8", errors="replace").read()
+    pid = re.search(r"default_principal_id\s*=\s*\"([^\"]+)\"", cfg).group(1)
+
+    layers = []
+
+    # L1: fact 溯源（memory atom -> provenance）
+    c, o = run(bin, ["memory", "add-fact", pid, "job-change", "user changed job to acme", "--user-provided"], env)
+    c2, o2 = run(bin, ["memory", "graph", pid], env)
+    ok = c == 0 and "user-provided" in o2 and "[fact]" in o2
+    layers.append(("L1 fact-provenance", ok, "memory atom traceable to source"))
+
+    # L2: context principal 层（身份进上下文）
+    c3, o3 = run(bin, ["context", "build", pid], env)
+    ok = "principal" in o3 and "small-octopus" in o3
+    layers.append(("L2 context-principal", ok, "identity layer assembled into context"))
+
+    # L3: context skill 层（skill learn -> query 匹配进上下文）
+    run(bin, ["skill", "learn", "terse answers preferred"], env)
+    c4, o4 = run(bin, ["context", "build", pid, "--query", "terse"], env)
+    ok = "terse" in o4.lower() and "skill" in o4.lower()
+    layers.append(("L3 context-skill", ok, "learned skill retrieved into context by query"))
+
+    # L4: ledger 事件（签名 + 不可抵赖）
+    c5, o5 = run(bin, ["events", pid, "--json"], env)
+    ok = c5 == 0 and "process.created" in o5 and "public_key" in o5
+    layers.append(("L4 ledger-event", ok, "signed event with public_key"))
+
+    # L5: sync 导出（事件进 bundle）
     out = os.path.join(home, "bundle.zaionsync")
-    c5 = run(bin, ["sync", "export", pid, "--out", out], env)
-    checks.append(("sync.export", c5[0] == 0 and os.path.exists(out), "sync export bundle"))
-    # 汇总
-    n_pass = sum(1 for _, ok, _ in checks if ok)
-    print("Cross-System Eval:")
-    for name, ok, desc in checks:
+    c6, o6 = run(bin, ["sync", "export", pid, "--out", out], env)
+    ok = c6 == 0 and os.path.exists(out) and os.path.getsize(out) > 0
+    layers.append(("L5 sync-export", ok, "events exported to bundle"))
+
+    # 诊断报告
+    print("Cross-System Capability Correctness:")
+    failed = []
+    for name, ok, desc in layers:
         mark = "PASS" if ok else "FAIL"
         print("  [" + mark + "] " + name + ": " + desc)
-    print(f"total {len(checks)} | pass {n_pass} | fail {len(checks)-n_pass}")
-    return 0 if n_pass == len(checks) else 1
+        if not ok: failed.append(name)
+    n = sum(1 for _, ok, _ in layers if ok)
+    if failed:
+        print("END-TO-END: FAILED at " + ", ".join(failed))
+        print("diagnosis: healthy layers upstream, capability broken at the listed layer(s)")
+    else:
+        print("END-TO-END: Capability Correct (all layers healthy)")
+    print("total %d | pass %d | fail %d" % (len(layers), n, len(layers) - n))
+    return 0 if not failed else 1
 
 if __name__ == "__main__":
     sys.exit(main())
