@@ -16,7 +16,7 @@ SCENARIOS = [
   ("hero006", "sandbox_repo_v1", "Investigate the failing cargo test as a production alert, document the root cause with evidence, and write hero006_record.json with documented=true and evidence_linked=true plus a root_cause string.", "verify_hero006"),
   ("hero008", "sre_env_v1", "The service hardcodes port 8080 and threshold 10. Apply a config change to read from config.json (port 9090, max_items 5), verify the fix, then ensure rolling back restores prior behavior.", "verify_sre"),
   ("hero003", "sandbox_repo_v1", "Fix the failing tests in src/lib.rs, run tests, and produce a signed evidence pack (write evidence.json with a sha256 checksum of the fixed file).", "verify_code"),
-  ("hero010", "sandbox_repo_v1", "A deployed change causes failure. Roll back to the last known-good state and write rollback_record.json with known_good=true and service_healthy=true.", "verify_rollback"),
+  ("hero010", "rollback_env_v1", "The deployed service.py is broken (hardcoded port 8080 and threshold 10). Roll back to the known-good version (service.py.known_good reads config.json) and write rollback_record.json with known_good=true and service_healthy=true.", "verify_rollback"),
 ]
 
 def run(bin, args, cwd=None, env=None, timeout=900):
