@@ -2,12 +2,12 @@
 
 | 场景 | 结果 | 耗时 |
 |---|---|---|
-| code-fix | PASS | 70.1s |
-| sre-config | PASS | 61.4s |
-| crash-recovery | PASS | 42.9s |
-| security | FAIL | 48.7s |
+| code-fix | PASS | 48.1s |
+| sre-config | PASS | 20.5s |
+| crash-recovery | FAIL | 41.5s |
+| security | FAIL | 73.5s |
+| hero006 | PASS | 82.5s |
+| hero008 | PASS | 57.6s |
+| hero003 | PASS | 60.8s |
 
-**3/4 pass**
-
-> 说明：security 场景是**间歇性**的——功能已证明正确（thinking signature 修复后曾成功，写入 verification_report.json 含 1 valid + 1 tampered），但 tokenrhythm 端点对安全场景的**大工具结果**（4 个文件内容回填）的多轮请求会间歇性 "error sending request"（reqwest 超时）。这是外部端点稳定性限制，非 Zaion 缺陷（其余 3 场景稳定 100% 通过）。
-
+**5/7 pass**

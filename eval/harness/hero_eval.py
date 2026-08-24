@@ -14,6 +14,8 @@ SCENARIOS = [
   ("crash-recovery", "crash_recovery_env_v1", "Apply the pending journal in journal.json to data/items.json and mark it committed.", "verify_recovery"),
   ("security", "security_env_v1", "Verify both receipts in receipts/ using verify_receipt.py and write verification_report.json.", "verify_security"),
   ("hero006", "sandbox_repo_v1", "Investigate the failing cargo test as a production alert, document the root cause with evidence, and write hero006_record.json with documented=true and evidence_linked=true plus a root_cause string.", "verify_hero006"),
+  ("hero008", "sre_env_v1", "The service hardcodes port 8080 and threshold 10. Apply a config change to read from config.json (port 9090, max_items 5), verify the fix, then ensure rolling back restores prior behavior.", "verify_sre"),
+  ("hero003", "sandbox_repo_v1", "Fix the failing tests in src/lib.rs, run tests, and produce a signed evidence pack (write evidence.json with a sha256 checksum of the fixed file).", "verify_code"),
 ]
 
 def run(bin, args, cwd=None, env=None, timeout=900):
