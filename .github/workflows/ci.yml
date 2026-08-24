@@ -167,6 +167,32 @@ jobs:
           "$hash  $archive" | Out-File -FilePath "$archive.sha256" -Encoding ascii
           Get-Content "$archive.sha256"
 
+      - name: Sign (Windows Authenticode)
+        if: runner.os == 'Windows' && env.AZURE_TENANT_ID != ''
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        run: |
+          # TODO: fill in after provisioning Azure Trusted Signing
+          # azuresigntool sign -kvu https://<vault>.vault.azure.net -kvc <cert> `
+          #   -tr http://timestamp.acs.microsoft.com -td sha256 `
+          #   zaion-${{ github.ref_name }}-${{ matrix.target }}.zip
+          echo "Windows Authenticode signing not configured (secret empty)."
+
+      - name: Sign + notarize (macOS)
+        if: runner.os == 'macOS' && env.APPLE_IDENTITY != ''
+        env:
+          APPLE_IDENTITY: ${{ secrets.APPLE_IDENTITY }}
+          APPLE_CERT_BASE64: ${{ secrets.APPLE_CERT_BASE64 }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_NOTARY_PASSWORD }}
+        run: |
+          # TODO: fill in after provisioning Apple Developer ID
+          # codesign --deep --force --options runtime --sign "$APPLE_IDENTITY" <binary>
+          # xcrun notarytool submit <archive> --apple-id $APPLE_ID --password $APPLE_PASSWORD --team-id <TEAM>
+          # xcrun stapler staple <archive>
+          echo "macOS signing/notarization not configured (secret empty)."
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
