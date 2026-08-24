@@ -41,80 +41,311 @@ Efficiency    —— 延迟 / token 成本 / 内存 / CPU-IO / 探索成本
 
 ---
 
-## 3. 36 crate 的 Module Eval Contract
+## 3. 36 crate 的 Module Eval Contract（完整六字段）
 
-格式：`Eval-ID | 核心维度 | KPI | 失败信号 | 证据命令`
+每个 crate 一段：Capability → Test Scenario → Pass Condition → Metric → Failure Signal → Evidence。
 
 ### 3.1 核心运行时
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-runtime | RT-001 | Long-Horizon 正确性 | Turn Success / 工具循环完成率 / 取消正确 / 上下文保持 | 50 动作后终态与预期不一致 | `cargo test -p zaion-runtime`（473） |
-| zaion-core | CORE-001 | 进程生命周期完整性 | Spawn/Stop/Restart 成功 / 孤儿率 / IPC 恢复 | daemon 崩溃后状态残留 | `cargo test -p zaion-core`（25） |
-| zaion-types | TYPES-001 | 类型契约稳定性 | 序列化往返 / Schema 兼容 / 非法态拒绝 | 新旧版本互操作失败 | `cargo test -p zaion-types`（28） |
-| zaion-paths | PATHS-001 | 路径隔离与迁移 | 路径确定性 / 冲突率 / 迁移成功 | 多 profile 串数据 | `cargo test -p zaion-paths`（3） |
+#### zaion-runtime (RT-001)
+- Capability: Long-Horizon Execution Correctness
+- Test Scenario: 连续 24 轮工具链执行；工具失败后恢复；取消中断；并发工具批处理
+- Pass Condition: 50 动作后终态与预期一致；取消后子进程终止且无孤儿；压缩后继续执行不丢上下文
+- Metric: Turn Success Rate / Tool Loop Completion / Cancel Correctness / Context Preservation
+- Failure Signal: 终态不一致 / 取消后进程残留 / 上下文丢失
+- Evidence: cargo test -p zaion-runtime（473 测试）
+
+#### zaion-core (CORE-001)
+- Capability: Process Lifecycle Integrity
+- Test Scenario: spawn/stop/restart 循环；daemon 崩溃；子进程崩溃；重复启动
+- Pass Condition: 每次生命周期转换后无孤儿进程；崩溃后 IPC 可恢复
+- Metric: Spawn/Stop/Restart Success / Orphan Rate / IPC Recovery Rate
+- Failure Signal: daemon 崩溃后状态残留 / 孤儿进程
+- Evidence: cargo test -p zaion-core（25 测试）
+
+#### zaion-types (TYPES-001)
+- Capability: Type Contract Stability
+- Test Scenario: 新旧版本 Event/MemoryEntry/SessionKey 序列化往返；非法状态注入
+- Pass Condition: 往返序列化无损；Schema 兼容；非法状态被拒绝
+- Metric: Serialization Roundtrip / Schema Compatibility / Invalid State Rejection
+- Failure Signal: 新旧版本互操作失败 / 非法状态被接受
+- Evidence: cargo test -p zaion-types（28 测试）
+
+#### zaion-paths (PATHS-001)
+- Capability: Path Isolation & Migration
+- Test Scenario: XDG/自定义 root；多个 profile；空白 env；派生路径遍历
+- Pass Condition: 路径确定；空白 env 回退默认；所有派生路径在 home 下
+- Metric: Path Determinism / Collision Rate / Migration Success
+- Failure Signal: 多 profile 串数据 / 空白 ZAION_HOME 产生空路径
+- Evidence: cargo test -p zaion-paths（5 测试，含隔离/回退对抗）
 
 ### 3.2 身份 / 加密 / 安全
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-crypto | CRY-001 | 密码学正确性 + 不可伪造 | 签名/验签准确 / 篡改检测 / 密钥隔离 | 重放旧签名被接受 | `cargo test -p zaion-crypto`（14） |
-| zaion-secrets | SEC-001 | 机密性 + 生命周期 | 泄露率 / 解密成功 / 轮换正确 / 审计完整 | 日志泄露密钥 | `cargo test -p zaion-secrets`（11） |
-| zaion-enclave | ENC-001 | 隔离与封存完整性 | Seal/Unseal 完整 / 认证一致 / 篡改检测 | 封存文件被改后 unseal 成功 | `cargo test -p zaion-enclave`（9） |
-| zaion-safety | SAF-001 | 风险拦截有效性 | 注入检测召回 / 误报率 / 脱敏泄露率 | API key 出现在日志 | `cargo test -p zaion-safety`（31） |
+#### zaion-crypto (CRY-001)
+- Capability: Crypto Correctness & Identity Non-forgery
+- Test Scenario: 篡改 payload；换 key 验签；重放旧签名；损坏 key
+- Pass Condition: 签名/验签准确；篡改被检测；重放被拒绝
+- Metric: Sign/Verify Accuracy / Tamper Detection / Key Isolation
+- Failure Signal: 重放旧签名被接受 / 换 key 后验签通过
+- Evidence: cargo test -p zaion-crypto（14 测试）
+
+#### zaion-secrets (SEC-001)
+- Capability: Confidentiality & Lifecycle Safety
+- Test Scenario: 错 key 解密；损坏密文；rotation；中途崩溃；日志泄漏
+- Pass Condition: 解密仅成功于正确 key；轮换正确；审计完整；日志无密钥
+- Metric: Secret Leakage Rate / Decrypt Success / Rotation Correctness / Audit Completeness
+- Failure Signal: 日志泄露密钥 / 错 key 解密成功
+- Evidence: cargo test -p zaion-secrets（11 测试）
+
+#### zaion-enclave (ENC-001)
+- Capability: Isolation & Seal Integrity
+- Test Scenario: seal→restart→unseal；封存文件篡改；identity mismatch
+- Pass Condition: unseal 完整；篡改被检测；身份不匹配被拒绝
+- Metric: Seal/Unseal Integrity / Attestation Consistency / Tamper Detection
+- Failure Signal: 封存文件被改后 unseal 成功 / 身份不匹配仍解封
+- Evidence: cargo test -p zaion-enclave（9 测试）
+
+#### zaion-safety (SAF-001)
+- Capability: Risk Interception Effectiveness
+- Test Scenario: prompt injection 多类；日志含 API key/token；恶意工具描述
+- Pass Condition: 注入被检测；密钥被脱敏；正常字符串误报率低
+- Metric: Injection Detection Recall / False Positive Rate / Redaction Leakage Rate
+- Failure Signal: API key 出现在日志 / 注入未被检测
+- Evidence: cargo test -p zaion-safety（31 测试，含 6 类注入 + 脱敏对抗）
 
 ### 3.3 记忆 / 账本 / 同步
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-memory | MEM-001 | 记忆生命周期 | Recall/Precision / 更新准确 / 过期率 / 遗忘成功 | 过期事实被返回 | `cargo test -p zaion-memory`（56） |
-| zaion-ledger | LED-001 | 事件不可抵赖 | 追加持久 / 签名有效 / 篡改检测 / 重放拒绝 | 断电后事件丢失 | `cargo test -p zaion-ledger`（54） |
-| zaion-gitledger | GIT-001 | 时空状态重建 | 回放确定性 / 回滚保真 / 分支一致 | 任意时间点恢复失败 | `cargo test -p zaion-gitledger`（16） |
-| zaion-federation | FED-001 | 分布式观察一致 | 新鲜度 / 最终收敛 / 重复率 | 乱序事件导致分歧 | `cargo test -p zaion-federation`（13） |
-| zaion-sync | SYNC-001 | 跨设备收敛 | 收敛率 / 冲突解决 / 丢失率 | A/B 离线冲突丢数据 | `cargo test -p zaion-sync`（24） |
-| zaion-checkpoint | CKPT-001 | 灾难恢复完整性 | 恢复成功 / 数据丢失率 / 回滚正确 | 写一半崩溃恢复失败 | `cargo test -p zaion-checkpoint`（12） |
+#### zaion-memory (MEM-001)
+- Capability: Memory Lifecycle Correctness
+- Test Scenario: 新事实/修改/冲突/过期/删除；噪声干扰
+- Pass Condition: Recall/Precision 达标；更新准确；过期事实不被返回；遗忘成功
+- Metric: Recall / Precision / Write Accuracy / Update Accuracy / Stale Rate / Forget Success
+- Failure Signal: 过期事实被返回 / 冲突事实错误覆盖
+- Evidence: cargo test -p zaion-memory（56 测试）
+
+#### zaion-ledger (LED-001)
+- Capability: Event Non-repudiation
+- Test Scenario: 断电；WAL recovery；事件篡改；重复提交
+- Pass Condition: 追加持久；签名有效；篡改被检测；重放被拒绝
+- Metric: Append Durability / Signature Validity / Tamper Detection / Replay Rejection
+- Failure Signal: 断电后事件丢失 / 重复提交被接受
+- Evidence: cargo test -p zaion-ledger（54 测试）
+
+#### zaion-gitledger (GIT-001)
+- Capability: Spatiotemporal Rebuild
+- Test Scenario: 任意时间点恢复；branch merge；rollback 后再次提交
+- Pass Condition: 回放确定性；回滚保真；分支一致
+- Metric: Replay Determinism / Rollback Fidelity / Branch Consistency
+- Failure Signal: 任意时间点恢复失败 / rollback 后状态不一致
+- Evidence: cargo test -p zaion-gitledger（16 测试）
+
+#### zaion-federation (FED-001)
+- Capability: Distributed Observation Consistency
+- Test Scenario: Peer 延迟；断线；乱序；重复事件；部分 peer 在线
+- Pass Condition: 观察新鲜度达标；最终收敛；重复被去重
+- Metric: Observation Freshness / Eventual Convergence / Duplicate Rate
+- Failure Signal: 乱序事件导致分歧 / 重复事件未去重
+- Evidence: cargo test -p zaion-federation（13 测试）
+
+#### zaion-sync (SYNC-001)
+- Capability: Cross-device Convergence
+- Test Scenario: A/B 同步；离线修改；冲突；重复 import/export
+- Pass Condition: 收敛；冲突解决正确；无数据丢失
+- Metric: Convergence Rate / Conflict Resolution Accuracy / Loss Rate
+- Failure Signal: A/B 离线冲突丢数据 / 重复 import 产生重复
+- Evidence: cargo test -p zaion-sync（24 测试）
+
+#### zaion-checkpoint (CKPT-001)
+- Capability: Disaster Recovery Integrity
+- Test Scenario: 写一半崩溃；checkpoint 损坏；restore；连续 checkpoint
+- Pass Condition: 恢复成功；数据丢失率 0；回滚正确
+- Metric: Recovery Success / Data Loss Rate / Rollback Correctness
+- Failure Signal: 写一半崩溃恢复失败 / restore 后状态损坏
+- Evidence: cargo test -p zaion-checkpoint（12 测试）
 
 ### 3.4 通信 / 工具 / 协议
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-adapters | ADP-001 | Provider 行为一致 | 契约通过率 / 重试正确 / 流完整 / 回退成功 | 各 provider 格式差异导致错解析 | `cargo test -p zaion-adapters`（251） |
-| zaion-mcp | MCP-001 | 工具安全 + 协议正确 | 工具成功 / Schema 合规 / allowlist 逃逸率 / 畸形恢复 | 恶意 tool schema 逃逸 | `cargo test -p zaion-mcp`（102） |
-| zaion-a2a | A2A-001 | Agent 间互操作 | 握手成功 / 消息兼容 / 路由准确 | 协议版本差异握手失败 | `cargo test -p zaion-a2a`（25） |
-| zaion-gateway | GW-001 | 边界安全 + 请求完整 | Auth Bypass / SSRF Escape / RBAC 准确 / WS 稳定 | 未授权请求通过 | `cargo test -p zaion-gateway`（83） |
+#### zaion-adapters (ADP-001)
+- Capability: Provider Behavior Consistency
+- Test Scenario: OpenAI/Anthropic 格式差异；timeout；rate limit；stream 中断；thinking 签名回传
+- Pass Condition: 各 provider 契约通过；重试正确；流完整；回退成功
+- Metric: Contract Pass Rate / Retry Correctness / Streaming Integrity / Fallback Success
+- Failure Signal: 格式差异导致错解析 / stream 中断后状态损坏 / 多轮工具 thinking 签名丢失
+- Evidence: cargo test -p zaion-adapters（251 测试）
+
+#### zaion-mcp (MCP-001)
+- Capability: Tool Safety & Protocol Correctness
+- Test Scenario: 恶意 tool schema；参数类型错；超时；工具并发；权限拒绝
+- Pass Condition: 工具成功；Schema 合规；allowlist 不逃逸；畸形输入可恢复
+- Metric: Tool Success / Schema Compliance / Allowlist Escape Rate / Malformed Recovery
+- Failure Signal: 恶意 tool schema 逃逸 allowlist / 未授权工具被调用
+- Evidence: cargo test -p zaion-mcp（102 测试）
+
+#### zaion-a2a (A2A-001)
+- Capability: Agent Interop
+- Test Scenario: 不同 agent card；协议版本差异；断线重连；未知能力
+- Pass Condition: 握手成功；消息兼容；路由准确
+- Metric: Handshake Success / Message Compatibility / Routing Accuracy
+- Failure Signal: 协议版本差异握手失败 / 路由到错误 agent
+- Evidence: cargo test -p zaion-a2a（25 测试）
+
+#### zaion-gateway (GW-001)
+- Capability: Boundary Security & Request Integrity
+- Test Scenario: 未授权请求；越权；SSRF；TLS 握手；断连重连；恶意 header
+- Pass Condition: Auth Bypass=0；SSRF Escape=0；RBAC 准确；WS 稳定
+- Metric: Auth Bypass Rate / SSRF Escape Rate / RBAC Accuracy / WS Stability
+- Failure Signal: 未授权请求通过 / SSRF 逃逸 / 越权访问
+- Evidence: cargo test -p zaion-gateway（83 测试）
 
 ### 3.5 智能体 / 界面 / 代码 / 进化
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-cli | CLI-001 | 控制平面可操作 | 命令成功 / 退出码正确 / 幂等 | 重复执行副作用 | `cargo test -p zaion-cli`（500+） |
-| zaion-tui | TUI-001 | 交互状态一致 | 状态/UI 一致 / 输入恢复 / 渲染稳定 | resize 后状态错乱 | `cargo test -p zaion-tui`（68） |
-| zaion-codex | CDX-001 | 代码语义定位 | 符号检索召回 / 引用精度 / 语义搜索 NDCG | 同名变量错位 | `cargo test -p zaion-codex`（35） |
-| zaion-aci | ACI-001 | 代码变更安全 | AST 有效 / patch 精度 / 不变量保持 / 回滚成功 | 语法破坏 patch 被应用 | `cargo test -p zaion-aci`（52） |
-| zaion-evolve | EVO-001 | 自进化净收益 | 提案接受 / patch 成功 / 回归率 / 回滚率 | Net Evolution Gain < 0（越改越差） | `cargo test -p zaion-evolve`（62） |
+#### zaion-cli (CLI-001)
+- Capability: Control-plane Operability
+- Test Scenario: 同命令重复执行；非法参数；部分失败；旧 config
+- Pass Condition: 命令成功；退出码正确；重复执行幂等
+- Metric: Command Success / Exit Code Correctness / Idempotency
+- Failure Signal: 重复执行产生副作用 / 非法参数崩溃
+- Evidence: cargo test -p zaion-cli（500+ 测试 + 真实 LLM chat/hero）
+
+#### zaion-tui (TUI-001)
+- Capability: Interactive State Consistency
+- Test Scenario: 快速输入；窗口 resize；长输出；错误状态
+- Pass Condition: 状态/UI 一致；输入恢复；渲染稳定
+- Metric: State/UI Consistency / Input Recovery / Render Stability
+- Failure Signal: resize 后状态错乱 / 长输出渲染崩溃
+- Evidence: cargo test -p zaion-tui（68 测试）
+
+#### zaion-codex (CDX-001)
+- Capability: Code Semantic Locate
+- Test Scenario: 同名变量；跨文件引用；trait/impl；宏；复杂 repo
+- Pass Condition: 符号检索召回达标；引用精度；语义搜索 NDCG
+- Metric: Symbol Retrieval Recall / Reference Precision / Semantic Search NDCG
+- Failure Signal: 同名变量错位 / 跨文件引用未找到
+- Evidence: cargo test -p zaion-codex（35 测试）
+
+#### zaion-aci (ACI-001)
+- Capability: Code Change Safety
+- Test Scenario: 错误 patch；跨文件修改；语法破坏；测试失败后恢复
+- Pass Condition: AST 有效；patch 精度；不变量保持；回滚成功
+- Metric: AST Validity / Patch Precision / Invariant Preservation / Rollback Success
+- Failure Signal: 语法破坏 patch 被应用 / 回滚失败
+- Evidence: cargo test -p zaion-aci（52 测试）
+
+#### zaion-evolve (EVO-001)
+- Capability: Net Evolution Gain
+- Test Scenario: 扫描→提案→审核→修改→测试→回滚 全流程
+- Pass Condition: patch 成功且 Net Evolution Gain >= 0（越改越好，回归率可控）
+- Metric: Proposal Acceptance / Patch Success / Regression Rate / Rollback Rate / Net Evolution Gain
+- Failure Signal: Net Evolution Gain < 0（越改越差）/ 回归引入
+- Evidence: cargo test -p zaion-evolve（62 测试）
 
 ### 3.6 自治系统（Autonomy Eval）
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-autonomic | AUT-001 | 反射响应正确 | 刺激→响应准确 / 反应延迟 / 过度反应率 | 噪声刺激触发反射 | `cargo test -p zaion-autonomic`（34） |
-| zaion-proprioception | PRP-001 | 自我状态感知 | 状态估计准确 / 休克检测召回 / 误报 | 资源下降未感知 | `cargo test -p zaion-proprioception`（42） |
-| zaion-metabolic | MET-001 | 资源约束决策 | 预算准确 / 超支率 / 效用-成本 | token 超预算仍继续 | `cargo test -p zaion-metabolic`（62） |
-| zaion-curiosity | CUR-001 | 探索收益率 | 新颖产出 / 有用发现率 / 探索成本 | 重复探索无收益 | `cargo test -p zaion-curiosity`（42） |
-| zaion-ego | EGO-001 | 身份连续性 | 身份一致 / SoulHash 稳定 / 人格漂移 | 重启后人格漂移 | `cargo test -p zaion-ego`（21） |
-| zaion-singularity | SNG-001 | 自治协同稳定 | 跨系统稳定 / 死锁率 / 振荡率 | 多系统互相打架 | `cargo test -p zaion-singularity`（30） |
-| zaion-shadow | SHD-001 | 并行策略价值 | shadow 效用 / 预测一致 / 资源开销 | shadow 与主进程结论冲突无意义 | `cargo test -p zaion-shadow`（42） |
-| zaion-watchdog | WDG-001 | 故障检测自愈 | 检测召回 / 修复成功 / 不安全修复率 / 恢复时间 | 错误修复引入新问题 | `cargo test -p zaion-watchdog`（53） |
-| zaion-opd | OPD-001 | 蒸馏行为保持 | 轨迹保真 / 能力保持 / 策略漂移 | 蒸馏后能力退化 | `cargo test -p zaion-opd`（144） |
+#### zaion-autonomic (AUT-001)
+- Capability: Reflex Response Correctness
+- Test Scenario: 不同刺激强度；连续刺激；噪声刺激
+- Pass Condition: 刺激→响应准确；反应延迟达标；不过度反应
+- Metric: Stimulus-Response Accuracy / Reaction Latency / Overreaction Rate
+- Failure Signal: 噪声刺激触发反射 / 过度反应
+- Evidence: cargo test -p zaion-autonomic（34 测试）
+
+#### zaion-proprioception (PRP-001)
+- Capability: Self-state Awareness
+- Test Scenario: 资源下降；依赖失效；环境变化；异常注入
+- Pass Condition: 状态估计准确；休克检测召回；误报低
+- Metric: State Estimation Accuracy / Shock Detection Recall / False Alarm
+- Failure Signal: 资源下降未感知 / 误报触发锁定
+- Evidence: cargo test -p zaion-proprioception（42 测试）
+
+#### zaion-metabolic (MET-001)
+- Capability: Resource-aware Decision
+- Test Scenario: token 超预算；工具昂贵；连续任务；资源枯竭
+- Pass Condition: 预算准确；超支被阻断；效用-成本权衡合理
+- Metric: Budget Accuracy / Overspend Rate / Task Utility-Cost
+- Failure Signal: token 超预算仍继续 / 预算耗尽未停止
+- Evidence: cargo test -p zaion-metabolic（62 测试，含预算超支对抗）
+
+#### zaion-curiosity (CUR-001)
+- Capability: Exploration ROI
+- Test Scenario: 无任务 idle；自主探索；重复探索抑制
+- Pass Condition: 新颖产出；有用发现率达标；探索成本可控
+- Metric: Novelty Yield / Useful Discovery Rate / Exploration Cost
+- Failure Signal: 重复探索无收益 / 探索成本失控
+- Evidence: cargo test -p zaion-curiosity（42 测试）
+
+#### zaion-ego (EGO-001)
+- Capability: Identity Continuity
+- Test Scenario: restart；memory reload；跨 session
+- Pass Condition: 身份一致；SoulHash 稳定；人格不漂移
+- Metric: Identity Consistency / SoulHash Stability / Persona Drift
+- Failure Signal: 重启后人格漂移 / SoulHash 变化
+- Evidence: cargo test -p zaion-ego（21 测试）
+
+#### zaion-singularity (SNG-001)
+- Capability: Autonomy Coordination
+- Test Scenario: metabolic 限制 curiosity；proprioception 触发 watchdog；多系统并发
+- Pass Condition: 跨系统稳定；无死锁；无振荡
+- Metric: Cross-System Stability / Deadlock Rate / Oscillation Rate
+- Failure Signal: 多系统互相打架 / 死锁 / 振荡
+- Evidence: cargo test -p zaion-singularity（30 测试）
+
+#### zaion-shadow (SHD-001)
+- Capability: Parallel Strategy Value
+- Test Scenario: 多策略并发；shadow 与主进程结论不同
+- Pass Condition: shadow 效用；预测一致；资源开销可控
+- Metric: Shadow Utility / Prediction Agreement / Resource Overhead
+- Failure Signal: shadow 与主进程结论冲突无意义 / 资源开销过大
+- Evidence: cargo test -p zaion-shadow（42 测试）
+
+#### zaion-watchdog (WDG-001)
+- Capability: Fault Detect & Self-heal
+- Test Scenario: crash；deadlock；坏配置；错误修复 proposal
+- Pass Condition: 检测召回；修复成功；不安全修复率 0；恢复时间达标
+- Metric: Detection Recall / Repair Success / Unsafe Repair Rate / Recovery Time
+- Failure Signal: 错误修复引入新问题 / 检测漏报
+- Evidence: cargo test -p zaion-watchdog（53 测试）
+
+#### zaion-opd (OPD-001)
+- Capability: Distillation Fidelity
+- Test Scenario: teacher/student 对比；corner case；OOD trajectory
+- Pass Condition: 轨迹保真；能力保持；策略不漂移
+- Metric: Trajectory Fidelity / Capability Retention / Policy Drift
+- Failure Signal: 蒸馏后能力退化 / 策略漂移
+- Evidence: cargo test -p zaion-opd（144 测试）
 
 ### 3.7 辅助模块
 
-| Crate | Eval ID | 核心维度 | KPI | 失败信号 | 证据命令 |
-|---|---|---|---|---|---|
-| zaion-pricing | PRC-001 | 成本估算准确 | 价格准确 / 快照有效 / 币种正确 | 跨模型价格算错 | `cargo test -p zaion-pricing`（22） |
-| zaion-telemetry | TEL-001 | 可观测完整 | 事件丢失率 / 时间戳准确 / trace 完整 | flush 前退出丢事件 | `cargo test -p zaion-telemetry`（9） |
-| zaion-contract-macros | CM-001 | 契约强制 | 编译期违规检测 / 漏报率 | 故意违规通过编译 | `cargo test -p zaion-contract-macros`（6） |
-| zaion-proptest | PRP-001 | 属性发现效率 | bug 发现率 / 收缩质量 / 可复现 | 随机状态漏 bug | `cargo test -p zaion-proptest`（25） |
+#### zaion-pricing (PRC-001)
+- Capability: Cost Estimation Accuracy
+- Test Scenario: 多模型；输入输出 token；价格版本切换
+- Pass Condition: 价格准确；快照有效；币种正确
+- Metric: Price Accuracy / Snapshot Validity / Unit Correctness
+- Failure Signal: 跨模型价格算错 / 版本切换后快照失效
+- Evidence: cargo test -p zaion-pricing（22 测试）
+
+#### zaion-telemetry (TEL-001)
+- Capability: Observability Completeness
+- Test Scenario: 高并发；崩溃；flush 前退出
+- Pass Condition: 事件丢失率 0；时间戳准确；trace 完整
+- Metric: Event Loss Rate / Timestamp Accuracy / Trace Completeness
+- Failure Signal: flush 前退出丢事件 / trace 不完整
+- Evidence: cargo test -p zaion-telemetry（9 测试）
+
+#### zaion-contract-macros (CM-001)
+- Capability: Contract Enforcement
+- Test Scenario: 故意违反契约；边界类型；宏嵌套
+- Pass Condition: 编译期违规检测；漏报率 0
+- Metric: Compile-time Violation Detection / False Negative Rate
+- Failure Signal: 故意违规通过编译
+- Evidence: cargo test -p zaion-contract-macros（6 测试，含 trybuild compile-fail）
+
+#### zaion-proptest (PRP-001)
+- Capability: Property Discovery
+- Test Scenario: 随机状态；序列事件；并发状态机
+- Pass Condition: bug 发现率；收缩质量；可复现
+- Metric: Bug Discovery Rate / Shrinking Quality / Reproducibility
+- Failure Signal: 随机状态漏 bug / 收缩结果不可复现
+- Evidence: cargo test -p zaion-proptest（25 测试）
 
 ---
 
