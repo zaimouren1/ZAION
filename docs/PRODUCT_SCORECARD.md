@@ -8,30 +8,32 @@ completion report. The machine-readable source is
 `eval/benchmarks/zaion_300_v1.json`; this document explains the policy.
 
 Hermes baseline:
-`main@9c0807070388c4f612a827230f1314ebbf24e857`
-(`2026-05-24 15:57:26 -0700`). A newer baseline may replace it only when the
+`main@1f8fdc7bd824c8d07e3cefe109bd96425ec3171f`
+(`2026-08-14 11:23:40 UTC`). A newer baseline may replace it only when the
 manifest records the new commit and the affected tasks are recalibrated.
 
 ## Scorecard
 
 | Category ID | Weight | Current score | Evidence state |
 | --- | ---: | ---: | --- |
-| `onboarding` | 7 | `UNSCORED` | `NOT_EVALUATED` |
-| `tui` | 8 | `UNSCORED` | `NOT_EVALUATED` |
-| `session` | 8 | `UNSCORED` | `NOT_EVALUATED` |
-| `tools` | 10 | `UNSCORED` | `NOT_EVALUATED` |
-| `skills` | 5 | `UNSCORED` | `NOT_EVALUATED` |
-| `memory` | 8 | `UNSCORED` | `NOT_EVALUATED` |
-| `context` | 8 | `UNSCORED` | `NOT_EVALUATED` |
-| `gateway` | 8 | `UNSCORED` | `NOT_EVALUATED` |
-| `channels` | 8 | `UNSCORED` | `NOT_EVALUATED` |
-| `mcp` | 6 | `UNSCORED` | `NOT_EVALUATED` |
-| `acp` | 5 | `UNSCORED` | `NOT_EVALUATED` |
-| `environments` | 6 | `UNSCORED` | `NOT_EVALUATED` |
-| `batch_eval` | 5 | `UNSCORED` | `NOT_EVALUATED` |
-| `release` | 5 | `UNSCORED` | `NOT_EVALUATED` |
-| `community` | 3 | `UNSCORED` | `NOT_EVALUATED` |
-| **Total** | **100** | **UNSCORED** | **0 verified slots** |
+| `onboarding` | 6 | `UNSCORED` | `NOT_EVALUATED` |
+| `tui` | 7 | `UNSCORED` | `NOT_EVALUATED` |
+| `session` | 7 | `UNSCORED` | `NOT_EVALUATED` |
+| `tools` | 8 | `UNSCORED` | `NOT_EVALUATED` |
+| `skills` | 4 | `UNSCORED` | `NOT_EVALUATED` |
+| `memory` | 7 | `UNSCORED` | `NOT_EVALUATED` |
+| `context` | 7 | `UNSCORED` | `NOT_EVALUATED` |
+| `gateway` | 7 | `UNSCORED` | `NOT_EVALUATED` |
+| `channels` | 7 | `UNSCORED` | `NOT_EVALUATED` |
+| `mcp` | 5 | `UNSCORED` | `NOT_EVALUATED` |
+| `acp` | 4 | `UNSCORED` | `NOT_EVALUATED` |
+| `environments` | 5 | `UNSCORED` | `NOT_EVALUATED` |
+| `batch_eval` | 4 | `UNSCORED` | `NOT_EVALUATED` |
+| `release` | 4 | `UNSCORED` | `NOT_EVALUATED` |
+| `community` | 2 | `UNSCORED` | `NOT_EVALUATED` |
+| `hero_mission` | 8 | `UNSCORED` | `NOT_EVALUATED` |
+| `reliability_security` | 8 | `UNSCORED` | `NOT_EVALUATED` |
+| **Total** | **100** | **UNSCORED** | **9 verified slots** |
 
 The weights deliberately favor the daily product loop: tools, runtime
 surfaces, session continuity, memory/context, gateway, and channels. Novel

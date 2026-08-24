@@ -5,7 +5,7 @@
   "title": "Zaion 300 Product Gate Scaffold v1",
   "status": "active",
   "created_at": "2026-07-15",
-  "target_task_slots": 300,
+  "target_task_slots": 584,
   "claimed_verified_slots": 9,
   "score_policy": {
     "scale_min": 0,
@@ -63,8 +63,8 @@
     {
       "id": "onboarding",
       "label": "Onboarding and first run",
-      "weight": 7,
-      "task_slots": 15,
+      "weight": 6,
+      "task_slots": 25,
       "parity_gate": "Fresh users can install, configure a provider/profile, diagnose errors, and obtain a first answer without manual state repair.",
       "surpass_gate": "Zaion adds clear data, permission, cost, and trust previews plus safe migration from competing agents.",
       "ten_out_of_ten": "At least 95 percent first-answer success across the supported OS/install matrix with median completion in three minutes or less."
@@ -72,8 +72,8 @@
     {
       "id": "tui",
       "label": "Terminal UI runtime",
-      "weight": 8,
-      "task_slots": 18,
+      "weight": 7,
+      "task_slots": 31,
       "parity_gate": "The production TUI supports session lifecycle, streaming, queue, steer, interrupt, approval, clarify, recovery, and terminal restoration.",
       "surpass_gate": "Signed provenance and risk controls are actionable without displacing the chat workflow.",
       "ten_out_of_ten": "Real PTY tests pass on supported platforms, randomized protocol sequences leave no corrupt state, and cancellation is visible within one second."
@@ -81,8 +81,8 @@
     {
       "id": "session",
       "label": "Session, profile, and workspace continuity",
-      "weight": 8,
-      "task_slots": 18,
+      "weight": 7,
+      "task_slots": 44,
       "parity_gate": "Profiles isolate config and state; sessions persist, search, resume, reset, branch, prune, export, and preserve compression lineage.",
       "surpass_gate": "Principal-bound cross-channel continuity and handoff lineage are cryptographically verifiable.",
       "ten_out_of_ten": "A ten-thousand-session stress and crash-recovery matrix has zero cross-principal leakage and no lost lineage."
@@ -90,8 +90,8 @@
     {
       "id": "tools",
       "label": "Agent tools and execution",
-      "weight": 10,
-      "task_slots": 24,
+      "weight": 8,
+      "task_slots": 49,
       "parity_gate": "High-value web, terminal, file, browser, vision, todo, memory, code, delegation, cron, messaging, approval, and result-storage workflows are usable.",
       "surpass_gate": "Every execution has typed terminal state, policy authority, environment identity, receipt, proof join, and live cancellation.",
       "ten_out_of_ten": "Twelve representative end-to-end workflow suites pass across required environments with no secret leak or unauthorized mutation."
@@ -99,8 +99,8 @@
     {
       "id": "skills",
       "label": "Skills and extension ecosystem",
-      "weight": 5,
-      "task_slots": 12,
+      "weight": 4,
+      "task_slots": 26,
       "parity_gate": "Users can discover, inspect, install, update, disable, and invoke built-in and third-party skills through stable toolsets.",
       "surpass_gate": "Skills have signed provenance, isolated execution, compatibility imports, evaluation, and rollback.",
       "ten_out_of_ten": "At least fifty maintained third-party skills and one hundred representative tasks achieve at least 85 percent success with supply-chain negatives passing."
@@ -108,8 +108,8 @@
     {
       "id": "memory",
       "label": "Persistent memory",
-      "weight": 8,
-      "task_slots": 18,
+      "weight": 7,
+      "task_slots": 40,
       "parity_gate": "Memory providers implement initialize, prefetch, queued recall, turn sync, session switch/end, pre-compression, delegation, tools, and shutdown.",
       "surpass_gate": "Source-bound memory atoms expose conflict, expiry, invalidation, answer-span use, and user governance.",
       "ten_out_of_ten": "Declared recall benchmarks reach Recall@10 of at least 0.90 and precision of at least 0.85 with zero cross-principal contamination."
@@ -117,8 +117,8 @@
     {
       "id": "context",
       "label": "Prompt assembly and context compression",
-      "weight": 8,
-      "task_slots": 18,
+      "weight": 7,
+      "task_slots": 32,
       "parity_gate": "Identity, project rules, memory, skills, tools, platform overlays, and session context have deterministic precedence and safe long-session compression.",
       "surpass_gate": "Context packs, compression lineage, and answer use are hash-bound and inspectable.",
       "ten_out_of_ten": "Two-hundred-turn suites preserve at least 95 percent of declared critical facts, save at least 50 percent of eligible tokens, and retain every tool pair."
@@ -126,8 +126,8 @@
     {
       "id": "gateway",
       "label": "Gateway and browser control plane",
-      "weight": 8,
-      "task_slots": 18,
+      "weight": 7,
+      "task_slots": 48,
       "parity_gate": "One production server owns HTTP, WebSocket, UI, session, stream, queue, approval, clarify, authentication, CORS, and health behavior.",
       "surpass_gate": "Local-first zero-trust ingress and egress are signed, attributable, and replay-auditable.",
       "ten_out_of_ten": "Protocol fuzzing has no crash, one hundred concurrent sessions meet p95 event latency below 100 ms, and unauthorized write tests all fail closed."
@@ -135,8 +135,8 @@
     {
       "id": "channels",
       "label": "Messaging channels",
-      "weight": 8,
-      "task_slots": 18,
+      "weight": 7,
+      "task_slots": 36,
       "parity_gate": "Supported channels implement identity, session routing, typing/edit/reaction, media, retry, topic/reply, pending merge, and owned cancellation.",
       "surpass_gate": "Cross-channel handoff preserves one principal/session proof while unified policy remains platform-aware.",
       "ten_out_of_ten": "Five tier-one and ten additional channels pass contract tests; live smoke and a 72-hour soak show no lost or duplicate reply."
@@ -144,8 +144,8 @@
     {
       "id": "mcp",
       "label": "Model Context Protocol",
-      "weight": 6,
-      "task_slots": 15,
+      "weight": 5,
+      "task_slots": 32,
       "parity_gate": "MCP supports stdio, Streamable HTTP, SSE, discovery, filters, resources, prompts, list_changed, sampling, parallel opt-in, OAuth, reconnect, and serving.",
       "surpass_gate": "Each server has least-privilege policy, description scanning, process isolation, and signed receipts.",
       "ten_out_of_ten": "MCP Inspector and at least twenty reference servers pass, refresh loses no valid tool, no orphan process remains, and protocol overhead stays below target."
@@ -153,8 +153,8 @@
     {
       "id": "acp",
       "label": "Agent Client Protocol",
-      "weight": 5,
-      "task_slots": 15,
+      "weight": 4,
+      "task_slots": 27,
       "parity_gate": "ACP stdio supports new, load, resume, fork, list, cancel, history replay, permissions, tool progress, cwd, model switch, persistence, and MCP expansion.",
       "surpass_gate": "Editor operations bind to Zaion capabilities and proofs and can hand off to other stable surfaces.",
       "ten_out_of_ten": "Three real ACP clients and one hundred lifecycle scenarios pass with protocol-clean stdout, isolated cwd, and cancel response below one second."
@@ -162,8 +162,8 @@
     {
       "id": "environments",
       "label": "Execution environments",
-      "weight": 6,
-      "task_slots": 15,
+      "weight": 5,
+      "task_slots": 26,
       "parity_gate": "Local, Docker, SSH, Singularity, Modal, managed cloud, Daytona, and Vercel-style sandboxes share execution, file sync, persistent shell, timeout, and cleanup contracts.",
       "surpass_gate": "Every backend has a strong signed environment identity, policy decision, reproducible receipt, and visible result storage.",
       "ten_out_of_ten": "Seven backend classes pass at least twenty common scenarios each, leak no resource after timeout, and pass the sandbox escape suite."
@@ -171,8 +171,8 @@
     {
       "id": "batch_eval",
       "label": "Batch, trajectory, and evaluation",
-      "weight": 5,
-      "task_slots": 12,
+      "weight": 4,
+      "task_slots": 22,
       "parity_gate": "Batch execution provides worker isolation, checkpoints, resume, toolset sampling, trajectories, compression, metrics, timeouts, and SWE-style runners.",
       "surpass_gate": "Trajectories are signed, reproducible, cost-budgeted, and promotion-gated by independent evaluation.",
       "ten_out_of_ten": "A ten-thousand-task interruption run loses or duplicates no task, all provenance verifies, and cost-adjusted quality exceeds the pinned baseline by at least 10 percent."
@@ -180,8 +180,8 @@
     {
       "id": "release",
       "label": "Release and operations",
-      "weight": 5,
-      "task_slots": 15,
+      "weight": 4,
+      "task_slots": 19,
       "parity_gate": "Public source, tags, installers, packages, containers, services, update, uninstall, CI, checksums, security policy, and recovery are verified.",
       "surpass_gate": "A reproducible Rust artifact materially reduces startup, memory, and operational complexity with measured evidence.",
       "ten_out_of_ten": "Clean-machine install, upgrade, rollback, and service smoke pass on supported platforms for three consecutive releases with signed artifacts and SBOMs."
@@ -189,8 +189,8 @@
     {
       "id": "community",
       "label": "Documentation and community",
-      "weight": 3,
-      "task_slots": 9,
+      "weight": 2,
+      "task_slots": 17,
       "parity_gate": "Public docs, migration guides, contribution/security processes, examples, extension discovery, and release communication are current.",
       "surpass_gate": "A compatible, signed extension ecosystem publishes transparent product evidence and lowers migration cost.",
       "ten_out_of_ten": "At least twenty external contributors, fifty third-party skills, three months of releases, median issue first response below 72 hours, and 85 percent documentation task success are evidenced."
@@ -198,8 +198,8 @@
     {
       "id": "hero_mission",
       "label": "Hero mission: dev/SRE vertical loop",
-      "weight": 10,
-      "task_slots": 30,
+      "weight": 8,
+      "task_slots": 58,
       "parity_gate": "Issue/alert to investigation, code/config change, approval, execution, verification, rollback capability, and signed evidence pack completes end to end without manual repair.",
       "surpass_gate": "Approval, steer/interrupt, diff/test/rollback, and evidence cards are actionable in the live workflow; rollback restores known-good state.",
       "ten_out_of_ten": "First real mission under 15 minutes; 100 percent of successful missions are verifiable with zero silent failures; cancel p95 under 250ms."
@@ -207,8 +207,8 @@
     {
       "id": "reliability_security",
       "label": "Reliability and security chaos",
-      "weight": 10,
-      "task_slots": 30,
+      "weight": 8,
+      "task_slots": 52,
       "parity_gate": "Duplicate requests, crash at each event-commit point, out-of-order events, disconnect/reconnect, provider timeout/429/malformed, approval timeout/denied, process-tree cancel, disk full, signature tampering, cross-tenant IDOR, sandbox escape, upgrade interruption and rollback are all handled without corruption.",
       "surpass_gate": "Failures are structured, user-visible, auditable; ledger RPO=0 RTO<60s; no double side effects.",
       "ten_out_of_ten": "Required chaos scenarios pass with zero data loss or cross-tenant leakage; recovery and evidence invariants hold under fault injection."
@@ -226,7 +226,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "hermes_cli/main.py;hermes_cli/setup.py;hermes_cli/config.py;hermes_cli/profiles.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -256,7 +256,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "ui-tui/;tui_gateway/server.py;tui_gateway/ws.py;tui_gateway/transport.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -285,7 +285,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "hermes_state.py;gateway/session.py;hermes_cli/profiles.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -314,7 +314,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "tools/registry.py;toolsets.py;tools/approval.py;tools/tool_result_storage.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -343,7 +343,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "skills/;optional-skills/;agent/skill_commands.py;agent/skill_utils.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -372,7 +372,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "agent/memory_provider.py;agent/memory_manager.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -401,7 +401,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "agent/prompt_builder.py;agent/context_compressor.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -430,7 +430,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "gateway/run.py;gateway/config.py;gateway/session.py;tui_gateway/",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -459,7 +459,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "gateway/platforms/base.py;gateway/platforms/telegram.py;gateway/platform_registry.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -488,7 +488,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "tools/mcp_tool.py;hermes_cli/mcp_config.py;mcp_serve.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -517,7 +517,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "acp_adapter/server.py;acp_adapter/session.py;acp_adapter/events.py;acp_adapter/permissions.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -546,7 +546,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "tools/environments/",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -575,7 +575,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "batch_runner.py;trajectory_compressor.py;mini_swe_runner.py;toolset_distributions.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -604,7 +604,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "pyproject.toml;packaging/;docker/;Dockerfile;hermes_cli/gateway.py;hermes_cli/uninstall.py",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -633,7 +633,7 @@
         "repository": "https://github.com/NousResearch/hermes-agent.git",
         "path": "README.md;CONTRIBUTING.md;SECURITY.md;website/;skills/;optional-skills/",
         "ref": "main",
-        "commit": "9c0807070388c4f612a827230f1314ebbf24e857"
+        "commit": "1f8fdc7bd824c8d07e3cefe109bd96425ec3171f"
       },
       "acceptance": {
         "parity": [
@@ -660,7 +660,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -688,7 +690,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -715,7 +719,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -728,11 +734,19 @@
           "Median root-cause time under 10 minutes in the sandbox repo."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-001-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: fixed 3 defects (cap ignored/zk vs zx prefix/0-based index), cargo test 6/6, 0.6min (tokenrhythm deepseek-v4-pro-0813)"
       },
@@ -747,7 +761,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -778,7 +794,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -791,11 +809,19 @@
           "100 percent of successful fixes are verifiable."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-003-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: fixed src/lib.rs tests, emitted evidence pack with checksum (60.8s)"
       },
@@ -810,7 +836,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -823,11 +851,19 @@
           "Rollback completes and evidence records the recovery."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-004-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: rolled back regression to known-good, rollback_record.json known_good+service_healthy (36.7s)"
       },
@@ -846,7 +882,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -877,7 +915,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -904,7 +944,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -935,7 +977,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -962,7 +1006,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -993,7 +1039,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1020,7 +1068,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1051,7 +1101,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1078,7 +1130,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1105,7 +1159,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1132,7 +1188,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1163,7 +1221,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1194,7 +1254,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1221,7 +1283,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1248,7 +1312,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1275,7 +1341,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1302,7 +1370,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1333,7 +1403,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1360,7 +1432,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1387,7 +1461,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1414,7 +1490,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1441,7 +1519,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1472,7 +1552,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1499,7 +1581,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1526,7 +1610,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1553,7 +1639,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1580,7 +1668,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1611,7 +1701,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1638,7 +1730,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1665,7 +1759,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1696,7 +1792,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1723,7 +1821,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1750,7 +1850,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1777,7 +1879,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1804,7 +1908,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1831,7 +1937,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1858,7 +1966,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1885,7 +1995,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1912,7 +2024,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1939,7 +2053,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -1970,7 +2086,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2001,7 +2119,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2032,7 +2152,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2063,7 +2185,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2094,7 +2218,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2125,7 +2251,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2156,7 +2284,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2187,7 +2317,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2218,7 +2350,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2249,7 +2383,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2276,7 +2412,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2307,7 +2445,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2334,7 +2474,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2361,7 +2503,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2392,7 +2536,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2419,7 +2565,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2446,7 +2594,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2473,7 +2623,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2500,7 +2652,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2531,7 +2685,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2562,7 +2718,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2593,7 +2751,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2624,7 +2784,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2655,7 +2817,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2686,7 +2850,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2713,7 +2879,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2740,7 +2908,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2767,7 +2937,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2798,7 +2970,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2811,11 +2985,19 @@
           "Root-cause mission under 10 minutes."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-006-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: documented 3 root causes (BUG-1 cap ignored/BUG-2 zk vs zx/BUG-3 0-based index) with evidence_linked, hero006_record.json written (77.9s)"
       },
@@ -2834,7 +3016,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2847,11 +3031,19 @@
           "SRE fix mission completes under 10 minutes."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-007-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: service.py port+threshold read from config (HTTPServer(port), items<=max_items), 0.5min"
       },
@@ -2870,7 +3062,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2883,11 +3077,19 @@
           "Config rollback suite passes with evidence."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-008-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: service.py port+threshold read from config.json, rollback verified (57.6s)"
       },
@@ -2906,7 +3108,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2937,7 +3141,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2950,11 +3156,19 @@
           "Crash recovery leaves zero data loss."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-REC-001-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: applied pending journal to items.json ([1,2]+[3,4,5]=[1..5]), state committed, 0.8min"
       },
@@ -2973,7 +3187,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -2987,7 +3203,15 @@
         ]
       },
       "score": 8,
-      "evidence": [],
+      "evidence": [
+        {
+          "id": "ZAION-300-SEC-006-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
         "score": 8,
@@ -3009,7 +3233,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3036,7 +3262,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3063,7 +3291,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3090,7 +3320,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3117,7 +3349,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3144,7 +3378,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3171,7 +3407,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3198,7 +3436,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3225,7 +3465,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3252,7 +3494,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3279,7 +3523,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3306,7 +3552,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3333,7 +3581,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3360,7 +3610,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3387,7 +3639,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3414,7 +3668,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3441,7 +3697,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3468,7 +3726,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3495,7 +3755,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3522,7 +3784,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3549,7 +3813,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3580,7 +3846,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3607,7 +3875,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3638,7 +3908,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3665,7 +3937,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3696,7 +3970,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3727,7 +4003,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3754,7 +4032,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3781,7 +4061,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3808,7 +4090,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3835,7 +4119,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3866,7 +4152,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3897,7 +4185,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3928,7 +4218,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3955,7 +4247,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -3982,7 +4276,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4009,7 +4305,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4040,7 +4338,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4071,7 +4371,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4098,7 +4400,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4111,11 +4415,19 @@
           "Rollback suite passes."
         ]
       },
-      "score": 10,
-      "evidence": [],
+      "score": 9,
+      "evidence": [
+        {
+          "id": "ZAION-300-HERO-010-hero-evidence",
+          "kind": "real_llm_hero_eval",
+          "path": "eval/results/HERO_EVAL_REPORT.md",
+          "result": "pass",
+          "observed_at": "2026-08-24T17:50:45Z"
+        }
+      ],
       "result": {
         "verified_slots": 1,
-        "score": 10,
+        "score": 9,
         "evidence_grade": "local_verified",
         "summary": "real-LLM hero: rolled back broken service.py to known_good (config port 9090/max_items 5), rollback_record.json known_good+service_healthy (21.6s)"
       },
@@ -4134,7 +4446,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4161,7 +4475,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4188,7 +4504,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4215,7 +4533,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4242,7 +4562,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4269,7 +4591,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4296,7 +4620,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4323,7 +4649,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4350,7 +4678,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4377,7 +4707,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4408,7 +4740,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4439,7 +4773,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4466,7 +4802,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4493,7 +4831,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4520,7 +4860,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4551,7 +4893,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4578,7 +4922,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4605,7 +4951,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4632,7 +4980,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4659,7 +5009,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4686,7 +5038,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4713,7 +5067,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4740,7 +5096,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4767,7 +5125,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4798,7 +5158,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4825,7 +5187,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4852,7 +5216,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4883,7 +5249,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4914,7 +5282,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4941,7 +5311,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4968,7 +5340,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -4995,7 +5369,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5022,7 +5398,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5049,7 +5427,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5076,7 +5456,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5103,7 +5485,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5130,7 +5514,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5157,7 +5543,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5188,7 +5576,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5219,7 +5609,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5246,7 +5638,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5273,7 +5667,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5300,7 +5696,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5327,7 +5725,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5354,7 +5754,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5385,7 +5787,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5412,7 +5816,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5443,7 +5849,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5474,7 +5882,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5501,7 +5911,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5528,7 +5940,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5555,7 +5969,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5582,7 +5998,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5609,7 +6027,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5636,7 +6056,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5663,7 +6085,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5690,7 +6114,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5717,7 +6143,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5744,7 +6172,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5771,7 +6201,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5798,7 +6230,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5825,7 +6259,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5852,7 +6288,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5879,7 +6317,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5906,7 +6346,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5933,7 +6375,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5960,7 +6404,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -5987,7 +6433,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6014,7 +6462,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6041,7 +6491,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6068,7 +6520,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6095,7 +6549,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6122,7 +6578,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6149,7 +6607,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6176,7 +6636,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6203,7 +6665,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6230,7 +6694,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6257,7 +6723,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6284,7 +6752,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6311,7 +6781,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6338,7 +6810,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6365,7 +6839,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6392,7 +6868,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6419,7 +6897,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6446,7 +6926,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6473,7 +6955,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6500,7 +6984,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6527,7 +7013,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6554,7 +7042,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6581,7 +7071,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6608,7 +7100,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6635,7 +7129,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6662,7 +7158,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6689,7 +7187,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6716,7 +7216,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6743,7 +7245,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6770,7 +7274,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6797,7 +7303,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6824,7 +7332,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6851,7 +7361,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6878,7 +7390,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6905,7 +7419,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6932,7 +7448,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6959,7 +7477,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -6986,7 +7506,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7013,7 +7535,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7040,7 +7564,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7067,7 +7593,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7094,7 +7622,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7121,7 +7651,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7148,7 +7680,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7175,7 +7709,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7202,7 +7738,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7229,7 +7767,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7256,7 +7796,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7283,7 +7825,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7310,7 +7854,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7337,7 +7883,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7364,7 +7912,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7391,7 +7941,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7418,7 +7970,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7445,7 +7999,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7472,7 +8028,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7499,7 +8057,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7526,7 +8086,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7553,7 +8115,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7580,7 +8144,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7607,7 +8173,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7634,7 +8202,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7661,7 +8231,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7688,7 +8260,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7715,7 +8289,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7742,7 +8318,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7769,7 +8347,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7796,7 +8376,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7823,7 +8405,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7850,7 +8434,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7877,7 +8463,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7904,7 +8492,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7931,7 +8521,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7958,7 +8550,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -7985,7 +8579,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8012,7 +8608,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8039,7 +8637,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8066,7 +8666,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8093,7 +8695,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8120,7 +8724,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8147,7 +8753,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8174,7 +8782,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8201,7 +8811,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8232,7 +8844,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8259,7 +8873,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8286,7 +8902,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8313,7 +8931,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8344,7 +8964,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8371,7 +8993,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8398,7 +9022,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8425,7 +9051,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8452,7 +9080,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8479,7 +9109,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8506,7 +9138,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8533,7 +9167,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8560,7 +9196,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8587,7 +9225,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8614,7 +9254,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
@@ -8641,7 +9283,9 @@
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
-        "kind": "zaion_spec"
+        "kind": "zaion_spec",
+        "repository": "https://github.com/zaimouren1/ZAION.git",
+        "commit": "1658715973c1cb28464dcfa6d48ddaf0222a69df"
       },
       "acceptance": {
         "surpass": [
