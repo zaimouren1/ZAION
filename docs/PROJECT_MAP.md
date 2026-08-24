@@ -31,6 +31,7 @@ public website was intentionally retired on 2026-07-13.
 | Path | Purpose | Change rule |
 | --- | --- | --- |
 | `crates/` | Rust workspace: 36 crates | Business logic and product surfaces |
+| `eval/` | Module/Cross-System/Agent eval harness + results | Evidence: must stay reproducible; see eval/ZAION_EVAL.md |
 | `docs/` | User, operator, architecture, and historical documentation | Current facts must be linked from `docs/README.md` |
 | `plans/` | Active ledgers, contracts, evidence, and historical blueprints | Plans are not implementation proof |
 | `.github/workflows/` | CI, release, and container automation | Must agree with files that actually exist |

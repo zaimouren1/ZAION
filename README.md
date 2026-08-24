@@ -121,6 +121,8 @@ zaion chat "Hello"
 ## Documentation
 
 - [Changelog](CHANGELOG.md)
+- [Module eval contracts](docs/ZAION-MODULE-EVAL.md)
+- [Top-level eval](eval/ZAION_EVAL.md)
 - [Project map](docs/PROJECT_MAP.md)
 - [Current project status](docs/PROJECT_STATUS.md)
 - [Active roadmap](ROADMAP.md)
