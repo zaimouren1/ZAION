@@ -15,6 +15,7 @@
 
 pub mod applier;
 pub mod ast_scanner;
+pub mod evolution_gain;
 pub mod mandatory_tests;
 pub mod promotion;
 pub mod proposer;
@@ -25,6 +26,7 @@ pub mod trinity_review;
 pub use applier::{
     apply_accepted, apply_accepted_with_check, ApplyOptions, ApplyResult, PatchApplier,
 };
+pub use evolution_gain::{compute_net_gain, NetEvolutionGain};
 pub use mandatory_tests::{
     MandatoryTestCommand, MandatoryTestMatrixReport, MandatoryTestMatrixRunner,
     MandatoryTestResult, MandatoryTestStatus,
