@@ -188,12 +188,32 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
           path: artifacts
 
+      - name: Sign artifacts (Ed25519)
+        env:
+          RELEASE_ED25519_KEY: ${{ secrets.RELEASE_ED25519_KEY }}
+        run: |
+          if [ -z "$RELEASE_ED25519_KEY" ]; then
+            echo "RELEASE_ED25519_KEY secret not set; skipping Ed25519 signing."
+          else
+            echo "$RELEASE_ED25519_KEY" > release-ed25519.pem
+            cp scripts/release-ed25519.pub.pem release-ed25519.pub.pem
+            find artifacts -type f \( -name '*.tar.gz' -o -name '*.zip' \) | while read -r f; do
+              openssl pkeyutl -sign -inkey release-ed25519.pem -rawin -in "$f" -out "$f.sig"
+              echo "signed: $f"
+            done
+            rm -f release-ed25519.pem
+          fi
+
       - name: Upload to release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/**/*
+          files: |
+            artifacts/**/*
+            release-ed25519.pub.pem
