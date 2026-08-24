@@ -1,7 +1,27 @@
 {
+  "zaion-a2a": {
+    "eval_id": "A2A-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-aci": {
+    "eval_id": "ACI-001",
+    "evidence_level": 3,
+    "pass": true
+  },
   "zaion-adapters": {
     "eval_id": "ADP-001",
     "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-autonomic": {
+    "eval_id": "AUT-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-checkpoint": {
+    "eval_id": "CKPT-001",
+    "evidence_level": 2,
     "pass": true
   },
   "zaion-cli": {
@@ -9,8 +29,63 @@
     "evidence_level": 4,
     "pass": true
   },
+  "zaion-codex": {
+    "eval_id": "CDX-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-contract-macros": {
+    "eval_id": "CM-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-core": {
+    "eval_id": "CORE-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-crypto": {
+    "eval_id": "CRY-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-curiosity": {
+    "eval_id": "CUR-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-ego": {
+    "eval_id": "EGO-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-enclave": {
+    "eval_id": "ENC-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-evolve": {
+    "eval_id": "EVO-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-federation": {
+    "eval_id": "FED-001",
+    "evidence_level": 2,
+    "pass": true
+  },
   "zaion-gateway": {
     "eval_id": "GW-001",
+    "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-gitledger": {
+    "eval_id": "GIT-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-ledger": {
+    "eval_id": "LED-001",
     "evidence_level": 3,
     "pass": true
   },
@@ -19,13 +94,88 @@
     "evidence_level": 3,
     "pass": true
   },
+  "zaion-memory": {
+    "eval_id": "MEM-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-metabolic": {
+    "eval_id": "MET-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-opd": {
+    "eval_id": "OPD-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-paths": {
+    "eval_id": "PATHS-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-pricing": {
+    "eval_id": "PRC-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-proprioception": {
+    "eval_id": "PRP-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-proptest": {
+    "eval_id": "PRP-001",
+    "evidence_level": 2,
+    "pass": true
+  },
   "zaion-runtime": {
     "eval_id": "RT-001",
     "evidence_level": 4,
-    "pass": true
+    "pass": false
   },
   "zaion-safety": {
     "eval_id": "SAF-001",
+    "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-secrets": {
+    "eval_id": "SEC-001",
+    "evidence_level": 3,
+    "pass": true
+  },
+  "zaion-shadow": {
+    "eval_id": "SHD-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-singularity": {
+    "eval_id": "SNG-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-sync": {
+    "eval_id": "SYNC-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-telemetry": {
+    "eval_id": "TEL-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-tui": {
+    "eval_id": "TUI-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-types": {
+    "eval_id": "TYPES-001",
+    "evidence_level": 2,
+    "pass": true
+  },
+  "zaion-watchdog": {
+    "eval_id": "WDG-001",
     "evidence_level": 3,
     "pass": true
   }
