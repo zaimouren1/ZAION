@@ -425,4 +425,30 @@ mod tests {
         let shadow = mgr.shadow_repo_path(source.path()).unwrap();
         assert!(shadow.join(".git").exists());
     }
+
+
+    #[test]
+    fn restore_rolls_back_to_snapshot_state() {
+        let tmp = TempDir::new().unwrap();
+        let source = TempDir::new().unwrap();
+        let mgr = make_manager(&tmp);
+        let file = source.path().join("data.txt");
+        fs::write(&file, "version-1").unwrap();
+        let id = mgr.snapshot(source.path(), "v1").unwrap();
+        fs::write(&file, "version-2 (broken)").unwrap();
+        mgr.restore(source.path(), &id).unwrap();
+        let restored = fs::read_to_string(&file).unwrap();
+        assert_eq!(restored, "version-1");
+    }
+
+    #[test]
+    fn restore_unknown_checkpoint_fails() {
+        let tmp = TempDir::new().unwrap();
+        let source = TempDir::new().unwrap();
+        let mgr = make_manager(&tmp);
+        fs::write(source.path().join("f.txt"), "x").unwrap();
+        let bogus = CheckpointId("deadbeefdeadbeefdeadbeefdeadbeefdeadbeef".to_string());
+        assert!(mgr.restore(source.path(), &bogus).is_err());
+    }
+
 }

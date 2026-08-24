@@ -20,7 +20,7 @@ CRATES = [
   ("zaion-gitledger",  "GIT-001", "Spatiotemporal Rebuild",   2, "cargo test -p zaion-gitledger --quiet"),
   ("zaion-federation", "FED-001", "Distributed Consistency",  2, "cargo test -p zaion-federation --quiet"),
   ("zaion-sync",       "SYNC-001","Cross-device Convergence", 2, "cargo test -p zaion-sync --quiet"),
-  ("zaion-checkpoint", "CKPT-001","Disaster Recovery",        2, "cargo test -p zaion-checkpoint --quiet"),
+  ("zaion-checkpoint", "CKPT-001","Disaster Recovery",        3, "cargo test -p zaion-checkpoint --quiet"),
   ("zaion-adapters",   "ADP-001", "Provider Consistency",     3, "cargo test -p zaion-adapters --quiet"),
   ("zaion-mcp",        "MCP-001", "Tool Safety",              3, "cargo test -p zaion-mcp --quiet"),
   ("zaion-a2a",        "A2A-001", "Agent Interop",            2, "cargo test -p zaion-a2a --quiet"),
