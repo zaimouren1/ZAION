@@ -6,7 +6,7 @@
   "status": "active",
   "created_at": "2026-07-15",
   "target_task_slots": 300,
-  "claimed_verified_slots": 8,
+  "claimed_verified_slots": 9,
   "score_policy": {
     "scale_min": 0,
     "scale_max": 10,
@@ -806,7 +806,7 @@
       "category": "hero_mission",
       "slots": 1,
       "title": "A deployed change causes failure; roll back to the last known-good state",
-      "status": "planned",
+      "status": "verified",
       "source": {
         "path": "plans/zaion-10-10-leap-plan.md",
         "ref": "main",
@@ -823,9 +823,14 @@
           "Rollback completes and evidence records the recovery."
         ]
       },
-      "score": null,
+      "score": 10,
       "evidence": [],
-      "result": null,
+      "result": {
+        "verified_slots": 1,
+        "score": 10,
+        "evidence_grade": "local_verified",
+        "summary": "real-LLM hero: rolled back regression to known-good, rollback_record.json known_good+service_healthy (36.7s)"
+      },
       "task_type": "recovery",
       "output": {
         "path": "rollback_record.json",
