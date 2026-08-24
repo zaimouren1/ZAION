@@ -7352,6 +7352,36 @@ pub fn cmd_doctor(args: &[String]) -> Result<(), CliError> {
     }
 
     println!();
+    println!("[module-eval]");
+    if let Ok(text) = std::fs::read_to_string("eval/results/MODULE_EVAL.json") {
+        if let Ok(evidence) = serde_json::from_str::<serde_json::Value>(&text) {
+            let mut levels: std::collections::BTreeMap<i64, usize> = Default::default();
+            let mut total = 0usize;
+            let mut passing = 0usize;
+            if let Some(object) = evidence.as_object() {
+                for entry in object.values() {
+                    total += 1;
+                    if let Some(level) = entry.get("evidence_level").and_then(|v| v.as_i64()) {
+                        *levels.entry(level).or_insert(0) += 1;
+                    }
+                    if entry.get("pass").and_then(|v| v.as_bool()) == Some(true) {
+                        passing += 1;
+                    }
+                }
+            }
+            println!("  evidence : {} crates | {} passing", total, passing);
+            let dist = levels
+                .iter()
+                .map(|(l, n)| format!("L{}={}", l, n))
+                .collect::<Vec<_>>()
+                .join(" ");
+            println!("  levels   : {}", dist);
+        }
+    } else {
+        println!("  evidence : not generated (run eval/harness/module_eval_runner.py)");
+    }
+
+    println!();
     if let Some(issue) = provider_check.issue {
         issues.push(issue);
     }
