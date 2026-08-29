@@ -3,14 +3,42 @@
 //! The product surface stays Zaion-native: `zaion` opens the interactive
 //! neural TUI, and the launcher itself guides first-run users to onboarding.
 
-use crate::commands::{onboarding, process, CliError};
+use crate::commands::{onboard, onboarding, process, CliError};
 use crate::config::ZaionConfig;
+use std::io::IsTerminal;
 
 pub fn cmd_default_launch(_args: &[String]) -> Result<(), CliError> {
     // First-touch OpenClaw-residue banner — fires once if ~/.openclaw/ exists
     // (e.g. after an OpenClaw → Zaion migration). Best-effort and non-blocking:
     // any failure is swallowed so startup is never broken.
     maybe_show_openclaw_residue_banner();
+
+    // First-run gate: a user with no provider credentials cannot do anything
+    // in the cockpit, so guide them through onboarding first. Interactive
+    // terminals get the full wizard; scripts and first-run probes keep the
+    // no-hang contract by printing the command to run instead.
+    let cfg = ZaionConfig::load();
+    let has_credentials = cfg
+        .provider_api_keys
+        .as_ref()
+        .map(|keys| !keys.is_empty())
+        .unwrap_or(false)
+        || ["ANTHROPIC_API_KEY", "OPENAI_API_KEY", "GROQ_API_KEY", "MISTRAL_API_KEY"]
+            .iter()
+            .any(|name| {
+                std::env::var(name)
+                    .map(|v| !v.trim().is_empty())
+                    .unwrap_or(false)
+            });
+    if !has_credentials {
+        if std::io::stdin().is_terminal() {
+            return onboard::run_onboard_wizard();
+        }
+        println!(
+            "Zaion is not configured yet. Run `zaion onboard` to set up a provider, then run `zaion` again."
+        );
+        return Ok(());
+    }
 
     process::cmd_tui(&["zaion".to_string()])
 }
