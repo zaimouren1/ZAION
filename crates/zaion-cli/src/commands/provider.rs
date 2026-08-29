@@ -486,7 +486,15 @@ pub(crate) fn resolve_provider_selection(
         .or_else(|| model_override.map(str::to_string))
         .or_else(|| cfg.model.clone())
         .or_else(|| default_model(&provider).map(str::to_string))
-        .map(|model| normalize_model_for_provider(&provider, &model));
+        .map(|model| {
+            // Custom gateways own their model namespace; vendor-prefix
+            // stripping only applies to the official Anthropic endpoint.
+            if resolved_base_url(&provider, cfg).contains("api.anthropic.com") {
+                normalize_model_for_provider(&provider, &model)
+            } else {
+                model
+            }
+        });
 
     Ok(ProviderSelection { provider, model })
 }
@@ -509,8 +517,11 @@ pub(crate) fn resolve_smart_provider_model(
     has_tool_request: bool,
 ) -> (String, Option<String>) {
     let provider = normalize_provider_name(provider);
+    // The model arriving here was already normalized by
+    // resolve_provider_selection; normalizing again would strip vendor
+    // prefixes that custom gateways require. Keep it verbatim.
     let model = model
-        .map(|model| normalize_model_for_provider(&provider, model))
+        .map(|model| model.to_string())
         .or_else(|| default_model(&provider).map(str::to_string));
     if !enabled {
         return (provider, model);
@@ -572,8 +583,15 @@ fn resolve_provider_target(
         .map(str::to_string)
         .or_else(|| cfg.model.clone())
         .unwrap_or_else(|| default_model.to_string());
-    let actual_model = normalize_model_for_provider(&provider, &actual_model);
     let base_url = resolved_base_url(&provider, cfg);
+    // Custom gateways (anything that is not the official Anthropic API) own
+    // their model namespace - `moonshotai/kimi-k3` must be sent verbatim, so
+    // vendor-prefix stripping only applies to the official endpoint.
+    let actual_model = if base_url.contains("api.anthropic.com") {
+        normalize_model_for_provider(&provider, &actual_model)
+    } else {
+        actual_model
+    };
     let prompt_cache_supported = uses_anthropic_messages(&provider, &base_url, &actual_model);
 
     Ok(ResolvedProviderTarget {
