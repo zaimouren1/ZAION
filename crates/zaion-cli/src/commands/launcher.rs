@@ -23,13 +23,18 @@ pub fn cmd_default_launch(_args: &[String]) -> Result<(), CliError> {
         .as_ref()
         .map(|keys| !keys.is_empty())
         .unwrap_or(false)
-        || ["ANTHROPIC_API_KEY", "OPENAI_API_KEY", "GROQ_API_KEY", "MISTRAL_API_KEY"]
-            .iter()
-            .any(|name| {
-                std::env::var(name)
-                    .map(|v| !v.trim().is_empty())
-                    .unwrap_or(false)
-            });
+        || [
+            "ANTHROPIC_API_KEY",
+            "OPENAI_API_KEY",
+            "GROQ_API_KEY",
+            "MISTRAL_API_KEY",
+        ]
+        .iter()
+        .any(|name| {
+            std::env::var(name)
+                .map(|v| !v.trim().is_empty())
+                .unwrap_or(false)
+        });
     if !has_credentials {
         if std::io::stdin().is_terminal() {
             return onboard::run_onboard_wizard();
