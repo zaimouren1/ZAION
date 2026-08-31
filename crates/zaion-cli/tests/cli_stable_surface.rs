@@ -2571,36 +2571,12 @@ fn zaion_launcher_and_setup_alias_are_non_mutating_when_checked() {
 
     let bare = run_zaion(&env, &[], None);
     assert_success(&bare);
+    // First-run gate: an unconfigured home must not drop the user into the
+    // neural cockpit; it points them at onboarding instead (and keeps the
+    // no-hang contract for scripts by exiting after the hint).
     assert!(bare
         .stdout
-        .contains("Neural Observability TUI / 神经拓扑观测台"));
-    assert!(bare.stdout.contains("Chat / 对话"));
-    assert!(bare.stdout.contains("Message Zaion"));
-    assert!(bare.stdout.contains("Neural Topology Panel"));
-    assert!(bare.stdout.contains("Live Graph / Timeline"));
-    assert!(bare.stdout.contains("Inspector Panel"));
-    assert!(bare.stdout.contains("Audit Companion"));
-    assert!(bare.stdout.contains("observed / estimated / unavailable"));
-    assert!(bare.stdout.contains("Claude Keymap"));
-    assert!(bare.stdout.contains("Ctrl+O Transcript"));
-    assert!(bare.stdout.contains("Hermes Overlay Bus"));
-    assert!(bare.stdout.contains("Instant First Frame"));
-    assert!(bare.stdout.contains("Queued Prompts"));
-    assert!(
-        !bare.stdout.contains("ZAION CORE"),
-        "bare zaion must not open the old static topology panel:\n{}",
-        bare.stdout
-    );
-    assert!(
-        !bare.stdout.contains("Topology   |"),
-        "bare zaion must not open the old static topology tab bar:\n{}",
-        bare.stdout
-    );
-    assert!(
-        !bare.stdout.contains("Control + Query Panel"),
-        "bare zaion must not advertise the old dashboard-first query panel:\n{}",
-        bare.stdout
-    );
+        .contains("Zaion is not configured yet. Run `zaion onboard`"));
     assert!(bare.stdout.contains("zaion onboard"));
 
     let setup = run_zaion(&env, &["setup", "--non-interactive"], None);
